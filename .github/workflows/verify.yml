@@ -13,7 +13,10 @@ jobs:
     env:
       RELEASE_URL: https://github.com/TheDigitalField/digital-field-public-mesh/releases/download/v0.2.0/Digital_Field_Public_Mesh_v0.2.0.zip
       RELEASE_SHA256: fabb74419a47b362d0618fcb26199b8438b88ea9a7e60082a365b9f2baf944bd
+      RELEASE_COMMIT: 1fefbe9c7fb49f8a41e48b8d6659bb3bc6d27634
       RELEASE_ROOT: /tmp/mesh-release/Digital_Field_Public_Mesh_v0.2.0
+      SWHID: swh:1:snp:eff31c5f3eb6007f7062cab69dc86f67a2fc94fe
+      SWH_ROOT: /tmp/swh-checkout/Digital_Field_Public_Mesh_v0.2.0
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -35,3 +38,48 @@ jobs:
         run: python3 -m json.tool live/replicas.json >/dev/null
       - name: Evaluate live failure policy
         run: python3 "$RELEASE_ROOT/scripts/mesh.py" --root "$RELEASE_ROOT" simulate-failures --registry "$GITHUB_WORKSPACE/live/replicas.json"
+      - name: Request Software Heritage reconstruction
+        env:
+          SWH_VAULT_URL: https://archive.softwareheritage.org/api/1/vault/git-bare/${{ env.SWHID }}
+        run: curl -fsS -X POST "$SWH_VAULT_URL/" -o /tmp/swh-vault.json
+      - name: Wait for Software Heritage reconstruction
+        env:
+          SWH_VAULT_URL: https://archive.softwareheritage.org/api/1/vault/git-bare/${{ env.SWHID }}
+        run: |
+          for attempt in $(seq 1 36); do
+            status=$(python3 -c 'import json; print(json.load(open("/tmp/swh-vault.json"))["status"])')
+            if [ "$status" = "done" ]; then
+              exit 0
+            fi
+            if [ "$status" = "failed" ]; then
+              python3 -m json.tool /tmp/swh-vault.json
+              exit 1
+            fi
+            sleep 10
+            curl -fsS "$SWH_VAULT_URL/" -o /tmp/swh-vault.json
+          done
+          python3 -m json.tool /tmp/swh-vault.json
+          exit 1
+      - name: Download fresh Software Heritage copy
+        env:
+          SWH_VAULT_URL: https://archive.softwareheritage.org/api/1/vault/git-bare/${{ env.SWHID }}
+        run: curl -fsSL "$SWH_VAULT_URL/raw/" -o /tmp/swh-bare.tar
+      - name: Reconstruct repository from Software Heritage
+        run: |
+          mkdir -p /tmp/swh-bare /tmp/swh-checkout
+          tar -xf /tmp/swh-bare.tar -C /tmp/swh-bare
+          bare_repo=$(find /tmp/swh-bare -mindepth 1 -maxdepth 2 -type d -name '*.git' -print -quit)
+          test -n "$bare_repo"
+          git clone "$bare_repo" "$SWH_ROOT"
+          test "$(git -C "$SWH_ROOT" rev-parse HEAD)" = "$RELEASE_COMMIT"
+          test "$(git -C "$SWH_ROOT" rev-parse 'refs/tags/v0.2.0^{commit}')" = "$RELEASE_COMMIT"
+      - name: Verify Software Heritage package and genealogy
+        run: |
+          python3 "$SWH_ROOT/scripts/mesh.py" --root "$SWH_ROOT" verify
+          python3 "$SWH_ROOT/scripts/mesh.py" --root "$SWH_ROOT" audit
+          python3 "$SWH_ROOT/scripts/mesh.py" --root "$SWH_ROOT" verify-ancestors
+          python3 "$SWH_ROOT/scripts/test_package.py"
+      - name: Rebuild deterministic archive from Software Heritage
+        run: python3 "$SWH_ROOT/scripts/build_archive.py" build "$SWH_ROOT" /tmp/swh-rebuilt.zip
+      - name: Compare Software Heritage generation
+        run: echo "$RELEASE_SHA256  /tmp/swh-rebuilt.zip" | sha256sum -c -
