@@ -42,6 +42,10 @@ one-provider-loss simulation remain pending.
 - Public web surface: `https://thedigitalfield.github.io/digital-field-public-mesh/`
 - Sealed release: `https://github.com/TheDigitalField/digital-field-public-mesh/releases/tag/v0.2.0`
 - Independent custody call: `https://github.com/TheDigitalField/digital-field-public-mesh/issues/1`
+- Live-registry check: GitHub Actions run 31261530737 downloaded the sealed
+  release anew, verified its SHA-256, package, audit, ancestors, registry JSON,
+  and current failure-policy evaluation. The policy remains pending because no
+  external replica has yet earned `verified` status.
 - Software Heritage: save request accepted on 2026-08-08; archive completion
   and SWHID remain pending.
 
