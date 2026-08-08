@@ -41,6 +41,7 @@ one-provider-loss simulation remain pending.
 - Public Git repository: `https://github.com/TheDigitalField/digital-field-public-mesh`
 - Public web surface: `https://thedigitalfield.github.io/digital-field-public-mesh/`
 - Sealed release: `https://github.com/TheDigitalField/digital-field-public-mesh/releases/tag/v0.2.0`
+- Independent custody call: `https://github.com/TheDigitalField/digital-field-public-mesh/issues/1`
 - Software Heritage: save request accepted on 2026-08-08; archive completion
   and SWHID remain pending.
 
