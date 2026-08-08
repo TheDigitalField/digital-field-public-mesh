@@ -10,13 +10,28 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      RELEASE_URL: https://github.com/TheDigitalField/digital-field-public-mesh/releases/download/v0.2.0/Digital_Field_Public_Mesh_v0.2.0.zip
+      RELEASE_SHA256: fabb74419a47b362d0618fcb26199b8438b88ea9a7e60082a365b9f2baf944bd
+      RELEASE_ROOT: /tmp/mesh-release/Digital_Field_Public_Mesh_v0.2.0
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python3 scripts/mesh.py verify
-      - run: python3 scripts/mesh.py audit
-      - run: python3 scripts/mesh.py verify-ancestors
-      - run: python3 -m json.tool live/replicas.json >/dev/null
-      - run: python3 scripts/mesh.py simulate-failures --registry live/replicas.json
+      - name: Download sealed v0.2.0 release
+        run: curl -fsSL "$RELEASE_URL" -o /tmp/mesh-release.zip
+      - name: Verify sealed release digest
+        run: echo "$RELEASE_SHA256  /tmp/mesh-release.zip" | sha256sum -c -
+      - name: Extract sealed release
+        run: unzip -q /tmp/mesh-release.zip -d /tmp/mesh-release
+      - name: Verify sealed package
+        run: python3 "$RELEASE_ROOT/scripts/mesh.py" --root "$RELEASE_ROOT" verify
+      - name: Audit sealed package
+        run: python3 "$RELEASE_ROOT/scripts/mesh.py" --root "$RELEASE_ROOT" audit
+      - name: Verify sealed ancestors
+        run: python3 "$RELEASE_ROOT/scripts/mesh.py" --root "$RELEASE_ROOT" verify-ancestors
+      - name: Validate live registry syntax
+        run: python3 -m json.tool live/replicas.json >/dev/null
+      - name: Evaluate live failure policy
+        run: python3 "$RELEASE_ROOT/scripts/mesh.py" --root "$RELEASE_ROOT" simulate-failures --registry "$GITHUB_WORKSPACE/live/replicas.json"
