@@ -1,0 +1,22 @@
+{
+  "schema": "digital-field-public-mesh-replica-index/1.0",
+  "generation": "Digital_Field_Public_Mesh_v0.2.0",
+  "release_sha256": "fabb74419a47b362d0618fcb26199b8438b88ea9a7e60082a365b9f2baf944bd",
+  "cid": "bafyreiegvdlykyfgrdoqzwstiidsc5c3ph6s2dwzxdaql44wlrpgmy3vem",
+  "failure_policy": {
+    "minimum_survivors_after_one_provider_loss": 2,
+    "minimum_ipfs_custodians": 3,
+    "require_cross_class_survivor": true,
+    "required_provider_classes": ["web", "git", "ipfs", "doi-archive", "source-preservation"]
+  },
+  "replicas": [
+    {"id": "web-1", "provider_id": "github", "provider_class": "web", "locator": "https://thedigitalfield.github.io/digital-field-public-mesh/", "status": "published", "verified_sha256": null, "verified_at": null},
+    {"id": "web-2", "provider_id": "sites", "provider_class": "web", "locator": null, "status": "planned", "verified_sha256": null, "verified_at": null},
+    {"id": "git-1", "provider_id": "github", "provider_class": "git", "locator": "https://github.com/TheDigitalField/digital-field-public-mesh/releases/download/v0.2.0/Digital_Field_Public_Mesh_v0.2.0.zip", "status": "published", "verified_sha256": null, "verified_at": null},
+    {"id": "ipfs-1", "provider_id": "ipfs-custodian-1", "provider_class": "ipfs", "locator": "ipfs://bafyreiegvdlykyfgrdoqzwstiidsc5c3ph6s2dwzxdaql44wlrpgmy3vem", "status": "planned", "verified_sha256": null, "verified_at": null},
+    {"id": "ipfs-2", "provider_id": "ipfs-custodian-2", "provider_class": "ipfs", "locator": "ipfs://bafyreiegvdlykyfgrdoqzwstiidsc5c3ph6s2dwzxdaql44wlrpgmy3vem", "status": "planned", "verified_sha256": null, "verified_at": null},
+    {"id": "ipfs-3", "provider_id": "ipfs-custodian-3", "provider_class": "ipfs", "locator": "ipfs://bafyreiegvdlykyfgrdoqzwstiidsc5c3ph6s2dwzxdaql44wlrpgmy3vem", "status": "planned", "verified_sha256": null, "verified_at": null},
+    {"id": "doi-1", "provider_id": "zenodo", "provider_class": "doi-archive", "locator": null, "status": "planned", "verified_sha256": null, "verified_at": null},
+    {"id": "source-1", "provider_id": "software-heritage", "provider_class": "source-preservation", "locator": "https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/TheDigitalField/digital-field-public-mesh", "status": "published", "verified_sha256": null, "verified_at": null}
+  ]
+}
