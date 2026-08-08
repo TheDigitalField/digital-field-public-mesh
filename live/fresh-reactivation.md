@@ -10,8 +10,8 @@ PASS for local release and successor readiness.
 PARTIAL for external deployment: the public GitHub repository, GitHub Pages,
 and sealed v0.2.0 Release exist; Software Heritage accepted the save request.
 Fresh-download verification, an independent web mirror, three independent
-IPFS custodians, a DOI archive, completed source preservation, and a real
-one-provider-loss simulation remain pending.
+IPFS custodians, a DOI archive, and a real one-provider-loss simulation remain
+pending.
 
 ## Evidence
 
@@ -46,8 +46,14 @@ one-provider-loss simulation remain pending.
   release anew, verified its SHA-256, package, audit, ancestors, registry JSON,
   and current failure-policy evaluation. The policy remains pending because no
   external replica has yet earned `verified` status.
-- Software Heritage: save request accepted on 2026-08-08; archive completion
-  and SWHID remain pending.
+- Software Heritage archival: succeeded with a full visit. Snapshot SWHID
+  `swh:1:snp:eff31c5f3eb6007f7062cab69dc86f67a2fc94fe`; archived `main` and
+  tag `v0.2.0` both target canonical commit
+  `1fefbe9c7fb49f8a41e48b8d6659bb3bc6d27634`.
+- Software Heritage fresh reconstruction: Vault request 421583557 was accepted
+  but remained `new` after the first bounded verification run. It is not yet
+  counted as a freshly downloaded replica; the same public job can be rerun
+  once the Vault bundle becomes available.
 
 This report is deliberately external to the sealed package so a future clean
 reactivation test cannot read its own expected verdict.
