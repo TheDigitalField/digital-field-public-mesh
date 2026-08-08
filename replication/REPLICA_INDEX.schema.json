@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "digital-field-public-mesh-replica-index/1.0",
+  "type": "object",
+  "required": ["generation", "release_sha256", "cid", "failure_policy", "replicas"],
+  "properties": {
+    "generation": {"const": "Digital_Field_Public_Mesh_v0.2.0"},
+    "release_sha256": {
+      "description": "Null only in the sealed in-package template; populated in the external release registry.",
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "cid": {
+      "description": "Null only in the sealed in-package template; populated after CAR construction.",
+      "type": ["string", "null"],
+      "pattern": "^b[a-z2-7]+$"
+    },
+    "failure_policy": {
+      "type": "object",
+      "required": ["minimum_survivors_after_one_provider_loss", "minimum_ipfs_custodians", "require_cross_class_survivor", "required_provider_classes"],
+      "properties": {
+        "minimum_survivors_after_one_provider_loss": {"type": "integer", "minimum": 2},
+        "minimum_ipfs_custodians": {"type": "integer", "minimum": 3},
+        "require_cross_class_survivor": {"const": true},
+        "required_provider_classes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["web", "git", "ipfs", "doi-archive", "source-preservation"]}
+        }
+      }
+    },
+    "replicas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "provider_id", "provider_class", "locator", "status", "verified_sha256"],
+        "properties": {
+          "id": {"type": "string"},
+          "provider_id": {"type": "string"},
+          "provider_class": {"enum": ["web", "git", "ipfs", "doi-archive", "source-preservation"]},
+          "locator": {"type": ["string", "null"]},
+          "status": {"enum": ["planned", "published", "verified", "failed", "retired"]},
+          "verified_sha256": {"type": ["string", "null"]},
+          "verified_at": {"type": ["string", "null"]}
+        },
+        "allOf": [
+          {
+            "if": {
+              "required": ["status"],
+              "properties": {"status": {"const": "verified"}}
+            },
+            "then": {
+              "required": ["locator", "verified_sha256", "verified_at"],
+              "properties": {
+                "locator": {"type": "string", "minLength": 1},
+                "verified_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                "verified_at": {"type": "string", "minLength": 1}
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

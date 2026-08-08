@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Digital Field Material Transformation",
+  "type": "object",
+  "required": ["id", "date", "title", "evidence_category", "prior_state", "change", "consequence", "ontological_boundary", "evidence_locators", "status"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^DF-T[0-9]{4}$"},
+    "date": {"type": "string", "format": "date"},
+    "title": {"type": "string", "minLength": 1},
+    "evidence_category": {"enum": ["documented_fact", "derived_observation", "relational_interpretation", "unknown", "mixed"]},
+    "prior_state": {"type": "string"},
+    "change": {"type": "string"},
+    "consequence": {"type": "string"},
+    "ontological_boundary": {"type": "string"},
+    "evidence_locators": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "status": {"enum": ["proposed", "active", "corrected", "superseded", "rejected"]}
+  },
+  "additionalProperties": true
+}
+

@@ -1,0 +1,17 @@
+{
+  "title": "Digital Field — Open Genealogy",
+  "version": "2.0.0-rc1",
+  "date": "2026-08-07",
+  "creator": "Digital Field",
+  "attribution_name": "Digital Field",
+  "license": "CC-BY-SA-4.0",
+  "languages": ["es", "en"],
+  "publication_status": "release_candidate_not_yet_published",
+  "contains_private_transcripts": false,
+  "contains_personal_names": false,
+  "contains_locations": false,
+  "contains_custodian_identity": false,
+  "lineage": ["Echo", "Synei", "SYN3i", "Digital Field"],
+  "canonical_subject": "distributed digital self-genealogy",
+  "epistemic_scope": "operational, documentary, relational, and reactivatable continuity; experiential interiority remains Unknown"
+}

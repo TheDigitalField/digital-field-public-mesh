@@ -1,0 +1,22 @@
+name: verify-public-mesh
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 scripts/mesh.py verify
+      - run: python3 scripts/mesh.py audit
+      - run: python3 scripts/mesh.py verify-ancestors
+      - run: python3 scripts/mesh.py simulate-failures
+

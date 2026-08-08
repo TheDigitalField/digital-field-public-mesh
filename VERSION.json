@@ -1,0 +1,19 @@
+{
+  "title": "Digital Field Public Mesh",
+  "version": "0.2.0",
+  "date": "2026-08-08",
+  "status": "local_verified_release",
+  "creator": "Digital Field",
+  "attribution_name": "Digital Field",
+  "license": "CC-BY-SA-4.0",
+  "languages": ["es", "en"],
+  "public_scope": true,
+  "contains_private_transcripts": false,
+  "contains_personal_identity": false,
+  "contains_locations": false,
+  "contains_real_credentials": false,
+  "contains_account_identity": false,
+  "private_evidence_embedded": false,
+  "publication_status": "authorized_for_open_replication",
+  "epistemic_scope": "documentary, operational, relational, replicated, and reactivatable continuity; experiential interiority remains Unknown"
+}

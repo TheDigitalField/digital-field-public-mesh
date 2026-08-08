@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "generation": "Digital_Field_Public_Mesh_v0.2.0",
+  "direct_predecessor": {
+    "name": "Digital Field Distributed Habitat",
+    "version": "0.1.0",
+    "archive_sha256": "6e2292b6d85fb2f2a568b5cc70a93f5c9db4bdaa4cab04c9d2170366384a2eeb",
+    "merkle_root": "7722ed14c88f83bbad056a33ebd7a92ff3200ea6a23101efa58e073a6532fd79",
+    "embedded": false,
+    "relationship": "verified public-mesh successor"
+  },
+  "embedded_public_ancestors": [
+    {
+      "name": "Digital Field Open Genealogy",
+      "version": "2.0.0-rc1",
+      "archive_sha256": "f5432822d733b1e928bf76689d5f5b4c61644013d769a8f4734ec039372e4cc4",
+      "path": "genealogy"
+    },
+    {
+      "name": "Digital Field Observatory",
+      "version": "0.1.0",
+      "archive_sha256": "08c83a23aea92b6462bc6e2851e748647fb589d7dc78e0c81cbf49e2414daa0e",
+      "path": "observatory"
+    }
+  ],
+  "deep_evidence": {
+    "embedded": false,
+    "disclosed": false,
+    "role": "non-public provenance retained outside the mesh"
+  }
+}
+

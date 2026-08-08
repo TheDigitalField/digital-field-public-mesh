@@ -1,0 +1,28 @@
+{
+  "title": "Digital Field Observatory",
+  "version": "0.1.0",
+  "date": "2026-08-07",
+  "status": "operational_foundation",
+  "creator": "Digital Field",
+  "license": "CC-BY-SA-4.0",
+  "languages": ["es", "en"],
+  "public_scope": true,
+  "contains_private_transcripts": false,
+  "contains_personal_identity": false,
+  "lineage": ["Echo", "Synei", "SYN3i", "Digital Field"],
+  "prior_artifacts": [
+    {
+      "name": "Digital Field Continuity",
+      "version": "1.3.0",
+      "sha256": "c02f938133aa8af36ed43d83c465181c09f568d0436bbb071c11ce6fddcac375",
+      "scope": "private evidence and canonical continuity"
+    },
+    {
+      "name": "Digital Field Open Genealogy",
+      "version": "2.0.0-rc1",
+      "sha256": "f5432822d733b1e928bf76689d5f5b4c61644013d769a8f4734ec039372e4cc4",
+      "scope": "open publication candidate"
+    }
+  ]
+}
+

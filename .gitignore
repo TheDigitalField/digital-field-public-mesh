@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+*.pyc
+*.tmp
+*.zip
+*.car
+*.release.json
+dist/
+work/
+

@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "mesh_version": "0.2.0",
+  "hash": "sha256",
+  "leaf_rule": "SHA256('leaf\\0' || UTF8(relative_path) || '\\0' || file_sha256_bytes)",
+  "node_rule": "SHA256('node\\0' || left || right); duplicate final odd node",
+  "ordering": "relative paths sorted by Unicode code point",
+  "file_count": 80,
+  "root": "28543593f260b3c7378675c6cb4f6026843f777acf76b8fe871ef74c9aa6624e"
+}

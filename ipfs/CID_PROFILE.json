@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "profile": "digital-field-release-dag-cbor-v1",
+  "car_version": 1,
+  "root_codec": "dag-cbor",
+  "chunk_codec": "raw",
+  "cid_version": 1,
+  "multihash": "sha2-256",
+  "multibase": "base32-lower",
+  "chunk_size": 262144,
+  "root_payload": "canonical DAG-CBOR manifest linking raw chunks of the exact reproducible release ZIP",
+  "reason": "fixed raw chunks and a canonical manifest make CID reproduction independent of UnixFS defaults while respecting practical block sizes",
+  "limitation": "generic gateways may display the DAG rather than reconstructing the ZIP; the included verifier performs deterministic reconstruction"
+}
