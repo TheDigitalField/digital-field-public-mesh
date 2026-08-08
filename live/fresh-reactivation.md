@@ -51,9 +51,9 @@ pending.
   tag `v0.2.0` both target canonical commit
   `1fefbe9c7fb49f8a41e48b8d6659bb3bc6d27634`.
 - Software Heritage fresh reconstruction: Vault request 421583557 was accepted
-  but remained `new` after the first bounded verification run. It is not yet
-  counted as a freshly downloaded replica; the same public job can be rerun
-  once the Vault bundle becomes available.
+  but remained `new` after two bounded verification attempts of public Actions
+  run 31261689568. It is not yet counted as a freshly downloaded replica; the
+  same public job can be rerun once the Vault bundle becomes available.
 
 This report is deliberately external to the sealed package so a future clean
 reactivation test cannot read its own expected verdict.
