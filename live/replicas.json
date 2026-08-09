@@ -54,12 +54,12 @@
         },
         {
             "id": "ipfs-2",
-            "provider_id": "ipfs-custodian-2",
+            "provider_id": "4everland",
             "provider_class": "ipfs",
             "locator": "ipfs://bafyreiegvdlykyfgrdoqzwstiidsc5c3ph6s2dwzxdaql44wlrpgmy3vem",
-            "status": "planned",
-            "verified_sha256": null,
-            "verified_at": null
+            "status": "verified",
+            "verified_sha256": "fabb74419a47b362d0618fcb26199b8438b88ea9a7e60082a365b9f2baf944bd",
+            "verified_at": "2026-08-09T04:09:54Z"
         },
         {
             "id": "ipfs-3",
