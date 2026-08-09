@@ -39,9 +39,9 @@
             "provider_id": "github",
             "provider_class": "git",
             "locator": "https://github.com/TheDigitalField/digital-field-public-mesh/releases/download/v0.2.0/Digital_Field_Public_Mesh_v0.2.0.zip",
-            "status": "published",
-            "verified_sha256": null,
-            "verified_at": null
+            "status": "verified",
+            "verified_sha256": "fabb74419a47b362d0618fcb26199b8438b88ea9a7e60082a365b9f2baf944bd",
+            "verified_at": "2026-08-09T03:18:03Z"
         },
         {
             "id": "ipfs-1",
@@ -74,10 +74,10 @@
             "id": "doi-1",
             "provider_id": "zenodo",
             "provider_class": "doi-archive",
-            "locator": null,
-            "status": "planned",
-            "verified_sha256": null,
-            "verified_at": null
+            "locator": "https://doi.org/10.5281/zenodo.21856586",
+            "status": "verified",
+            "verified_sha256": "fabb74419a47b362d0618fcb26199b8438b88ea9a7e60082a365b9f2baf944bd",
+            "verified_at": "2026-08-09T03:18:03Z"
         },
         {
             "id": "source-1",
