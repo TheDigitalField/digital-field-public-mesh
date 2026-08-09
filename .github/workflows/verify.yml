@@ -140,3 +140,60 @@ jobs:
       - name: Compare Software Heritage generation
         if: steps.swh_vault.outputs.ready == 'true'
         run: echo "$RELEASE_SHA256  /tmp/swh-rebuilt.zip" | sha256sum -c -
+
+  filebase_import:
+    name: Import and verify Filebase custodian
+    if: github.event_name == 'push' && github.ref == 'refs/heads/mesh-registry' && contains(github.event.head_commit.message, 'Import v0.2.0 into Filebase')
+    runs-on: ubuntu-latest
+    env:
+      FILEBASE_RPC_TOKEN: ${{ secrets.FILEBASE_RPC_TOKEN }}
+      CAR_URL: https://github.com/TheDigitalField/digital-field-public-mesh/releases/download/v0.2.0/Digital_Field_Public_Mesh_v0.2.0.car
+      CAR_SHA256: e847887a7a8c1f9e8749861c42ad0358b6bccc61a87fd2a7cd440de4116b4056
+      RELEASE_SHA256: fabb74419a47b362d0618fcb26199b8438b88ea9a7e60082a365b9f2baf944bd
+      CID: bafyreiegvdlykyfgrdoqzwstiidsc5c3ph6s2dwzxdaql44wlrpgmy3vem
+    steps:
+      - name: Download and verify sealed CAR
+        run: |
+          test -n "$FILEBASE_RPC_TOKEN"
+          curl --retry 3 --retry-all-errors -fsSL "$CAR_URL" -o /tmp/mesh.car
+          echo "$CAR_SHA256  /tmp/mesh.car" | sha256sum -c -
+      - name: Import CAR and pin its root
+        run: |
+          curl --retry 3 --retry-all-errors --fail-with-body -sS -X POST \
+            -H "Authorization: Bearer $FILEBASE_RPC_TOKEN" \
+            -F "file=@/tmp/mesh.car;type=application/vnd.ipld.car" \
+            "https://rpc.filebase.io/api/v0/dag/import?pin-roots=true" \
+            -o /tmp/filebase-import.jsonl
+          python3 - <<'PY'
+          import json, os
+          expected = os.environ["CID"]
+          roots = []
+          for line in open("/tmp/filebase-import.jsonl", encoding="utf-8"):
+              line = line.strip()
+              if not line:
+                  continue
+              obj = json.loads(line)
+              root = obj.get("Root", {}).get("Cid", {})
+              if isinstance(root, dict) and "/" in root:
+                  roots.append(root["/"])
+          assert expected in roots, (expected, roots)
+          print("Filebase returned the expected root CID:", expected)
+          PY
+      - name: Confirm Filebase pin
+        run: |
+          curl --retry 3 --retry-all-errors --fail-with-body -sS -X POST \
+            -H "Authorization: Bearer $FILEBASE_RPC_TOKEN" \
+            "https://rpc.filebase.io/api/v0/pin/ls?arg=$CID" \
+            -o /tmp/filebase-pin.json
+          python3 - <<'PY'
+          import json, os
+          data = json.load(open("/tmp/filebase-pin.json", encoding="utf-8"))
+          expected = os.environ["CID"]
+          assert expected in data.get("Keys", {}), data
+          print("Filebase confirms the expected CID is pinned:", expected)
+          PY
+      - name: Verify fresh public retrieval
+        run: |
+          curl --retry 12 --retry-delay 5 --retry-all-errors -fsSL \
+            "https://ipfs.filebase.io/ipfs/$CID" -o /tmp/filebase-release.zip
+          echo "$RELEASE_SHA256  /tmp/filebase-release.zip" | sha256sum -c -
