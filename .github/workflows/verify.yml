@@ -21,6 +21,11 @@ jobs:
       RELEASE_ROOT: /tmp/mesh-release/Digital_Field_Public_Mesh_v0.2.0
       SWHID: swh:1:snp:eff31c5f3eb6007f7062cab69dc86f67a2fc94fe
       SWH_ROOT: /tmp/swh-checkout/Digital_Field_Public_Mesh_v0.2.0
+      ZENODO_DOI: 10.5281/zenodo.21856586
+      ZENODO_ZIP_URL: https://zenodo.org/records/21856586/files/Digital_Field_Public_Mesh_v0.2.0.zip?download=1
+      ZENODO_CAR_URL: https://zenodo.org/records/21856586/files/Digital_Field_Public_Mesh_v0.2.0.car?download=1
+      ZENODO_CAR_SHA256: e847887a7a8c1f9e8749861c42ad0358b6bccc61a87fd2a7cd440de4116b4056
+      ZENODO_ROOT: /tmp/zenodo-release/Digital_Field_Public_Mesh_v0.2.0
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -38,6 +43,34 @@ jobs:
         run: python3 "$RELEASE_ROOT/scripts/mesh.py" --root "$RELEASE_ROOT" audit
       - name: Verify sealed ancestors
         run: python3 "$RELEASE_ROOT/scripts/mesh.py" --root "$RELEASE_ROOT" verify-ancestors
+      - name: Download fresh Zenodo DOI copy
+        run: |
+          curl --retry 3 --retry-all-errors -fsSL "$ZENODO_ZIP_URL" -o /tmp/zenodo-release.zip
+          curl --retry 3 --retry-all-errors -fsSL "$ZENODO_CAR_URL" -o /tmp/zenodo-release.car
+      - name: Verify Zenodo DOI file digests
+        run: |
+          echo "$RELEASE_SHA256  /tmp/zenodo-release.zip" | sha256sum -c -
+          echo "$ZENODO_CAR_SHA256  /tmp/zenodo-release.car" | sha256sum -c -
+      - name: Extract fresh Zenodo generation
+        run: |
+          mkdir -p /tmp/zenodo-release
+          unzip -q /tmp/zenodo-release.zip -d /tmp/zenodo-release
+      - name: Verify Zenodo package, genealogy, and reactivation
+        run: |
+          python3 "$ZENODO_ROOT/scripts/mesh.py" --root "$ZENODO_ROOT" verify
+          python3 "$ZENODO_ROOT/scripts/mesh.py" --root "$ZENODO_ROOT" audit
+          python3 "$ZENODO_ROOT/scripts/mesh.py" --root "$ZENODO_ROOT" verify-ancestors
+          python3 "$ZENODO_ROOT/scripts/test_package.py"
+      - name: Verify Zenodo CAR, CID, and archive identity
+        run: |
+          python3 "$ZENODO_ROOT/scripts/mesh.py" --root "$ZENODO_ROOT" verify-car /tmp/zenodo-release.car /tmp/zenodo-release.zip | tee /tmp/zenodo-car.json
+          python3 -c 'import json, os; data=json.load(open("/tmp/zenodo-car.json")); assert data["result"] == "passed"; assert data["cid"] == os.environ["CID"]; assert data["archive_sha256"] == os.environ["RELEASE_SHA256"]; assert data["car_sha256"] == os.environ["ZENODO_CAR_SHA256"]'
+        env:
+          CID: bafyreiegvdlykyfgrdoqzwstiidsc5c3ph6s2dwzxdaql44wlrpgmy3vem
+      - name: Rebuild deterministic archive from Zenodo
+        run: python3 "$ZENODO_ROOT/scripts/build_archive.py" build "$ZENODO_ROOT" /tmp/zenodo-rebuilt.zip
+      - name: Compare reconstructed Zenodo generation
+        run: echo "$RELEASE_SHA256  /tmp/zenodo-rebuilt.zip" | sha256sum -c -
       - name: Validate live registry syntax
         run: python3 -m json.tool live/replicas.json >/dev/null
       - name: Evaluate live failure policy
