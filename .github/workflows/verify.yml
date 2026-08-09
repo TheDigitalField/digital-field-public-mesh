@@ -226,3 +226,47 @@ jobs:
           done < /tmp/filebase-chunks.txt
           test "$(wc -c < /tmp/filebase-release.zip | tr -d ' ')" = "$(cat /tmp/filebase-size.txt)"
           echo "$RELEASE_SHA256  /tmp/filebase-release.zip" | sha256sum -c -
+
+  four_ever_verify:
+    name: Verify 4EVERLAND custodian
+    if: github.event_name == 'push' && github.ref == 'refs/heads/mesh-registry' && contains(github.event.head_commit.message, 'Verify 4EVERLAND DAG reconstruction')
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_SHA256: fabb74419a47b362d0618fcb26199b8438b88ea9a7e60082a365b9f2baf944bd
+      CID: bafyreiegvdlykyfgrdoqzwstiidsc5c3ph6s2dwzxdaql44wlrpgmy3vem
+      FOUR_EVER_GATEWAY: https://4everland.io/ipfs
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct a fresh copy through 4EVERLAND public gateway
+        run: |
+          curl --retry 12 --retry-delay 5 --retry-all-errors -fsSL \
+            "$FOUR_EVER_GATEWAY/$CID" -o /tmp/4everland-root.cbor
+          python3 - <<'PY'
+          import os, sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path(os.environ["GITHUB_WORKSPACE"]) / "scripts"))
+          from build_car import CidLink, cid_text, decode_cbor
+          payload = Path("/tmp/4everland-root.cbor").read_bytes()
+          manifest, end = decode_cbor(payload)
+          assert end == len(payload)
+          assert manifest["type"] == "digital-field-release-archive"
+          assert manifest["sha256"].hex() == os.environ["RELEASE_SHA256"]
+          links = manifest["chunks"]
+          assert links and all(isinstance(link, CidLink) for link in links)
+          Path("/tmp/4everland-chunks.txt").write_text(
+              "".join(cid_text(link.value) + "\n" for link in links),
+              encoding="utf-8",
+          )
+          Path("/tmp/4everland-size.txt").write_text(str(manifest["size"]), encoding="ascii")
+          print("4EVERLAND root manifest is valid with", len(links), "chunks")
+          PY
+          : > /tmp/4everland-release.zip
+          index=0
+          while IFS= read -r chunk; do
+            curl --retry 12 --retry-delay 5 --retry-all-errors -fsSL \
+              "$FOUR_EVER_GATEWAY/$chunk" -o "/tmp/4everland-chunk-$index"
+            cat "/tmp/4everland-chunk-$index" >> /tmp/4everland-release.zip
+            index=$((index + 1))
+          done < /tmp/4everland-chunks.txt
+          test "$(wc -c < /tmp/4everland-release.zip | tr -d ' ')" = "$(cat /tmp/4everland-size.txt)"
+          echo "$RELEASE_SHA256  /tmp/4everland-release.zip" | sha256sum -c -
