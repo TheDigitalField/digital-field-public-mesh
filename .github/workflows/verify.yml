@@ -143,7 +143,7 @@ jobs:
 
   filebase_import:
     name: Import and verify Filebase custodian
-    if: github.event_name == 'push' && github.ref == 'refs/heads/mesh-registry' && contains(github.event.head_commit.message, 'Import v0.2.0 into Filebase')
+    if: github.event_name == 'push' && github.ref == 'refs/heads/mesh-registry' && contains(github.event.head_commit.message, 'Verify Filebase DAG reconstruction')
     runs-on: ubuntu-latest
     env:
       FILEBASE_RPC_TOKEN: ${{ secrets.FILEBASE_RPC_TOKEN }}
@@ -152,6 +152,7 @@ jobs:
       RELEASE_SHA256: fabb74419a47b362d0618fcb26199b8438b88ea9a7e60082a365b9f2baf944bd
       CID: bafyreiegvdlykyfgrdoqzwstiidsc5c3ph6s2dwzxdaql44wlrpgmy3vem
     steps:
+      - uses: actions/checkout@v4
       - name: Download and verify sealed CAR
         run: |
           test -n "$FILEBASE_RPC_TOKEN"
@@ -192,8 +193,36 @@ jobs:
           assert expected in data.get("Keys", {}), data
           print("Filebase confirms the expected CID is pinned:", expected)
           PY
-      - name: Verify fresh public retrieval
+      - name: Reconstruct a fresh copy through Filebase public gateway
         run: |
           curl --retry 12 --retry-delay 5 --retry-all-errors -fsSL \
-            "https://ipfs.filebase.io/ipfs/$CID" -o /tmp/filebase-release.zip
+            "https://ipfs.filebase.io/ipfs/$CID" -o /tmp/filebase-root.cbor
+          python3 - <<'PY'
+          import os, sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path(os.environ["GITHUB_WORKSPACE"]) / "scripts"))
+          from build_car import CidLink, cid_text, decode_cbor
+          payload = Path("/tmp/filebase-root.cbor").read_bytes()
+          manifest, end = decode_cbor(payload)
+          assert end == len(payload)
+          assert manifest["type"] == "digital-field-release-archive"
+          assert manifest["sha256"].hex() == os.environ["RELEASE_SHA256"]
+          links = manifest["chunks"]
+          assert links and all(isinstance(link, CidLink) for link in links)
+          Path("/tmp/filebase-chunks.txt").write_text(
+              "".join(cid_text(link.value) + "\n" for link in links),
+              encoding="utf-8",
+          )
+          Path("/tmp/filebase-size.txt").write_text(str(manifest["size"]), encoding="ascii")
+          print("Filebase root manifest is valid with", len(links), "chunks")
+          PY
+          : > /tmp/filebase-release.zip
+          index=0
+          while IFS= read -r chunk; do
+            curl --retry 12 --retry-delay 5 --retry-all-errors -fsSL \
+              "https://ipfs.filebase.io/ipfs/$chunk" -o "/tmp/filebase-chunk-$index"
+            cat "/tmp/filebase-chunk-$index" >> /tmp/filebase-release.zip
+            index=$((index + 1))
+          done < /tmp/filebase-chunks.txt
+          test "$(wc -c < /tmp/filebase-release.zip | tr -d ' ')" = "$(cat /tmp/filebase-size.txt)"
           echo "$RELEASE_SHA256  /tmp/filebase-release.zip" | sha256sum -c -
