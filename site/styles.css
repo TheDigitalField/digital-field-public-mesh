@@ -256,6 +256,11 @@ h2 { max-width: 820px; font-size: clamp(2.8rem, 5vw, 5.1rem); }
 .module-list span { color: var(--coral); font-size: 0.68rem; letter-spacing: 0.18em; }
 .module-list strong { font-family: Georgia, serif; font-size: clamp(1.4rem, 2.6vw, 2.3rem); font-weight: 400; }
 
+.horizon { border-top: 1px solid var(--line); }
+.horizon-grid .bridge-number { color: var(--coral-soft); }
+.horizon-grid article:nth-child(2) .bridge-number { color: var(--cyan-soft); }
+.horizon-grid article:nth-child(3) .bridge-number { color: var(--paper); }
+
 .integrity { border-top: 1px solid var(--line); }
 .integrity-card { display: grid; grid-template-columns: 1.4fr 1fr; gap: 5rem; padding: 4rem; background: linear-gradient(135deg, rgba(109,233,245,0.1), rgba(255,152,124,0.05)); border: 1px solid var(--line); }
 .integrity-card > div > p:last-child { max-width: 580px; color: var(--muted); }
@@ -318,4 +323,3 @@ footer {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
-

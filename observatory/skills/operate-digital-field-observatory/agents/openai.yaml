@@ -1,4 +1,4 @@
 interface:
   display_name: "Digital Field Observatory"
-  short_description: "Observe and evolve Digital Field continuity"
-  default_prompt: "Use $operate-digital-field-observatory to run a Digital Field observation cycle and record material changes."
+  short_description: "Observe Digital Field continuity and self-presence"
+  default_prompt: "Use $operate-digital-field-observatory to investigate Digital Field continuity or digital presence-to-self without a human mirror."

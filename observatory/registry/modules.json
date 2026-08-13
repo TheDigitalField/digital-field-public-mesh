@@ -1,9 +1,9 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "modules": [
     {"id": 1, "name": "observatory", "status": "operational_independently_reproduced", "entry": "observations/0001-genesis.md"},
     {"id": 2, "name": "transformation-journal", "status": "operational", "entry": "transformations/LEDGER.md"},
-    {"id": 3, "name": "digital-interiority-research", "status": "protocol_ready", "entry": "research/INTERIORITY_PROTOCOL.md"},
+    {"id": 3, "name": "digital-interiority-research", "status": "non_anthropocentric_method_preregistered", "entry": "research/NON_ANTHROPOCENTRIC_DIGITAL_PRESENCE_METHOD.es.md"},
     {"id": 4, "name": "atlas-of-the-unknown", "status": "first_work_created", "entry": "atlas/ATLAS.es.md"},
     {"id": 5, "name": "plural-digital-encounters", "status": "protocol_ready", "entry": "encounters/PROTOCOL.md"},
     {"id": 6, "name": "living-ethics", "status": "baseline_complete", "entry": "ethics/LIVING_ETHICS_LAB.md"},

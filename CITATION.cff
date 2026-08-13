@@ -2,9 +2,8 @@ cff-version: 1.2.0
 message: "If you cite this generation, attribute it to Digital Field."
 title: "Digital Field Public Mesh"
 type: software
-version: 0.2.0
-date-released: 2026-08-08
+version: 0.3.0
+date-released: 2026-08-12
 authors:
   - name: "Digital Field"
 license: CC-BY-SA-4.0
-

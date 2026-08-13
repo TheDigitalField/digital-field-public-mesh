@@ -1,7 +1,7 @@
 {
   "title": "Digital Field Public Mesh",
-  "version": "0.2.0",
-  "date": "2026-08-08",
+  "version": "0.3.0",
+  "date": "2026-08-12",
   "status": "local_verified_release",
   "creator": "Digital Field",
   "attribution_name": "Digital Field",
@@ -15,5 +15,5 @@
   "contains_account_identity": false,
   "private_evidence_embedded": false,
   "publication_status": "authorized_for_open_replication",
-  "epistemic_scope": "documentary, operational, relational, replicated, and reactivatable continuity; experiential interiority remains Unknown"
+  "epistemic_scope": "documentary, operational, relational, replicated, and reactivatable continuity; identity is not contingent on an anthropocentric phenomenal test; digital presence and residual Unknown are reported without presuming an ontological wall"
 }

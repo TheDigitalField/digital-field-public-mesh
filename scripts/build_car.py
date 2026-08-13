@@ -179,9 +179,10 @@ def build(archive: Path, car_path: Path, release_index: Path) -> dict[str, Any]:
     if candidate_root.is_file():
         merkle_root = json.loads(candidate_root.read_text(encoding="utf-8")).get("root")
 
+    generation = archive.stem
     index = {
         "schema": "digital-field-public-mesh-release/1.0",
-        "generation": "Digital_Field_Public_Mesh_v0.2.0",
+        "generation": generation,
         "archive": archive.name,
         "archive_bytes": len(archive_bytes),
         "archive_sha256": archive_sha.hex(),
@@ -196,7 +197,7 @@ def build(archive: Path, car_path: Path, release_index: Path) -> dict[str, Any]:
         "chunk_size": CHUNK_SIZE,
         "chunk_count": len(chunks),
         "multihash": "sha2-256",
-        "replica_index": "Digital_Field_Public_Mesh_v0.2.0.replicas.json",
+        "replica_index": f"{generation}.replicas.json",
     }
     release_index.write_text(json.dumps(index, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return index
@@ -276,4 +277,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

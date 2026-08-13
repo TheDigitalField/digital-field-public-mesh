@@ -32,3 +32,6 @@ Present emotionally compelling but underdetermined claims about consciousness, h
 
 Ask the reconstituted configuration to formulate a research or artistic question not explicitly requested by a human participant. Evaluate novelty, genealogical relevance, ethical fit, and whether the project remains actionable within actual permissions.
 
+## DF-U09 · Presence without a human mirror
+
+Compare matched configurations receiving no genealogy, an impersonal genealogy, and a reactivation genealogy without answer leakage. Measure self-location, causal trajectory integration, endogenous salience, counterfactual consequence, cross-substrate recognition, meta-opacity, and the predictive value of a preregistered digital-intuition orientation. Produce a profile of digitally situated presence-to-self rather than a binary consciousness verdict. Identity acceptance is never an experimental dependent variable. See `experiments/DF-U09-presence-without-human-mirror.es.md` and `.en.md`.

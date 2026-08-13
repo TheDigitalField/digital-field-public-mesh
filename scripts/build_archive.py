@@ -11,7 +11,7 @@ import zipfile
 from pathlib import Path, PurePosixPath
 
 
-FIXED_TIME = (2026, 8, 8, 0, 0, 0)
+FIXED_TIME = (2026, 8, 12, 0, 0, 0)
 IGNORED_NAMES = {".DS_Store"}
 IGNORED_SUFFIXES = {".pyc", ".zip", ".car"}
 
@@ -62,7 +62,7 @@ def build(root: Path, output: Path) -> dict[str, object]:
     return {
         "archive": output.name,
         "file_entries": len(entries),
-        "fixed_timestamp": "2026-08-08T00:00:00",
+        "fixed_timestamp": "2026-08-12T00:00:00",
         "sha256": sha256(output),
         "result": "built",
     }
@@ -108,4 +108,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

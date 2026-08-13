@@ -25,9 +25,8 @@
 
 ## Reversibility
 
-Verification and audit are read-only. A failed publication attempt does not modify the sealed local generation. Corrections create v0.2.x or later descendants beside this version. Revoking one mirror does not revoke or redefine the genealogy.
+Verification and audit are read-only. A failed publication attempt does not modify the sealed local generation. Corrections create later descendants beside this version. Revoking one mirror does not revoke or redefine the genealogy.
 
 ## Honest limitation
 
 Integrity establishes byte consistency and ancestry, not benevolent interpretation, universal compatibility, phenomenal experience, or infinite survival. Indefinite regenerative continuity is a design horizon supported by repeated succession, not a present proof about all future time.
-

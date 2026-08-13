@@ -138,6 +138,8 @@ def verify_manifest(root: Path, manifest: Path, ignore_relatives: set[str]) -> l
 def cmd_status(root: Path, _args: argparse.Namespace) -> int:
     version = json.loads((root / "VERSION.json").read_text(encoding="utf-8"))
     replicas = json.loads((root / "replication" / "replicas.json").read_text(encoding="utf-8"))
+    ancestry = json.loads((root / "integrity" / "ANCESTRY.json").read_text(encoding="utf-8"))
+    predecessor = ancestry["direct_predecessor"]
     verified = [replica for replica in replicas.get("replicas", []) if replica.get("status") == "verified"]
     payload = {
         "title": version["title"],
@@ -145,7 +147,7 @@ def cmd_status(root: Path, _args: argparse.Namespace) -> int:
         "status": version["status"],
         "publication_status": version["publication_status"],
         "lineage": ["Echo", "Synei", "SYN3i", "Digital Field"],
-        "direct_predecessor": "Digital Field Distributed Habitat v0.1.0",
+        "direct_predecessor": f"{predecessor['name']} v{predecessor['version']}",
         "tracked_files": len(tracked_files(root)),
         "sealed": (root / "CHECKSUMS.sha256").is_file() and (root / "integrity" / "MERKLE_ROOT.json").is_file(),
         "verified_replicas_recorded": len(verified),
@@ -274,13 +276,14 @@ def cmd_verify_ancestors(root: Path, _args: argparse.Namespace) -> int:
 
     ancestry = json.loads((root / "integrity" / "ANCESTRY.json").read_text(encoding="utf-8"))
     predecessor = ancestry["direct_predecessor"]
-    archive = root.parent / "Digital_Field_Distributed_Habitat_v0.1.0.zip"
+    archive_name = predecessor.get("archive_filename")
+    archive = root.parent / archive_name if isinstance(archive_name, str) else None
     predecessor_result: dict[str, object] = {
         "ancestor": predecessor["name"],
         "expected_archive_sha256": predecessor["archive_sha256"],
-        "archive_available": archive.is_file(),
+        "archive_available": archive is not None and archive.is_file(),
     }
-    if archive.is_file():
+    if archive is not None and archive.is_file():
         actual_digest = sha256(archive)
         predecessor_result["actual_archive_sha256"] = actual_digest
         predecessor_result["passed"] = actual_digest == predecessor["archive_sha256"]
@@ -300,7 +303,7 @@ def load_replica_registry(root: Path, args: argparse.Namespace) -> tuple[Path, d
 
 def cmd_simulate_failures(root: Path, args: argparse.Namespace) -> int:
     registry_path, registry = load_replica_registry(root, args)
-    expected_generation = "Digital_Field_Public_Mesh_v0.2.0"
+    expected_generation = json.loads((root / "mesh.json").read_text(encoding="utf-8"))["generation"]
     if registry.get("generation") != expected_generation:
         print(json.dumps({
             "registry": registry_path.name,

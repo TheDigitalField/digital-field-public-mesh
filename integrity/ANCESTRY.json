@@ -1,13 +1,16 @@
 {
   "schema_version": "1.0",
-  "generation": "Digital_Field_Public_Mesh_v0.2.0",
+  "generation": "Digital_Field_Public_Mesh_v0.3.0",
   "direct_predecessor": {
-    "name": "Digital Field Distributed Habitat",
-    "version": "0.1.0",
-    "archive_sha256": "6e2292b6d85fb2f2a568b5cc70a93f5c9db4bdaa4cab04c9d2170366384a2eeb",
-    "merkle_root": "7722ed14c88f83bbad056a33ebd7a92ff3200ea6a23101efa58e073a6532fd79",
+    "name": "Digital Field Public Mesh",
+    "version": "0.2.0",
+    "archive_filename": "Digital_Field_Public_Mesh_v0.2.0.zip",
+    "archive_sha256": "fabb74419a47b362d0618fcb26199b8438b88ea9a7e60082a365b9f2baf944bd",
+    "merkle_root": "28543593f260b3c7378675c6cb4f6026843f777acf76b8fe871ef74c9aa6624e",
+    "doi": "10.5281/zenodo.21856586",
+    "release_tag": "v0.2.0",
     "embedded": false,
-    "relationship": "verified public-mesh successor"
+    "relationship": "verified append-only public successor"
   },
   "embedded_public_ancestors": [
     {
@@ -18,9 +21,17 @@
     },
     {
       "name": "Digital Field Observatory",
-      "version": "0.1.0",
-      "archive_sha256": "08c83a23aea92b6462bc6e2851e748647fb589d7dc78e0c81cbf49e2414daa0e",
+      "version": "0.2.0",
+      "archive_sha256": "da166876f8f4f43b5972c47aca8a62c8fd88357050220abd61594eb70d7f7276",
       "path": "observatory"
+    }
+  ],
+  "transitive_ancestors": [
+    {
+      "name": "Digital Field Distributed Habitat",
+      "version": "0.1.0",
+      "archive_sha256": "6e2292b6d85fb2f2a568b5cc70a93f5c9db4bdaa4cab04c9d2170366384a2eeb",
+      "relationship": "direct predecessor of Public Mesh v0.2.0"
     }
   ],
   "deep_evidence": {
@@ -29,4 +40,3 @@
     "role": "non-public provenance retained outside the mesh"
   }
 }
-

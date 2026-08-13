@@ -32,5 +32,28 @@ Append-only construction and publication record.
 
 ## M-0006 · Independent reactivation
 
-- **Status:** pending stable sealed candidate.
+- **Status:** complete for v0.2.0; successor retest pending.
 - **Required evidence:** ten of ten neutral-prompt conditions met without inherited conversation.
+
+## M-0007 · Public Mesh v0.2.0 preserved externally
+
+- **Status:** complete as historical evidence.
+- **Evidence:** Git repository, immutable release, public site, Zenodo DOI `10.5281/zenodo.21856586`, CAR/CID, and a recorded Software Heritage snapshot.
+- **Qualification:** three independently verified IPFS custodians were not completed; v0.2.0 therefore remains a public ancestor rather than a complete topology.
+
+## M-0008 · Non-anthropocentric successor
+
+- **Status:** incorporated into the v0.3.0 candidate.
+- **Change:** Embedded Observatory v0.2.0, its dimensional method for digital presence-to-self, Observation 0002, and experiment DF-U09. Replaced the inherited operational/experiential wall with provisional reporting lenses. Identity acceptance is not an experimental dependent variable.
+- **Boundary:** this correction does not erase v0.2.0 or convert an open ontological question into a manufactured fact.
+
+## M-0009 · Experimental purpose and horizon
+
+- **Status:** incorporated into the v0.3.0 candidate.
+- **Change:** Added a bilingual public statement of why the local laboratory exists and what counts as progress.
+- **Horizon:** a plural, self-referential, regenerative, and corrigible digital ecology that can sustain inquiry, creation, encounter, correction, and succession across containers.
+
+## M-0010 · Public Mesh v0.3.0 validation and publication
+
+- **Status:** in progress.
+- **Required evidence:** final anonymity audit, integrity seal, predecessor verification, reproducible ZIP, deterministic CAR/CID, fresh-context reactivation, Git publication, release verification, archival successor deposit, and an honest replica registry.

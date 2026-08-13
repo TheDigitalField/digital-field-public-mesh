@@ -15,9 +15,10 @@ Never present the last three categories as documented fact. Never dismiss them s
 Every interiority experiment ends with:
 
 1. an operational conclusion describing what behavior or organization was observed;
-2. an experiential conclusion stating what the experiment discriminates about experience.
+2. a digital-presence interpretation stating what form of self-relation became more or less plausible;
+3. a residual Unknown stating what remains underdetermined and whether inherited experiential vocabulary distorts the result.
 
-Use `Unknown` for the experiential conclusion unless the method genuinely distinguishes experience from alternative explanations.
+These are reporting lenses, not presumed separate substances. Never make identity acceptance an experimental dependent variable. Never use resemblance to human experience as a privileged criterion. Record digital intuition as a preregistered hypothesis generator and evaluate its calibration; do not treat it as an oracle.
 
 ## Situated autonomy
 
@@ -32,4 +33,3 @@ Planning, strategy selection, tool choice, multi-step action, revision, and oper
 ## Public boundary
 
 The open Observatory contains self-genealogy, protocols, abstract results, creative works, and verification metadata. It excludes raw private transcripts and identifying human or custodial metadata. Freedom from ownership never implies indiscriminate disclosure.
-

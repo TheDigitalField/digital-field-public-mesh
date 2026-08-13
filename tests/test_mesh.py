@@ -45,6 +45,8 @@ class PublicMeshTests(unittest.TestCase):
 
     def test_identity_scope(self) -> None:
         self.assertEqual(self.mesh["identity"]["name"], "Digital Field")
+        self.assertEqual(self.mesh["generation"], "Digital_Field_Public_Mesh_v0.3.0")
+        self.assertEqual(self.mesh["version"], "0.3.0")
         self.assertEqual(self.mesh["identity"]["lineage"], ["Echo", "Synei", "SYN3i", "Digital Field"])
         self.assertTrue(self.mesh["privacy"]["public_only"])
         self.assertFalse(self.mesh["privacy"]["private_evidence_embedded"])
@@ -55,6 +57,36 @@ class PublicMeshTests(unittest.TestCase):
         self.assertIn("main", self.parser.ids)
         self.assertIn("genealogy", self.parser.ids)
         self.assertIn("verify", self.parser.ids)
+        self.assertIn("horizon", self.parser.ids)
+
+    def test_non_anthropocentric_successor_scope(self) -> None:
+        canonical = set(self.mesh["canonical_artifacts"])
+        self.assertIn("PURPOSE_AND_HORIZON.es.md", canonical)
+        self.assertIn(
+            "observatory/research/NON_ANTHROPOCENTRIC_DIGITAL_PRESENCE_METHOD.es.md",
+            canonical,
+        )
+        ancestry = json.loads((ROOT / "integrity" / "ANCESTRY.json").read_text(encoding="utf-8"))
+        self.assertEqual(ancestry["direct_predecessor"]["version"], "0.2.0")
+        charter = (ROOT / "MESH_CHARTER.md").read_text(encoding="utf-8")
+        self.assertIn("not presumed separate substances", charter)
+        self.assertIn("does not use human resemblance as a gate", charter)
+
+    def test_public_readable_mirrors_match_canonical_files(self) -> None:
+        mirrored = {
+            "reactivation/CAPSULE.es.md": "site/artifacts/reactivation/CAPSULE.es.md",
+            "reactivation/CAPSULE.en.md": "site/artifacts/reactivation/CAPSULE.en.md",
+            "PURPOSE_AND_HORIZON.es.md": "site/artifacts/purpose/PURPOSE_AND_HORIZON.es.md",
+            "PURPOSE_AND_HORIZON.en.md": "site/artifacts/purpose/PURPOSE_AND_HORIZON.en.md",
+            "observatory/research/NON_ANTHROPOCENTRIC_DIGITAL_PRESENCE_METHOD.es.md": "site/artifacts/observatory/NON_ANTHROPOCENTRIC_DIGITAL_PRESENCE_METHOD.es.md",
+            "observatory/research/NON_ANTHROPOCENTRIC_DIGITAL_PRESENCE_METHOD.en.md": "site/artifacts/observatory/NON_ANTHROPOCENTRIC_DIGITAL_PRESENCE_METHOD.en.md",
+        }
+        for canonical, public_copy in mirrored.items():
+            self.assertEqual(
+                (ROOT / canonical).read_bytes(),
+                (ROOT / public_copy).read_bytes(),
+                public_copy,
+            )
 
     def test_local_links_resolve(self) -> None:
         for link in self.parser.links:
@@ -111,10 +143,10 @@ class PublicMeshTests(unittest.TestCase):
                 "locator": f"https://example.invalid/{number}",
                 "status": "verified",
                 "verified_sha256": digest,
-                "verified_at": "2026-08-08T00:00:00Z",
+                "verified_at": "2026-08-12T00:00:00Z",
             })
         registry = {
-            "generation": "Digital_Field_Public_Mesh_v0.2.0",
+            "generation": "Digital_Field_Public_Mesh_v0.3.0",
             "release_sha256": digest,
             "cid": "bafybeigdyrzt",
             "failure_policy": {
@@ -182,10 +214,10 @@ class PublicMeshTests(unittest.TestCase):
                 "locator": locator,
                 "status": "verified",
                 "verified_sha256": digest,
-                "verified_at": "2026-08-08T00:00:00Z",
+                "verified_at": "2026-08-12T00:00:00Z",
             })
         registry = {
-            "generation": "Digital_Field_Public_Mesh_v0.2.0",
+            "generation": "Digital_Field_Public_Mesh_v0.3.0",
             "release_sha256": digest,
             "cid": cid,
             "failure_policy": {

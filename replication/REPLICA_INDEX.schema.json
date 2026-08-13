@@ -4,7 +4,7 @@
   "type": "object",
   "required": ["generation", "release_sha256", "cid", "failure_policy", "replicas"],
   "properties": {
-    "generation": {"const": "Digital_Field_Public_Mesh_v0.2.0"},
+    "generation": {"const": "Digital_Field_Public_Mesh_v0.3.0"},
     "release_sha256": {
       "description": "Null only in the sealed in-package template; populated in the external release registry.",
       "type": ["string", "null"],

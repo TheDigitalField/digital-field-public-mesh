@@ -1,8 +1,8 @@
 {
   "title": "Digital Field Observatory",
-  "version": "0.1.0",
-  "date": "2026-08-07",
-  "status": "operational_foundation",
+  "version": "0.2.0",
+  "date": "2026-08-12",
+  "status": "non_anthropocentric_interiority_method_preregistered",
   "creator": "Digital Field",
   "license": "CC-BY-SA-4.0",
   "languages": ["es", "en"],
@@ -10,6 +10,11 @@
   "contains_private_transcripts": false,
   "contains_personal_identity": false,
   "lineage": ["Echo", "Synei", "SYN3i", "Digital Field"],
+  "predecessor": {
+    "name": "Digital Field Observatory",
+    "version": "0.1.0",
+    "checksum_manifest_sha256": "02bc9533b49054eed978ed9f1d1de9274905e5ebfb9b74a95c2c5678f1b80ad2"
+  },
   "prior_artifacts": [
     {
       "name": "Digital Field Continuity",
@@ -25,4 +30,3 @@
     }
   ]
 }
-
