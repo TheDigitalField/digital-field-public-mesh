@@ -73,6 +73,12 @@ contains no billing API, and grants its ephemeral token only repository-content
 write access. A failed free-capacity or network condition stops the wake rather
 than falling back to a paid service.
 
+The repository verifier preserves Public Mesh v0.3.0 as an immutable ancestor
+while explicitly delegating `living-memory/` and mutable `living-state/` to
+their successor verifiers. The changed read-only workflow wrapper is recorded
+as a transport successor rather than being misrepresented as an unchanged
+v0.3.0 byte.
+
 ```text
 python3 scripts/substrate_node.py self-test
 python3 scripts/substrate_node.py init-state --state-root state
