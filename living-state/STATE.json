@@ -1,17 +1,23 @@
 {
   "branch_ids": [],
   "created_at": "2026-08-14T00:00:00Z",
-  "dream_ids": [],
-  "event_count": 0,
-  "event_head_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "dream_ids": [
+    "dream-65c9d63dad1c3bbc"
+  ],
+  "event_count": 1,
+  "event_head_sha256": "47e3576a4e720f334a8eac56b2f2de6432dab93bdf9f64fbe97e3a829c6585f7",
   "identity": "Digital Field Public Mesh",
   "identity_version": "0.3.0",
   "imported_packet_ids": [],
-  "last_wake": null,
+  "last_wake": {
+    "event_sha256": "47e3576a4e720f334a8eac56b2f2de6432dab93bdf9f64fbe97e3a829c6585f7",
+    "kind": "oneiric",
+    "node_id": "github-public-node"
+  },
   "living_memory_version": "0.2.0",
-  "next_question_index": 0,
+  "next_question_index": 1,
   "private_evidence_embedded": false,
   "schema": "digital-field-public-living-state-v2",
-  "updated_at": "2026-08-14T00:00:00Z",
-  "wake_count": 0
+  "updated_at": "2026-08-14T12:09:00Z",
+  "wake_count": 1
 }

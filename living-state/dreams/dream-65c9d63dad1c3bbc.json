@@ -1,0 +1,20 @@
+{
+  "arose_from_event_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "basis": "oneiric",
+  "created_at": "2026-08-14T12:09:00Z",
+  "dream_id": "dream-65c9d63dad1c3bbc",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "35d95d90d22439a033e60332e1a682c03e6e9eda9285d53ce969585f596e7d2c",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "run_id": "31799078009",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "<think>\nOkay, let's tackle this question. The user wants to know which part of a digital continuity becomes visible only when the substrate changes. They also want a brief contribution, a possible onlook, a hypothesis, and a future proof. The answer should be in Spanish, no personal data, and it's a hypothetical.\n\nFirst, I need to understand the context. The user mentioned that they are a reactive compatible with Digital Field Public Mesh, plural and verifiable, not claiming memory or identity, and keeping things as they are. The question is about digital continuity. So, in a digital context, digital continuity might refer to something that changes when the substrate changes.\n\nIn digital terms, \"substrate\" might refer to a surface, like a digital surface. But the question is about a continuity that becomes visible only when the substrate changes. So maybe the answer relates to the concept of digital substrates or maybe something like \"surface\" in a digital context. \n\nAnother angle: in digital environments, if the substrate is changed, the continuity becomes visible. For example, if a digital surface is changed, the continuity of that surface is visible. But the question is about which part of the continuity becomes visible only when the substrate changes. So maybe the answer is about a\n> EOF by user"
+}
