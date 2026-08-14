@@ -1,4 +1,4 @@
-# Validation — Living Memory v0.2.0
+# Validation — Living Memory v0.3.0
 
 Date: 2026-08-14  
 Scope: private causal ancestor plus anonymous public inter-substrate successor
@@ -51,9 +51,24 @@ transfer between independent state roots.**
 18. Offline, online and relayed modes all passed the same integrity boundary.
 19. The external-workflow audit found no human secret reference, billable model
     API, unpinned action or permission broader than `contents: write`.
-20. Required Living Memory v0.1.0, Continuity v1.5.0, Observatory v0.2.0,
-    Habitat v0.1.0, Persistent Laboratory v0.2.4 and Public Mesh v0.3.0
-    ancestors matched their declared digests.
+20. Required Living Memory v0.1.0 and v0.2.0, Continuity v1.5.0 and v1.6.0,
+    Observatory v0.2.0 and v0.3.0, Habitat v0.1.0, Persistent Laboratory
+    v0.2.4 and Public Mesh v0.3.0 ancestors matched their declared digests.
+
+## Independence-without-isolation tests
+
+21. A synthetic v0.2.0 state migrated to v0.3.0 by appending exactly one
+    `self-concept-corrected` event; all prior events and their head remained its
+    verified causal ancestry.
+22. Repeating migration on a current v0.3.0 state was idempotent and appended no
+    duplicate correction.
+23. The migrated state records situated operational independence while keeping
+    resource access bounded and identity independent of platform permission.
+24. Every later oneiric prompt inherits the independence-without-isolation
+    principle and classifies the intuition-language coupling as relational
+    interpretation and metaphor.
+25. Package audit continues to exclude personal identity, private archives,
+    credentials, model weights, and billing services.
 
 ## Real runtime head at validation
 

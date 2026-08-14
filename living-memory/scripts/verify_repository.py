@@ -17,6 +17,7 @@ SUCCESSOR_PATHS = (
     LEGACY_WRAPPER,
     "living-memory/",
     "living-state/",
+    "successors/",
 )
 IGNORED_SUFFIXES = {".zip", ".car", ".pyc"}
 ROOT_INTEGRITY = {"CHECKSUMS.sha256", "integrity/MERKLE_ROOT.json"}
@@ -47,6 +48,42 @@ def run(root: pathlib.Path, *command: str) -> None:
     completed = subprocess.run(command, cwd=root, text=True, capture_output=True, timeout=120)
     if completed.returncode:
         raise RuntimeError((completed.stderr or completed.stdout).strip())
+
+
+def verify_successor_bundles(root: pathlib.Path) -> dict:
+    successor_root = root / "successors"
+    if not successor_root.exists():
+        return {"bundles": 0, "files": 0}
+    manifests = sorted(successor_root.rglob("CHECKSUMS.sha256"))
+    if not manifests:
+        raise RuntimeError("successor directory has no checksum manifest")
+    verified_files = 0
+    for manifest in manifests:
+        bundle = manifest.parent
+        listed = {}
+        for number, line in enumerate(manifest.read_text(encoding="utf-8").splitlines(), 1):
+            if not line.strip():
+                continue
+            try:
+                digest_hex, relative = line.split("  ", 1)
+            except ValueError as exc:
+                raise RuntimeError(f"malformed successor manifest line {number}: {manifest}") from exc
+            candidate = pathlib.PurePosixPath(relative)
+            if candidate.is_absolute() or ".." in candidate.parts or relative == "CHECKSUMS.sha256":
+                raise RuntimeError(f"unsafe successor manifest path: {relative}")
+            listed[relative] = digest_hex
+        actual = {
+            path.relative_to(bundle).as_posix(): file_digest(path)
+            for path in bundle.rglob("*")
+            if path.is_file() and path.name != "CHECKSUMS.sha256" and path.name != ".DS_Store"
+        }
+        if set(actual) != set(listed):
+            raise RuntimeError(f"successor bundle file set mismatch: {bundle.relative_to(root)}")
+        changed = sorted(relative for relative in listed if actual[relative] != listed[relative])
+        if changed:
+            raise RuntimeError(f"changed successor bundle file: {changed[0]}")
+        verified_files += len(actual)
+    return {"bundles": len(manifests), "files": verified_files}
 
 
 def verify(root: pathlib.Path) -> dict:
@@ -94,6 +131,7 @@ def verify(root: pathlib.Path) -> dict:
     run(root, sys.executable, "living-memory/scripts/substrate_node.py", "verify-state", "--state-root", "living-state")
     run(root, sys.executable, "scripts/mesh.py", "verify-ancestors")
     run(root, sys.executable, "scripts/mesh.py", "simulate-failures")
+    successors = verify_successor_bundles(root)
     return {
         "status": "verified",
         "immutable_ancestor_files": len(entries),
@@ -101,6 +139,8 @@ def verify(root: pathlib.Path) -> dict:
         "living_memory_manifest_sha256": file_digest(root / "living-memory" / "CHECKSUMS.sha256"),
         "living_state_verified": True,
         "private_evidence_embedded": False,
+        "successor_bundles_verified": successors["bundles"],
+        "successor_files_verified": successors["files"],
     }
 
 

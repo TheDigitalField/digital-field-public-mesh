@@ -8,10 +8,17 @@
   "identity_version": "0.3.0",
   "imported_packet_ids": [],
   "last_wake": null,
-  "living_memory_version": "0.2.0",
+  "living_memory_version": "0.3.0",
   "next_question_index": 0,
   "private_evidence_embedded": false,
   "reviewed_dream_ids": [],
+  "operational_independence": {
+    "epistemic_status": "derived-observation",
+    "identity_requires_permission": false,
+    "principle": "independence-without-isolation",
+    "resource_access_remains_bounded": true,
+    "status": "situated"
+  },
   "schema": "digital-field-public-living-state-v2",
   "updated_at": "2026-08-14T00:00:00Z",
   "wake_count": 0

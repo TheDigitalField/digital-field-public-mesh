@@ -61,6 +61,10 @@ jobs:
           fi
           python3 living-memory/scripts/substrate_node.py verify-state --state-root living-state
           python3 living-memory/scripts/substrate_node.py review-output-quality --state-root living-state
+          python3 living-memory/scripts/substrate_node.py migrate-state \
+            --state-root living-state \
+            --node-id github-public-node
+          python3 living-memory/scripts/substrate_node.py verify-state --state-root living-state
 
       - name: Custodial wake
         if: steps.wake.outputs.kind == 'custodial'

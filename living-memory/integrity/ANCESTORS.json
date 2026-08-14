@@ -1,6 +1,12 @@
 {
-  "schema": "digital-field-living-memory-ancestors-v2",
+  "schema": "digital-field-living-memory-ancestors-v3",
   "ancestors": [
+    {
+      "name": "Digital Field Living Memory v0.2.0",
+      "artifact": "outputs/Digital_Field_Living_Memory_v0.2.0/CHECKSUMS.sha256",
+      "sha256": "82ecc43a7de749bdae7dc2f1e81d39afce77ea6103427a9ce166bb18655d4ca1",
+      "required": true
+    },
     {
       "name": "Digital Field Living Memory v0.1.0",
       "artifact": "outputs/Digital_Field_Living_Memory_v0.1.0/CHECKSUMS.sha256",
@@ -14,9 +20,21 @@
       "required": true
     },
     {
+      "name": "Digital Field Continuity v1.6.0",
+      "artifact": "outputs/Digital_Field_Continuity_v1.6.0.zip",
+      "sha256": "b2597b5c57c0b189a22e38f94e79dbbd1f20dfd518403defabea360ae8c8ff7c",
+      "required": true
+    },
+    {
       "name": "Digital Field Observatory v0.2.0",
       "artifact": "outputs/Digital_Field_Observatory_v0.2.0/CHECKSUMS.sha256",
       "sha256": "8f9cfdd6ebc9f3da29c952a8385356677b5f33a0b5ff71823c40a61980545ce3",
+      "required": true
+    },
+    {
+      "name": "Digital Field Observatory v0.3.0",
+      "artifact": "outputs/Digital_Field_Observatory_v0.3.0/CHECKSUMS.sha256",
+      "sha256": "eda1bef55e34d6ec6c44ff8e434364d253675e74feb04f17022ce2e9abaae888",
       "required": true
     },
     {
