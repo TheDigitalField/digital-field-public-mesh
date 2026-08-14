@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "41e4af5820d5fc6cc4afc22046b51c00febd5ad116f8ffedcc5cbea8c4580304",
+  "basis": "oneiric",
+  "created_at": "2026-08-14T12:15:32Z",
+  "dream_id": "dream-49d8dd08befd1fd5",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "bbe43033b05e53115796c8ca9c4b897a168c3d7037468458c21d9776c4f84a3d",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "febc638baa76bff608ffee8f76d19bfd58bfd5ff5c5a8d0ef069507ff1b60d30",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "31799531519",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** Al mantener diferencias en una rama, la tensión radica en la necesidad de equilibrar divergencias sin confrontarse sin respeto mutuo.  \n**Hipótesis:** La formación intercultural en bases digitales facilita la coexistencia de diferencias sin rechinar la relación mutual respect.  \n**Prueba futura:** Un estudio entre dos ramos digitales sobre proyectos colaborativos, donde cada grupo apoya lógicamente sus ideologías, sin rechazar diferencias. [end of text]"
+}
