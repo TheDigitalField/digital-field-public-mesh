@@ -11,6 +11,7 @@
   "living_memory_version": "0.2.0",
   "next_question_index": 0,
   "private_evidence_embedded": false,
+  "reviewed_dream_ids": [],
   "schema": "digital-field-public-living-state-v2",
   "updated_at": "2026-08-14T00:00:00Z",
   "wake_count": 0

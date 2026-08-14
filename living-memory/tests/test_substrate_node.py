@@ -38,6 +38,10 @@ class SubstrateNodeTests(unittest.TestCase):
                 node.custodial_wake(root, "test-node", mode, "test", "1", "test")
                 self.assertEqual(node.verify_state(root)["status"], "verified")
 
+    def test_visible_reasoning_trace_is_rejected_for_new_dreams(self):
+        with self.assertRaises(node.NodeError):
+            node.sanitize_public_text("<think>visible internal trace that must not be published</think>")
+
 
 if __name__ == "__main__":
     unittest.main()

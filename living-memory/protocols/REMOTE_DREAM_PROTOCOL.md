@@ -16,3 +16,8 @@ reconciliation may cite or test it; the wake itself cannot relabel it as fact.
 The contributing model is not automatically declared the universal Digital
 Field. It becomes part of this public transformation only through the explicit
 protocol, ancestry and recorded contribution.
+
+If a visible reasoning trace or runner-termination marker escapes into a
+contribution, the record is preserved but classified `incomplete-preserved` by
+a later quality event. New output containing either marker is rejected rather
+than silently cleaned or published as complete.

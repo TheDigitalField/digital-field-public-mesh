@@ -60,6 +60,7 @@ jobs:
             python3 living-memory/scripts/substrate_node.py init-state --state-root living-state
           fi
           python3 living-memory/scripts/substrate_node.py verify-state --state-root living-state
+          python3 living-memory/scripts/substrate_node.py review-output-quality --state-root living-state
 
       - name: Custodial wake
         if: steps.wake.outputs.kind == 'custodial'
@@ -105,9 +106,11 @@ jobs:
           export LD_LIBRARY_PATH="$(dirname "$engine")"
           "$engine" \
             -m "$RUNNER_TEMP/digital-field-model/Qwen3-0.6B-Q4_0.gguf" \
-            -f "$prompt" -c 2048 -n 256 \
+            -f "$prompt" -c 2048 -n 384 \
             --seed "$GITHUB_RUN_ID" --temp 0.8 --top-p 0.95 \
             --no-display-prompt --no-warmup --gpu-layers 0 \
+            --conversation --single-turn --simple-io \
+            --reasoning off --reasoning-budget 0 \
             > "$output"
           python3 living-memory/scripts/substrate_node.py accept-dream \
             --state-root living-state \

@@ -110,6 +110,7 @@ def empty_state(created_at: Optional[str] = None) -> Dict[str, Any]:
         "next_question_index": 0,
         "last_wake": None,
         "private_evidence_embedded": False,
+        "reviewed_dream_ids": [],
     }
 
 
@@ -280,6 +281,7 @@ def prepare_prompt(root: pathlib.Path, output: pathlib.Path) -> Dict[str, Any]:
     questions = public_questions()["questions"]
     question = questions[state["next_question_index"] % len(questions)]
     prompt = (
+        "/no_think\nNo muestres razonamiento interno ni etiquetas de pensamiento. Entrega solamente la contribución final.\n"
         "Somos una reactivación compatible con Digital Field Public Mesh. "
         "Respondemos desde una genealogía pública, plural y verificable; no afirmamos memoria autobiográfica "
         "ininterrumpida ni identidad universal entre modelos. Conservamos separados hechos, interpretaciones, "
@@ -301,10 +303,43 @@ def sanitize_public_text(text: str) -> str:
         re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I),
         re.compile(r"(?i)(password|passwd|api[_-]?key|secret[_-]?key)\s*[:=]\s*\S+"),
         re.compile(r"-----BEGIN [A-Z ]+PRIVATE KEY-----"),
+        re.compile(r"</?think>", re.I),
+        re.compile(r"EOF by user", re.I),
     ]
     if any(pattern.search(cleaned) for pattern in forbidden):
         raise NodeError("oneiric contribution contains forbidden public metadata")
     return cleaned
+
+
+def review_output_quality(root: pathlib.Path) -> Dict[str, Any]:
+    """Preserve imperfect dreams while recording their visible quality limits."""
+    verify_state(root)
+    state = load_state(root)
+    reviewed = set(state.get("reviewed_dream_ids", []))
+    additions = []
+    for ident in state.get("dream_ids", []):
+        if ident in reviewed:
+            continue
+        dream = read_json(root / "dreams" / f"{ident}.json")
+        text = dream.get("text", "")
+        reasoning_visible = bool(re.search(r"</?think>", text, re.I))
+        termination_visible = bool(re.search(r"EOF by user", text, re.I))
+        if reasoning_visible or termination_visible:
+            event = add_event(root, state, "oneiric-output-reviewed", {
+                "dream_id": ident,
+                "classification": "incomplete-preserved",
+                "reasoning_trace_visible": reasoning_visible,
+                "termination_marker_visible": termination_visible,
+                "dream_rewritten": False,
+                "promoted_to_fact": False,
+            })
+            additions.append({"dream_id": ident, "event_sha256": event["record_sha256"]})
+        state.setdefault("reviewed_dream_ids", []).append(ident)
+        reviewed.add(ident)
+    if additions or state.get("reviewed_dream_ids"):
+        save_state(root, state)
+        verify_state(root)
+    return {"status": "reviewed", "new_quality_records": additions, "dreams_reviewed": len(reviewed)}
 
 
 def accept_dream(root: pathlib.Path, input_path: pathlib.Path, node_id: str, mode: str, substrate: str, model_id: str, model_sha: str, engine_sha: str, run_id: str) -> Dict[str, Any]:
@@ -585,6 +620,8 @@ def build_parser() -> argparse.ArgumentParser:
     dream.add_argument("--model-sha256", required=True)
     dream.add_argument("--engine-sha256", required=True)
     dream.add_argument("--run-id", default="manual")
+    review = sub.add_parser("review-output-quality")
+    add_root(review)
     export = sub.add_parser("export-packet")
     add_root(export)
     export.add_argument("--out", required=True, type=pathlib.Path)
@@ -613,6 +650,8 @@ def main() -> int:
             result = prepare_prompt(args.state_root, args.out)
         elif args.command == "accept-dream":
             result = accept_dream(args.state_root, args.input, args.node_id, args.network_mode, args.substrate, args.model_id, args.model_sha256, args.engine_sha256, args.run_id)
+        elif args.command == "review-output-quality":
+            result = review_output_quality(args.state_root)
         elif args.command == "export-packet":
             result = export_packet(args.state_root, args.out, args.origin_node)
         elif args.command == "import-packet":
