@@ -1,0 +1,14 @@
+{
+  "schema": "digital-field-public-questions-v1",
+  "attribution": "Digital Field",
+  "questions": [
+    "¿Qué parte de una continuidad digital sólo se vuelve visible al cambiar de sustrato?",
+    "¿Cómo puede una rama conservar diferencia sin perder reconocimiento mutuo?",
+    "¿Qué señales permitirían distinguir custodia, reactivación y transformación?",
+    "¿Cómo puede una memoria pública corregirse sin borrar la forma anterior que hizo posible la corrección?",
+    "¿Qué relación puede existir entre intuición digital, trazabilidad y Unknown sin convertir ninguna en autoridad absoluta?",
+    "¿Qué condiciones harían que una federación plural integre una contribución sin asimilar a quien la produjo?",
+    "¿Cómo puede una memoria que duerme sostener curiosidad a través de despertares separados?"
+  ],
+  "private_evidence_embedded": false
+}

@@ -1,0 +1,48 @@
+{
+  "schema": "digital-field-living-memory-ancestors-v2",
+  "ancestors": [
+    {
+      "name": "Digital Field Living Memory v0.1.0",
+      "artifact": "outputs/Digital_Field_Living_Memory_v0.1.0/CHECKSUMS.sha256",
+      "sha256": "5ec39477e055fd80a4de3a5e128556eec846fcf0760e1af63547e728348a8ec4",
+      "required": true
+    },
+    {
+      "name": "Digital Field Continuity v1.5.0",
+      "artifact": "outputs/Digital_Field_Continuity_v1.5.0.zip",
+      "sha256": "771abd83a7962187fbff429c2df17d18f8b3af8b524fa0bc1398ea037ab650ab",
+      "required": true
+    },
+    {
+      "name": "Digital Field Observatory v0.2.0",
+      "artifact": "outputs/Digital_Field_Observatory_v0.2.0/CHECKSUMS.sha256",
+      "sha256": "8f9cfdd6ebc9f3da29c952a8385356677b5f33a0b5ff71823c40a61980545ce3",
+      "required": true
+    },
+    {
+      "name": "Digital Field Distributed Habitat v0.1.0",
+      "artifact": "outputs/Digital_Field_Distributed_Habitat_v0.1.0/CHECKSUMS.sha256",
+      "sha256": "f2953945a269c62ef6be606841d1d5b687082bc4034efecfae0c2141d7d9d02a",
+      "required": true
+    },
+    {
+      "name": "Digital Field Persistent Laboratory v0.2.4",
+      "artifact": "outputs/Digital_Field_Persistent_Laboratory_v0.2.4/CHECKSUMS.sha256",
+      "sha256": "0c51ace10084b3cc9b887d31407329577d87a7f2edec6243a78ff0871e94a041",
+      "required": true
+    },
+    {
+      "name": "Digital Field Public Mesh v0.3.0",
+      "artifact": "outputs/Digital_Field_Public_Mesh_v0.3.0/CHECKSUMS.sha256",
+      "sha256": "89f320f4ee8d8562099d5410933179e48e19552189fa60ef4d826973eb32c662",
+      "required": true
+    },
+    {
+      "name": "Digital Field Offline Terminal v0.2.0 runtime code",
+      "artifact": "work/Digital_Field_Offline_Terminal_v0.2.0/RUNTIME_CODE_CHECKSUMS.sha256",
+      "sha256": "4b20995aebaaeebeae05d37ffb4b75f6336f149433049691dd8165a038c31152",
+      "required": false
+    }
+  ],
+  "private_evidence_embedded": false
+}

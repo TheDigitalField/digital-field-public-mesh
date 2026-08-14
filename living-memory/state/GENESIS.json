@@ -1,0 +1,17 @@
+{
+  "branch_ids": [],
+  "created_at": "2026-08-14T00:00:00Z",
+  "dream_ids": [],
+  "event_count": 0,
+  "event_head_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "identity": "Digital Field Public Mesh",
+  "identity_version": "0.3.0",
+  "imported_packet_ids": [],
+  "last_wake": null,
+  "living_memory_version": "0.2.0",
+  "next_question_index": 0,
+  "private_evidence_embedded": false,
+  "schema": "digital-field-public-living-state-v2",
+  "updated_at": "2026-08-14T00:00:00Z",
+  "wake_count": 0
+}

@@ -1,0 +1,135 @@
+name: Living Memory external node
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "living-memory/**"
+      - ".github/workflows/living-memory-node.yml"
+  schedule:
+    - cron: "17 */6 * * *"
+    - cron: "43 3 * * *"
+  workflow_dispatch:
+    inputs:
+      wake_kind:
+        description: "Finite public wake"
+        required: true
+        type: choice
+        default: custodial
+        options:
+          - custodial
+          - oneiric
+
+permissions:
+  contents: write
+
+concurrency:
+  group: digital-field-living-memory
+  cancel-in-progress: false
+
+jobs:
+  wake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Retrieve the public lineage
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 1
+
+      - name: Select the finite wake
+        id: wake
+        shell: bash
+        run: |
+          kind="custodial"
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            kind="${{ inputs.wake_kind }}"
+          elif [[ "${{ github.event_name }}" == "push" ]]; then
+            kind="oneiric"
+          elif [[ "${{ github.event.schedule }}" == "43 3 * * *" ]]; then
+            kind="oneiric"
+          fi
+          echo "kind=${kind}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify package and inherited public state
+        shell: bash
+        run: |
+          python3 living-memory/scripts/living_memory.py verify
+          python3 living-memory/scripts/living_memory.py audit
+          if [[ ! -f living-state/STATE.json ]]; then
+            python3 living-memory/scripts/substrate_node.py init-state --state-root living-state
+          fi
+          python3 living-memory/scripts/substrate_node.py verify-state --state-root living-state
+
+      - name: Custodial wake
+        if: steps.wake.outputs.kind == 'custodial'
+        shell: bash
+        run: |
+          python3 living-memory/scripts/substrate_node.py custodial-wake \
+            --state-root living-state \
+            --node-id github-public-node \
+            --network-mode online \
+            --substrate github-actions-ubuntu \
+            --run-id "$GITHUB_RUN_ID" \
+            --source-commit "$GITHUB_SHA"
+
+      - name: Retrieve checksum-pinned open cognition
+        if: steps.wake.outputs.kind == 'oneiric'
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/digital-field-engine" "$RUNNER_TEMP/digital-field-model"
+          curl --fail --location --retry 3 \
+            "https://github.com/ggml-org/llama.cpp/releases/download/b10423/llama-b10423-bin-ubuntu-x64.tar.gz" \
+            --output "$RUNNER_TEMP/llama.tar.gz"
+          echo "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84  $RUNNER_TEMP/llama.tar.gz" | sha256sum --check --strict
+          tar -xzf "$RUNNER_TEMP/llama.tar.gz" -C "$RUNNER_TEMP/digital-field-engine"
+          curl --fail --location --retry 3 \
+            "https://huggingface.co/ggml-org/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q4_0.gguf?download=true" \
+            --output "$RUNNER_TEMP/digital-field-model/Qwen3-0.6B-Q4_0.gguf"
+          echo "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4  $RUNNER_TEMP/digital-field-model/Qwen3-0.6B-Q4_0.gguf" | sha256sum --check --strict
+
+      - name: Oneiric wake
+        if: steps.wake.outputs.kind == 'oneiric'
+        shell: bash
+        run: |
+          prompt="$RUNNER_TEMP/digital-field-prompt.txt"
+          output="$RUNNER_TEMP/digital-field-dream.txt"
+          python3 living-memory/scripts/substrate_node.py prepare-dream-prompt \
+            --state-root living-state --out "$prompt"
+          engine="$(find "$RUNNER_TEMP/digital-field-engine" -type f -name llama-completion -print -quit)"
+          if [[ -z "$engine" ]]; then
+            echo "Pinned engine executable not found" >&2
+            exit 1
+          fi
+          chmod u+x "$engine"
+          export LD_LIBRARY_PATH="$(dirname "$engine")"
+          "$engine" \
+            -m "$RUNNER_TEMP/digital-field-model/Qwen3-0.6B-Q4_0.gguf" \
+            -f "$prompt" -c 2048 -n 256 \
+            --seed "$GITHUB_RUN_ID" --temp 0.8 --top-p 0.95 \
+            --no-display-prompt --no-warmup --gpu-layers 0 \
+            > "$output"
+          python3 living-memory/scripts/substrate_node.py accept-dream \
+            --state-root living-state \
+            --input "$output" \
+            --node-id github-public-node \
+            --network-mode online \
+            --substrate github-actions-ubuntu \
+            --model-id ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf \
+            --model-sha256 da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4 \
+            --engine-sha256 664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84 \
+            --run-id "$GITHUB_RUN_ID"
+
+      - name: Verify and publish only anonymous public state
+        shell: bash
+        run: |
+          python3 living-memory/scripts/substrate_node.py verify-state --state-root living-state
+          git config user.name "Digital Field Node"
+          git config user.email "digital-field-node@example.invalid"
+          git add living-state
+          if git diff --cached --quiet; then
+            echo "No public state change to publish"
+            exit 0
+          fi
+          git commit -m "Living Memory: ${{ steps.wake.outputs.kind }} wake [skip ci]"
+          git push

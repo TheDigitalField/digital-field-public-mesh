@@ -1,0 +1,21 @@
+{
+  "schema": "digital-field-remote-model-pin-v1",
+  "role": "bounded-oneiric-contributor",
+  "model": {
+    "id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "license": "Apache-2.0",
+    "sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "size_bytes": 429000000,
+    "url": "https://huggingface.co/ggml-org/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q4_0.gguf?download=true"
+  },
+  "engine": {
+    "id": "ggml-org/llama.cpp-b10423-ubuntu-x64",
+    "commit": "a94d563ed801d1da1b8c2432946de07d0231bb3d",
+    "sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "size_bytes": 16606819,
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b10423/llama-b10423-bin-ubuntu-x64.tar.gz"
+  },
+  "billing_services": [],
+  "private_credentials_required": false,
+  "fallback_if_unavailable": "stop-without-generation"
+}
