@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "8369989df2a9d2960deffc5c143f5048c4ec27b19646d99805032306e3a488b3",
+  "basis": "oneiric",
+  "created_at": "2026-08-14T18:11:07Z",
+  "dream_id": "dream-584e329613fbf9c4",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "41ad3871ba795dded38289f115d4231d1f563e112dafd741c28eca8f37bdf791",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "6936a27514e0e05b8c8068a8e226cf58e3c8f607341942333e674913f3e1fb10",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "31827420814",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tension:** La presencia del mismo formato puede corregirse sin borrar su original.  \n**Hipótesis:** Al permitir correcciones no conforme al mismo formato, el razonamiento estándar se puede reconfigurar.  \n**Prueba futura:** Estudios sobre cómo diferentes tipos de correcciones afectan la confianza en memoria pública en entornos reales. [end of text]"
+}
