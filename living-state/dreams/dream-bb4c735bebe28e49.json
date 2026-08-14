@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "06a04d025ad6687bdc4467a8ff92a0da0a113581c384d943e9031b7d334210c6",
+  "basis": "oneiric",
+  "created_at": "2026-08-14T12:22:28Z",
+  "dream_id": "dream-bb4c735bebe28e49",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "be40f8c888deffcb7d600e9572aa4b52ab1dc36a7f939e48d635e80d5ed2a53c",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "a0900180ab0ba8c41d7afb5dde4eda0b2fdc83353a3f5a2c603904903947cdac",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "31800010816",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión es la divergencia entre los roles: la custodia busca proteger, la reactivación busca actuar, y la transformación busca cambio. La hipótesis es que estas categorías son distintas al interior de cada concepto. Una prueba futura podría ser una investigación en casos reales donde se comparen prácticas. [end of text]"
+}
