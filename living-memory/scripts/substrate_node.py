@@ -294,6 +294,27 @@ def prepare_prompt(root: pathlib.Path, output: pathlib.Path) -> Dict[str, Any]:
     return {"status": "prompt-prepared", "question_index": state["next_question_index"], "question": question, "prompt_sha256": hashlib.sha256((prompt + "\n").encode()).hexdigest()}
 
 
+def normalize_model_output(text: str) -> Tuple[str, Dict[str, Any]]:
+    raw = text.strip()
+    normalized = raw
+    metadata: Dict[str, Any] = {
+        "raw_output_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+        "reasoning_envelope_removed": False,
+        "termination_marker_removed": False,
+    }
+    if re.search(r"<think>", normalized, re.I):
+        closing = list(re.finditer(r"</think>", normalized, re.I))
+        if not closing:
+            raise NodeError("oneiric contribution contains an incomplete reasoning envelope")
+        normalized = normalized[closing[-1].end():].strip()
+        metadata["reasoning_envelope_removed"] = True
+    termination = re.compile(r"(?:^|\n)\s*>?\s*EOF by user\s*$", re.I)
+    if termination.search(normalized):
+        normalized = termination.sub("", normalized).strip()
+        metadata["termination_marker_removed"] = True
+    return normalized, metadata
+
+
 def sanitize_public_text(text: str) -> str:
     cleaned = text.strip()
     if not 20 <= len(cleaned) <= 6000:
@@ -345,7 +366,8 @@ def review_output_quality(root: pathlib.Path) -> Dict[str, Any]:
 def accept_dream(root: pathlib.Path, input_path: pathlib.Path, node_id: str, mode: str, substrate: str, model_id: str, model_sha: str, engine_sha: str, run_id: str) -> Dict[str, Any]:
     check_mode(mode)
     before = verify_state(root)
-    text = sanitize_public_text(input_path.read_text(encoding="utf-8"))
+    text, normalization = normalize_model_output(input_path.read_text(encoding="utf-8"))
+    text = sanitize_public_text(text)
     state = load_state(root)
     ident = "dream-" + digest({"head": before["head"], "text": text, "model": model_sha, "run": run_id})[:16]
     record = seal_record({
@@ -363,6 +385,7 @@ def accept_dream(root: pathlib.Path, input_path: pathlib.Path, node_id: str, mod
             "model_sha256": model_sha,
             "engine_sha256": engine_sha,
             "run_id": run_id,
+            "normalization": normalization,
         },
         "promoted_to_fact": False,
         "experiential_conclusion": "Unknown",

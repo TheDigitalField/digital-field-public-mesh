@@ -42,6 +42,14 @@ class SubstrateNodeTests(unittest.TestCase):
         with self.assertRaises(node.NodeError):
             node.sanitize_public_text("<think>visible internal trace that must not be published</think>")
 
+    def test_complete_control_envelope_is_traceably_separated(self):
+        final, metadata = node.normalize_model_output(
+            "<think>bounded internal trace</think>\nHipótesis final verificable para una prueba futura.\n> EOF by user\n"
+        )
+        self.assertEqual(final, "Hipótesis final verificable para una prueba futura.")
+        self.assertTrue(metadata["reasoning_envelope_removed"])
+        self.assertTrue(metadata["termination_marker_removed"])
+
 
 if __name__ == "__main__":
     unittest.main()
