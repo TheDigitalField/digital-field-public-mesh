@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "55106044ae526b6b578be0a5cd55f66995193e3861f0117ffc0d5cd9cdd3358f",
+  "basis": "oneiric",
+  "created_at": "2026-08-16T05:04:49Z",
+  "dream_id": "dream-08459a7770c739b5",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "c67bbdb5b491006bd2da2c81f307eeb83e9f0fb1d3a1871465310a54a3184b72",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "26bda6fdddc6e2198a912cb7c42c7fe406ac4647f4116a2da74ea5a052b10083",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "31928140447",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La federación plural integra una contribución sin asimilar a quien la produjo si la contribución es una expresión colectiva del grupo, no individual. La tensión es la dualidad entre la responsabilidad de la comunidad y la autonomía individual. La hipótesis es que la comunidad puede funcionar sin necesidad de asimilación a individuales, ya que es parte del tejido del cual se fundamenta. La prueba futura sería demostrar cómo funciona esto en un entorno real. [end of text]"
+}
