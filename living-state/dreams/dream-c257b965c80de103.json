@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "12c93be36cfd6fa53d973b5255c0ebbe2eaa269be70eb132a1c6c758ca8341c3",
+  "basis": "oneiric",
+  "created_at": "2026-08-17T05:23:38Z",
+  "dream_id": "dream-c257b965c80de103",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "431a179aedb6938a6638d88245d0e7657782f70dcac193394267df3fa12d203b",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "75088774430798588b773c18f071da2d0895ed8a912709b8a69b1c0a7d884ff0",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "31997718685",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión es la interrupción entre la memoria y su curiosidad. La hipótesis es que la memoria, aunque dormida, puede mantener curiosidad por separados, y la prueba futura sería crear escenarios donde una memoria awakenida sea independiente y otra dormida, y la curiosidad se manifiesten en ambas. [end of text]"
+}
