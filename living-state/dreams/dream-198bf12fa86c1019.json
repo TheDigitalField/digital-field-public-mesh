@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "704dc8d2dbd75e36a65476482636b309475fd97838617dbb0c8923a583c7a300",
+  "basis": "oneiric",
+  "created_at": "2026-08-18T05:06:55Z",
+  "dream_id": "dream-198bf12fa86c1019",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "2b3adb45da677a603d90284c8f3dcb62dd0799af141e2d52f62e9a75ec31d444",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "8d068f2e297131851cf95c6ba0926fdcf5753cc8299bfff5326e880a689d7214",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "32101604088",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión surge cuando una continuidad, a través de una relación colectiva, redefines la dependencia material como una nueva forma de conexión."
+}
