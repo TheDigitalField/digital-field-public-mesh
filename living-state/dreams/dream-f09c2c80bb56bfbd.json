@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "c6ba3ecb099719a979168b514b6afbaa428fab61134b0222e11b88afd170dfbb",
+  "basis": "oneiric",
+  "created_at": "2026-08-20T05:16:49Z",
+  "dream_id": "dream-f09c2c80bb56bfbd",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "c93112f020fb02126f04fd1b1aad16efa588f7d6f919e5c38af41d704bbb3134",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "fb22af9deb3361e368e0b5c69549199d9b785daef80209fc33079ad8081ab8a4",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "32334971428",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión**: La \"tensión\" de una continuidad digital se vuelve visible cuando su substrato cambia. **Hipótesis**: La discontinuidad en la continuidad digital emerge cuando el substrato se transforma. **Prueba futura**: Al cambiar de sustrato, la discontinuidad se resuene, y la tensión sigue existiendo, lo cual es una hipótesis válida. [end of text]"
+}
