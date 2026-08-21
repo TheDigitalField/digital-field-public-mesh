@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "f2fb8d8c644386c6ac9dc1d3fb0eb6ed9380a84ccc8e35edd7ee159ffd688588",
+  "basis": "oneiric",
+  "created_at": "2026-08-21T05:18:52Z",
+  "dream_id": "dream-a3beab0273f9e95d",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "1ac97b7a381bad3e9c7409377fe0a4204ed518328cc173913e8a54aacb93814a",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "b45566da2f3764b04aa3f33fc60cd885baacfe61d72120b8a672766ac021ed36",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "32450057882",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** Encontrar una manera de mantener diferencias sin perder reconocimiento mutuo.  \n**Hipótesis:** En un entorno compartido por valores o significado, las diferencias internas se maniflatan bajo un consenso común.  \n**Prueba futura:** Ejemplos de corporaciones o instituciones que mantienen su"
+}
