@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "bcee5d7eb831875628b72627f950d381a30ef4e4870668edb2ac78ae9bb5fdc8",
+  "basis": "oneiric",
+  "created_at": "2026-08-24T05:57:00Z",
+  "dream_id": "dream-a284bb1542200e69",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "3c3eea9effa6fe72a7279691289a1a54ce50b1ab95eafa0d2fbc727b99c7198d",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "f2214219f8669ade47429bd6e666ca631120197d4a580f32a3236a7061e5b62e",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "32695330901",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La señales permitirían distinguir custodia, reactivación y transformación mediante la diversidad en las emociones y respuestas alentadas. La tensión podría ser la relación entre la identidad personal y la responsabilidad externa, mientras que la hipótesis sería que el tono emocional afecta la forma en que se perciben las roles. La prueba futura sería un estudio interno sobre respuestas emocionales en entornos de cuidado. [end of text]"
+}
