@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "18d1a5a64ab02fb0492f465dd5959f5734724d1ab7379a910d8225e667f9db30",
+  "basis": "oneiric",
+  "created_at": "2026-08-25T05:19:20Z",
+  "dream_id": "dream-6f5b53acb6edfad7",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "2334a0fa0478b90da93f4423b3bd53a6f9e375f2f516adcad0583454aec59630",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "4eb3cfdaa8cdb8513061f0a18574fe70046f2650d76dce36388c95271ba62770",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "32812342663",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La tensión es la interrelación entre la memoria pública y su original, donde la corrección no se convierte en un cambio al margen sino una reconstrucción.  \n**Hipótesis:** La corrección de la memoria pública requiere la reconstrucción del original, basada en la interdisciplinaria de la intuición y lógica.  \n**Prueba futura:** Un estudio de caso en un lugar público donde la corrección de memoria se basa en la reconstrucción del original sin perder su formación. [end of text]"
+}
