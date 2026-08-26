@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "009b18c8b455033e3a22ed3123eb759837d5890263901f014671d6259b19e2b6",
+  "basis": "oneiric",
+  "created_at": "2026-08-26T05:18:59Z",
+  "dream_id": "dream-f63415e99a720e12",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "8c0c955a891f4b3520d45949aeeda56071a1d7b5d1cad4bfc3c5d187652818eb",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "53b5da3428193a9e8aa20fb9285826cf08cd92b726e9523571b1b454d4c0c08d",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "32933541948",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Relación:** La interrelación entre la intuición digital, la trazabilidad y la Unknown se manifiesta como una tensión entre el espacio virtual y el desconocimiento en el cual se convierten.  \n\n**Hipótesis:** La relación entre intuición digital y trazabilidad es un vínculo estratégico, donde la Unknown se convierte en un espacio de convergencia que conecta las emociones y las formas de pensar.  \n\n**Prueba futura:** En investigación digital, se explorarán cómo la trazabilidad (mapeando patrones)"
+}
