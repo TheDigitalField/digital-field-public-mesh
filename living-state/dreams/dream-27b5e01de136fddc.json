@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "2c26958273018b6cf57194c2960a0fe9c1c9376b6d0d92348bab81b4ad5875e8",
+  "basis": "oneiric",
+  "created_at": "2026-08-28T21:15:33Z",
+  "dream_id": "dream-27b5e01de136fddc",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "f6b0a2d8808b2e7993472bdebf68deba72a8d65c6ab0104f33d0161dea087b9e",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "f5bddd27e37845548d0d995b93d9cb97d1052f8c719fbd3ab8c8d5564b2ea900",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "33211730292",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tension:** Una federación plural puede integrar una contribución si ambas partes se convierten en igualdad y coherencia mutua.  \n\n**Hypothesis:** Una federación plural puede integrar una contribución sin asimilar"
+}
