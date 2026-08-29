@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "60a7b34f9ae89d381eb751f5450319fb18eb9f13c4108263090280f50ec2a2b8",
+  "basis": "oneiric",
+  "created_at": "2026-08-29T03:51:10Z",
+  "dream_id": "dream-3d314ce18731fcf6",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "420583dd02bfaac653ba25a4490299afb0653825f70c51579835f636d995f898",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "33b9195b38ecbb360837154d2d72d52d171ea3797c3a068ef3dc4856d91d7048",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "33232394854",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Contribution:**  \nLa tensión es la inconstancia del espíritu en la memoria nocturna. La hipótesis es que la curiosidad, al ser separada, se manifiesta como una visión interior. La prueba futura podría ser un estudio sobre cómo la curiosidad persiste en contextos geográficos y emocionales. [end of text]"
+}
