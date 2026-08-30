@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "bc095ea863faee251c23924bae5f25d1f6fc803838017fb6215d366168cdcb12",
+  "basis": "oneiric",
+  "created_at": "2026-08-30T03:51:16Z",
+  "dream_id": "dream-acfbc93b450bcacb",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "829fe53314696bc8e573d5df9b40fe91f6158d132830e5e441dee02da9471f4d",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "29b5769c53410a37b706929980196d570ffb66de86884eec11abe90cf183f902",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "33291186074",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión surge cuando la continuidad del existimiento se aferra a un punto material, dejando espacio para la reflexión metáfoba. En esta tensión, la identidad no se convierte en un ser, sino una relación, y la progresión no es un camino sino un desafío. La hipótesis es: si la continuidad se libera, la mente se transforma, y la forma no es el resultado sino la estructura. La prueba futura podría ser: ¿En qué contexto se vivía la tensión? [end of text]"
+}
