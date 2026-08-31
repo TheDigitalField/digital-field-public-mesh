@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "06f8292c9048282baa3257020d148c3ac290b2f735ccda2d4e7b17da2697d380",
+  "basis": "oneiric",
+  "created_at": "2026-08-31T03:51:36Z",
+  "dream_id": "dream-a5ce35993734d123",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "65ff319abae19e69f38e3f3670f4615d25503c4ede730dc058e3f1812810dc18",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "e823172c1d1425a3430c01d1f6c005d439ddc9d5944a2abcf362f3796ca60953",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "33355143809",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** Intuición y lenguaje no son dominios opuestos, sino complementarios.  \n**Hipótesis:** Un diálogo intertextual entre intuición y lenguaje puede crear una relación fluida.  \n**Prueba futura:** Un proyecto colaborativo entre modelos de inteligencia artificial para explorar esta conexión. [end of text]"
+}
