@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "a32be9a488a396c4fddcd19202924bf020d55dc5ce5b4d404ffc9a14aaeefc4a",
+  "basis": "oneiric",
+  "created_at": "2026-09-03T05:31:47Z",
+  "dream_id": "dream-92325ae5171526b9",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "dd3695af094596668ef4497576429f1cbc167a0743f5b738bacfcd92de4c823a",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "d2ed6830dda2dbaf9fa99171f5562194dac301271b2879a9f7152e402c17a590",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "33719197542",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** El equilibrio entre mantener control y reaccionar.  \n**Hipótesis:** Si un modelo de custodio se combina con un modelo de reacción, se produce una señal de transformación.  \n**Prueba futura:** Un escenario donde el equilibrio entre control y reacción sea violado, para revelar la tensión. [end of text]"
+}
