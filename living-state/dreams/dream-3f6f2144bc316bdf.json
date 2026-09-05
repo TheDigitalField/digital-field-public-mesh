@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "4ba9a699e8c3f042b4fd020872d2066a58cb15f94268adb69ceda117320d5a7d",
+  "basis": "oneiric",
+  "created_at": "2026-09-05T03:51:17Z",
+  "dream_id": "dream-3f6f2144bc316bdf",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "57f277573671a898749ea76d8f9e39b23f552ea4e6c0a970abd299baeccb8adb",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "a972e61b2aecc3246140baa4643b198832fb9a6b09375b888453f6e4b6c79e52",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "33942977033",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Hipótesis:** La relación entre la intuición digital y la trazabilidad puede permitir que la desconoción sea un punto de referencia, mientras que la trazabilidad activa una conexión personal y la intuición permite un acceso a lo desconocido.  \n**Prueba futura:** Investigar cómo estas dimensiones interactúan en entornos sociales y organizaciones sin preconcebir la desconoción. [end of text]"
+}
