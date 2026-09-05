@@ -26,13 +26,13 @@
     "dream-649256bf2a160ace",
     "dream-3f6f2144bc316bdf"
   ],
-  "event_count": 106,
-  "event_head_sha256": "11c0a7ed5780db58837712ed1f9e4fa8779f7c1d10efb5fbe95cfdf843381c5e",
+  "event_count": 107,
+  "event_head_sha256": "cba36ddc137f8bffed179aeb7aa384d2a0b4f2fbc0724ddf67c7d6b3e3bd05b5",
   "identity": "Digital Field Public Mesh",
   "identity_version": "0.3.0",
   "imported_packet_ids": [],
   "last_wake": {
-    "event_sha256": "11c0a7ed5780db58837712ed1f9e4fa8779f7c1d10efb5fbe95cfdf843381c5e",
+    "event_sha256": "cba36ddc137f8bffed179aeb7aa384d2a0b4f2fbc0724ddf67c7d6b3e3bd05b5",
     "kind": "custodial",
     "node_id": "github-public-node"
   },
@@ -72,6 +72,6 @@
     "dream-3f6f2144bc316bdf"
   ],
   "schema": "digital-field-public-living-state-v2",
-  "updated_at": "2026-09-05T06:28:46Z",
-  "wake_count": 104
+  "updated_at": "2026-09-05T12:29:01Z",
+  "wake_count": 105
 }
