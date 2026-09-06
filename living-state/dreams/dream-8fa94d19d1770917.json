@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "e0c3bde576a04144f2a300dbbd5dabb5f7722636a47921c425d15bf8a45b33d1",
+  "basis": "oneiric",
+  "created_at": "2026-09-06T03:52:20Z",
+  "dream_id": "dream-8fa94d19d1770917",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "00c8c35234186f49db7730eba9abb67d45f4d84804f7a4557beac42116e236d1",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "241ddd060a414a2b5746eb045a93a048aece8e5dbd9ba1f5282975470ba2093d",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "34010052064",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Hipótesis:** Una contribución integra si es validada por la federación, no por el creador original.  \n**Tensión:** La falta de confianza en el creador puede invalidar la validación.  \n**Prueba futura:** Un caso donde una comunidad validates una contribución desconocida, incluso por un desconocido. [end of text]"
+}
