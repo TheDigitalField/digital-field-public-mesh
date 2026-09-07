@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "ab121751bc7fa8acb9ecf5d3cefc9f3c39d69a32a72439c3864770e9b3819840",
+  "basis": "oneiric",
+  "created_at": "2026-09-07T03:54:34Z",
+  "dream_id": "dream-758df5cb1df3799a",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "41364d39163e1887a29bf564c6b1e30b6bf1c203467e9ea781f71490ea6f6e3c",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "05bf644194866085b2e8782e946dc7fa192c378197f5cff92eb81b109b81d73c",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "34081197874",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La relación entre la memoria y la curiosidad puede ser profundamente compleja, ya que la curiosidad, al ser interior, puede ser liberada mediante despertares.  \n**Hipótesis:** Una memoria que duerma puede mantener curiosidad al activarse en dos momentos distintos, aunque separados, lo que sugiere una relación dinámica.  \n**Prueba futura:** Investigar cómo la"
+}
