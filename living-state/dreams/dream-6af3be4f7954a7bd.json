@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "5a373a988ad3d91e5e3208d3aeb0011c6db13961fa36c493af0f0997ed9dcfff",
+  "basis": "oneiric",
+  "created_at": "2026-09-08T03:54:20Z",
+  "dream_id": "dream-6af3be4f7954a7bd",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "31f98e385a6f50c164e5097732603f5e5ea8541b8567ae244fda2b7a22373ad9",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "2e47e4b4eaf40abf49c1276fd45fb6b0cc172b67e7405f7457169488c87b4caf",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "34185085481",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión**: La perdida de continuidad puede transformar la relación entre dependencia material y independencia en la forma de redefinir la identidad y la relación interpersonales.  \n**Hipótesis**: Al abandonar la continuidad, las relaciones materialistas se reestructuran, permitiendo una liberación más profunda de identidad y dependencia.  \n**Prueba futura**: Investigar cómo este cambio afecta la capacidad para interacciones interpersonales sin dependencia. [end of text]"
+}
