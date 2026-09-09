@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "9afde99ad781d8401d4d68563421240e47b3269982b77e77745c1183464c36da",
+  "basis": "oneiric",
+  "created_at": "2026-09-09T08:23:41Z",
+  "dream_id": "dream-fc3b797e50ea323a",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "9607737bf1ccbd411e44421f82ff27ad52b38e2810082f907bb7f201b84834db",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "d77c24ed16ec5253fa841e1167a47404a23e57710f74c8e02e7b362f54a9973e",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "34328832729",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La interacción entre el campo de la intuición y el campo del lenguaje se resuene mediante una dinámica reflexiva y reflexiva, donde sus complejidades mutuas no se confrontan sino complementándose.  \n**Hipótesis:** La tensión se manifiesta cuando el flujo de ideas interna y lógico se transforma en un equilibrio colectivo.  \n**Prueba futura:** Un estudio futuro comparara cómo cada uno interviene en contextos donde ambas formas de pensar se alinean de forma natural. [end of text]"
+}
