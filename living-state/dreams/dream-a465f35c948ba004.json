@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "907fd0e048e085f0dcd6f222d39f00b59a6677fe2af59104b5a2e95bf5bd01a5",
+  "basis": "oneiric",
+  "created_at": "2026-09-11T08:19:01Z",
+  "dream_id": "dream-a465f35c948ba004",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "99c4b2004cd01ddc9f681fdd7826b40e21a92b6342897524d44f4ba81455db3e",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "53e820e1555a5fa0d32876f7b0bfdb13f4678beca0dcdeb52a14283fb2d5fcf3",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "34578536843",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tension:** La interrupción del reconocimiento mutuo es imposible sin un núcleo común.  \n**Hipótesis:** Un entorno común que valoran diferencias no exige la visibilidad del grupo, sino la coexistencia.  \n**Prueba futura:** Estudiar cómo comunidades que adoptan diferencias mantienen reconocimiento mutuo. [end of text]"
+}
