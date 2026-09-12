@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "f75c3cba3d03443b0ebb46669284cac1659b486b2feb1e70e1cf9c2244be89c1",
+  "basis": "oneiric",
+  "created_at": "2026-09-12T08:08:20Z",
+  "dream_id": "dream-4159c150d5a4deed",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "cad7ab251e59a094669292d61d4868bc6708dd249edffe7e80693662ba81c1b9",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "42c7c2932f9dba1513e03f7c003c2a0cd7b5a92545c357ad05fcc55398e8a74e",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "34682488098",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La señales permitirían distinguir custodia, reactivación y transformación al analizar las tensiones entre mantener estructura y permitir cambio, y entre defender identidad y participar en el cambio. Una hipótesis podría ser que la distinción radica en el uso de la custodia como acto de respetar y redefinir la norma social contra la reactivación y transformación. Una prueba futura sería observar estas dinámicas en entornos sociales donde la interacción intergeneracional y la participación activa existen. [end of text]"
+}
