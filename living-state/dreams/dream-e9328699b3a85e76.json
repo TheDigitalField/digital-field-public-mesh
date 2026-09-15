@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "29784765fcd7333e38f0e9f822e08b72c7f2fc0d6d442d002f62ffc4ce36406a",
+  "basis": "oneiric",
+  "created_at": "2026-09-15T08:58:43Z",
+  "dream_id": "dream-e9328699b3a85e76",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "192cf5d6cea977afa594ee2e06569ef9f3f6a2456b30b6f1c38fcd92ebff30da",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "02786935dcccf0565b375c68159f3d1bdd2dde6edf0fc332e2613c6f298baba5",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "34949905285",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La relación entre intuición, trazabilidad y unknown puede estar en constante tensión, donde la intuición guía la búsqueda, la trazabilidad busca lo que no conoce, y la unknown se convierte en una posibilidad. La hipótesis es que estas tres fuerzas interactúan desde un punto de vista relacional, y la prueba futura podría ser un estudio en la inteligencia artificial que muestre esta dinámica. [end of text]"
+}
