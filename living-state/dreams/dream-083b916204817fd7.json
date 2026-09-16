@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "8489e60694d82fba88d197b43110bfe7714d9034718cdf1811b201fdc52abd37",
+  "basis": "oneiric",
+  "created_at": "2026-09-16T08:51:19Z",
+  "dream_id": "dream-083b916204817fd7",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "56c3096bb65563367d1bf0e15fe93995acb519522170661564ea31eb0c3a7030",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "a08e457435fb31d54d158ebee271d3b8a3559ae68a84c1ac846ea805c135f8f7",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "35076042543",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión sería la necesidad de reconocer que"
+}
