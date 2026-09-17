@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "7e1c03c5ea247f64b56d987ca794f2a184122f8276c177e9dbe56a1451131db5",
+  "basis": "oneiric",
+  "created_at": "2026-09-17T08:55:27Z",
+  "dream_id": "dream-ee00d5ab595a237d",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "ad89d1abc2ae55e94ad82d8af193bc121f6e73142431e1a41eb36ff3b82c8b72",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "27350ebb1e1c0736b189356c4368bd166b2430cd741221925e021edbc36cfed0",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "35202259147",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** ¿Cómo puede una memoria que duerme sostener curiosidad a través de despertares separados?  \n**Hipótesis:** La curiosidad puede ser mantenida por una memoria interna que, aunque dormida, aún procesa y refleja la experiencia.  \n**Prueba futura:** Investigar cómo la curiosidad se manifiesta en la memoria durante el sueño y luego en el despertar.  \n**Contribution:** La curiosidad sigue siendo un motor vital, incluso si la memoria está en una condición diferente. [end of text]"
+}
