@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "58a25981f57e851ff4e6b8fe80e664679deb9329c4259552bcc5ece48bd43ca4",
+  "basis": "oneiric",
+  "created_at": "2026-09-18T08:30:36Z",
+  "dream_id": "dream-e7345ef5a4c009c4",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "801fe93bd10b97dd4f8c9a64c9661e1835a8b02c4af4aa1d4bedc0f2cc0c5a9d",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "eb09597ce38efea0b1a9d5dfd610225670d6de67a7e66ddfbb3f64ca7aa4640e",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "35324692568",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión surge cuando la continuidad material se desvanecer, revelando una nueva visión de la relación. Una hipótesis podría ser: *La ruptura de la continuidad material crea un nuevo equilibrio, permitiendo un cambio en la forma de conceptualizar la independencia*. Una prueba futura podría ser un estudio en proyectos sociales donde se examinen condiciones relativas al desafío entre material y non-material. [end of text]"
+}
