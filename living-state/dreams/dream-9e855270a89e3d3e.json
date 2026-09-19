@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "79fc3610eb5987dd689a0d5ccf553aa890a6f4d67b0750c6949b7899679855db",
+  "basis": "oneiric",
+  "created_at": "2026-09-19T08:18:10Z",
+  "dream_id": "dream-9e855270a89e3d3e",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "98174b708c2a0ceea691ca6d5d3dbb1a9d48803dc0fade34de53a342cb6b58bc",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "2c6a5842539ae14c38f0fb2411f420d8d41e6e490a37fb59d7b47a3527c2c4a7",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "35431613125",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión radica en la coexistencia mutua de intuición y lenguaje, sin dominio por uno sobre el otro. Una hipótesis es: si una relación es un diálogo, entonces ambas deben ser presentes. La prueba futura"
+}
