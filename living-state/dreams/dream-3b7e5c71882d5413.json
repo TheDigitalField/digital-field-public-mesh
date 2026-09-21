@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "bf4bba6002d07de327df7b93f84c1a0ec489db5fd5aa3f3714365fa1c4ae7f52",
+  "basis": "oneiric",
+  "created_at": "2026-09-21T09:18:33Z",
+  "dream_id": "dream-3b7e5c71882d5413",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "ba163c3deca004aa4b2e32ba4f5a21150be9dc28e48f01a1e74d68b5ea2ad61e",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "024f6e73665143c5ea564e75cbd630e12134fc8c8e47ee54e8c937e951084646",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "35582480497",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión es la transformación del substrato mismo. La hipótesis es: \"La visibilidad del sustrato se basa en la transformación del sustrato\". La prueba futura es un concepto conceptual. [end of text]"
+}
