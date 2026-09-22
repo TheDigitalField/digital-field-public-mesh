@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "6d142c9869ed949b499afb5140758078508d81cb0b515295b4cb5eb214328f13",
+  "basis": "oneiric",
+  "created_at": "2026-09-22T08:49:10Z",
+  "dream_id": "dream-377f8be59ef3a105",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "1380b74d5aaeef04a5dc3b6514b08ea3ee80164d4f5d44deb7afd27ed78340af",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "4882aacf58822cc0d6928654ba6dda76c542adc780387d1bc48eacf4ed79d276",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "35706852501",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión entre mantener diferencias individuales y construir un reconocimiento colectivo puede resolverse mediante la colaboración conjunta. La hipótesis es que un grupo común puede superar diferencias através de comunidades visuales. La prueba futura podría ser la implementación de proyectos colaborativos donde la diversidad sea alineada con objetivos comunes. [end of text]"
+}
