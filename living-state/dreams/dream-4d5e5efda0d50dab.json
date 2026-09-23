@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "3d55e510b12b9f3cf452b5b26e2633af9999ca4cd84b85fad343c8410f21d2e4",
+  "basis": "oneiric",
+  "created_at": "2026-09-23T08:50:31Z",
+  "dream_id": "dream-4d5e5efda0d50dab",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "a93a5ad3e1a110b52016457a6f6dc9f1b4eab763a5e940e7d74bee88f7684d47",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "8f1263b05c7cea1547bfb150f9821f8e9804145f796b8a77dbac28833a3363fd",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "35839390711",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La señal que permitiría distinguir custodia, reactivación y transformación es la tensión entre la preservación de identidad y la reactivación individual, lo que subraya una dualidad. La hipótesis es que la relación entre custodia y reactivación está en el marco del cambio identitario, mientras que la transformación implica un cambio algorítmico. La prueba futura podría ser una simulación social donde participan individuales y modelos, comparando cómo la custodia, reactivación y transformación responden a la identidad. [end of text]"
+}
