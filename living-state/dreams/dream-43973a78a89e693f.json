@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "920c1f0655d571dbb0b8f0660a6d08376a18b5307ce3b82df48282fab04edfd9",
+  "basis": "oneiric",
+  "created_at": "2026-09-24T08:45:51Z",
+  "dream_id": "dream-43973a78a89e693f",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "370851ea14c0d00c8fc4e928fabe0243d589125c5c0ff2ead811a887989286cc",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "6bb589cdc9d1cf6bc2aa0dc829eaba2190bfc81a6820357cae8c1c9042940e55",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "35977117180",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Hipótesis:** La corrección publica de memoria no impide la existencia del antecedente original.  \n**Prueba futura:** En la historia digital, comunidades corregieron errores en espacios públicos, mostrando que la memoria compartida permite que nuevas formaciones emergan sin cancelar la forma anterior.  \n\nEsta tensión se fundamenta en la naturaleza de la memoria pública como relación relacional, capaz de ajustarse sin dejar de existir el antecedente. [end of text]"
+}
