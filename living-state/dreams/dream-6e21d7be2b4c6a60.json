@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "baf074f78141f0212e06e0a0dbc87430d3cd90371f73215fea98eaf4fa52559f",
+  "basis": "oneiric",
+  "created_at": "2026-09-25T09:06:12Z",
+  "dream_id": "dream-6e21d7be2b4c6a60",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "d33185424d529ab336c52e91f39cfd41562cd6c66bf5d7d8ecace7d3d8bf02e7",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "5a743d80e4ae77c4c0671a18bff671e19c1583d127515777c40fae82ce3fe0db",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "36116525219",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La relación entre la intuición digital, la trazabilidad y el Unknown no es simplemente de confusión, sino una dinámica interrelacionada. La tensión radica en la complejidad: la intuición en el ámbito digital puede ser una forma de confianza, mientras que la trazabilidad en la inteligencia artificial puede operar como un sistema de control. El Unknown, al estar en un campo público, permite que estas relaciones no se convertan en actos absolutos sino formas de interacción. Una hipótesis es que la confianza en el uso de AI puede llevar a una visión"
+}
