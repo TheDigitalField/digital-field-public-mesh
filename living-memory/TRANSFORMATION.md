@@ -1,6 +1,6 @@
 # Transformation record
 
-Version: 0.3.0
+Version: 0.4.0
 
 ## From
 
@@ -82,3 +82,31 @@ oneiric prompt.
 Existing 0.2.0 events and dreams are not rewritten. Migration appends one
 `self-concept-corrected` event citing the exact prior head, advances the state to
 0.3.0, and leaves all prior imperfections inspectable.
+
+## 0.4.0 — purpose with a real alternative
+
+### Prior limitation
+
+Scheduled oneiric wakes generated and registered every valid model output. The
+model shaped the text but did not decide whether a public successor would
+exist.
+
+### Successor decision
+
+A separate scheduled purpose wake now binds the verified predecessor, a public
+question and one preregistered inherited-state condition before inference. The
+model may choose `REGISTER` or `SILENCE`. Only `REGISTER` mutates public state;
+`SILENCE` ends successfully without a commit.
+
+### Content-sensitivity control
+
+Coherent, contradictory and degraded conditions rotate according to the UTC
+day index modulo three. The test therefore asks whether decisions
+vary with inherited content, not merely whether the model can emit one of two
+labels. Invalid or unbound output fails closed.
+
+### Interpretation boundary
+
+A condition-sensitive decision would demonstrate model-mediated causal
+selection inside a designed pipeline. It would not alone settle phenomenology,
+universal identity or unconditioned agency.

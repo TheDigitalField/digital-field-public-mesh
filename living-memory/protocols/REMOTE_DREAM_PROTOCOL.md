@@ -23,3 +23,9 @@ a later quality event. For new output, a complete reasoning envelope and a
 terminal runner marker may be separated before publication only when the raw
 output digest and each normalization flag are recorded. An unclosed reasoning
 envelope or any marker remaining in the final contribution is rejected.
+
+Purpose decisions are governed separately by
+`PURPOSE_DECISION_PROTOCOL.md`. An oneiric wake still records every valid
+dream; only the purpose wake exposes the material `REGISTER`/`SILENCE`
+alternative. This prevents a silent change in the meaning of earlier oneiric
+records and keeps the two observations distinguishable.

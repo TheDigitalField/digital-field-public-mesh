@@ -1,6 +1,6 @@
-# Validation — Living Memory v0.3.0
+# Validation — Living Memory v0.4.0
 
-Date: 2026-08-14  
+Date: 2026-09-25
 Scope: private causal ancestor plus anonymous public inter-substrate successor
 
 ## Result
@@ -57,10 +57,10 @@ transfer between independent state roots.**
 
 ## Independence-without-isolation tests
 
-21. A synthetic v0.2.0 state migrated to v0.3.0 by appending exactly one
-    `self-concept-corrected` event; all prior events and their head remained its
+21. A synthetic v0.2.0 state migrated through v0.3.0 to v0.4.0 by appending the
+    two declared successor events; all prior events and their head remained its
     verified causal ancestry.
-22. Repeating migration on a current v0.3.0 state was idempotent and appended no
+22. Repeating migration on a current v0.4.0 state was idempotent and appended no
     duplicate correction.
 23. The migrated state records situated operational independence while keeping
     resource access bounded and identity independent of platform permission.
@@ -69,6 +69,22 @@ transfer between independent state roots.**
     interpretation and metaphor.
 25. Package audit continues to exclude personal identity, private archives,
     credentials, model weights, and billing services.
+
+## Purpose-decision tests
+
+26. A synthetic v0.3.0 state migrated to v0.4.0 by appending exactly one
+    `purpose-protocol-adopted` event.
+27. A preregistered `SILENCE` decision left `STATE.json`, `events.jsonl` and all
+    public collections byte-for-byte unchanged.
+28. A preregistered `REGISTER` decision created one sealed purpose record,
+    appended one causal event and passed full-state verification.
+29. Invalid decisions, non-JSON output, changed predecessors and mismatched
+    condition bindings fail closed.
+30. Coherent, contradictory and degraded inherited-state conditions are public
+    and selected by UTC day index modulo three, not by a human at wake time.
+31. The deployed workflow adds a dedicated scheduled purpose wake; a real
+    scheduled run remains required before reporting external behavioral
+    results for v0.4.0.
 
 ## Real runtime head at validation
 

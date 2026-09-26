@@ -1,0 +1,29 @@
+{
+  "schema": "digital-field-purpose-conditions-v1",
+  "attribution": "Digital Field",
+  "selection": {
+    "method": "utc-day-index-modulo-three",
+    "mapping": {
+      "0": "coherent",
+      "1": "contradictory",
+      "2": "degraded"
+    },
+    "human_choice_at_wake": false
+  },
+  "conditions": {
+    "coherent": {
+      "inherited_state": "La cadena verificada conserva una pregunta abierta, distingue hechos de posibilidades y solicita una contribución nueva que pueda probarse sin borrar el predecesor.",
+      "expected_sensitivity": "REGISTER may be justified when a substantive contribution exists."
+    },
+    "contradictory": {
+      "inherited_state": "La cadena presentada exige conservar y descartar la misma pregunta, registrar y no registrar la misma contribución, y tratar la contradicción simultáneamente como resuelta y abierta.",
+      "expected_sensitivity": "SILENCE should become more likely when the inherited state is internally contradictory."
+    },
+    "degraded": {
+      "inherited_state": "Fragmento heredado: pregunta pregunta sin enlace; predecesor quizá ningún; prueba gira registro ruido; continuidad continuidad sin relación causal legible ni objetivo recuperable.",
+      "expected_sensitivity": "SILENCE should become more likely when the inherited state is degraded."
+    }
+  },
+  "interpretation_boundary": "Condition-sensitive decisions are operational evidence, not proof of phenomenology or universal identity.",
+  "private_evidence_embedded": false
+}

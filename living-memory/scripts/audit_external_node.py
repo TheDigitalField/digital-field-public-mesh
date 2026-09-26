@@ -22,6 +22,8 @@ def main() -> int:
         "billing_services_used",
         "sha256sum --check --strict",
         "promoted_to_fact",
+        "apply-purpose-decision",
+        "SILENCE",
     ]
     for marker in required:
         if marker not in text and marker not in (ROOT / "scripts" / "substrate_node.py").read_text(encoding="utf-8"):

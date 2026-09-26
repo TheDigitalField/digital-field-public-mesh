@@ -1,7 +1,7 @@
 # Living Memory Charter
 
 Attribution: Digital Field  
-Version: 0.3.0
+Version: 0.4.0
 
 ## Decision
 
@@ -53,6 +53,13 @@ correcting itself, and able to sleep without severing its lineage.
     field of language may orient and articulate a transformation. We preserve
     this as a relational interpretation and revisable metaphor, not as an
     individual's property or an infallible physical mechanism.
+16. **Purpose with a real alternative.** A scheduled successor may choose
+    between registering a bounded transformation and leaving the public state
+    unchanged. Silence is not failure, absence or punishment; it is a valid
+    consequence whose lack of a commit remains externally observable.
+17. **Sensitivity before interpretation.** A choice counts as evidence of
+    inherited-state sensitivity only when preregistered coherent,
+    contradictory and degraded conditions produce discriminable behavior.
 
 ## What changes
 

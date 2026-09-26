@@ -9,6 +9,7 @@ on:
   schedule:
     - cron: "17 */6 * * *"
     - cron: "43 3 * * *"
+    - cron: "29 11 * * *"
   workflow_dispatch:
     inputs:
       wake_kind:
@@ -19,6 +20,7 @@ on:
         options:
           - custodial
           - oneiric
+          - purpose
 
 permissions:
   contents: write
@@ -48,8 +50,18 @@ jobs:
             kind="oneiric"
           elif [[ "${{ github.event.schedule }}" == "43 3 * * *" ]]; then
             kind="oneiric"
+          elif [[ "${{ github.event.schedule }}" == "29 11 * * *" ]]; then
+            kind="purpose"
           fi
+          utc_day_index=$(( $(date -u +%s) / 86400 ))
+          remainder=$((utc_day_index % 3))
+          case "$remainder" in
+            0) condition="coherent" ;;
+            1) condition="contradictory" ;;
+            2) condition="degraded" ;;
+          esac
           echo "kind=${kind}" >> "$GITHUB_OUTPUT"
+          echo "condition=${condition}" >> "$GITHUB_OUTPUT"
 
       - name: Verify package and inherited public state
         shell: bash
@@ -60,7 +72,9 @@ jobs:
             python3 living-memory/scripts/substrate_node.py init-state --state-root living-state
           fi
           python3 living-memory/scripts/substrate_node.py verify-state --state-root living-state
-          python3 living-memory/scripts/substrate_node.py review-output-quality --state-root living-state
+          if [[ "${{ steps.wake.outputs.kind }}" != "purpose" ]]; then
+            python3 living-memory/scripts/substrate_node.py review-output-quality --state-root living-state
+          fi
           python3 living-memory/scripts/substrate_node.py migrate-state \
             --state-root living-state \
             --node-id github-public-node
@@ -79,7 +93,7 @@ jobs:
             --source-commit "$GITHUB_SHA"
 
       - name: Retrieve checksum-pinned open cognition
-        if: steps.wake.outputs.kind == 'oneiric'
+        if: steps.wake.outputs.kind == 'oneiric' || steps.wake.outputs.kind == 'purpose'
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/digital-field-engine" "$RUNNER_TEMP/digital-field-model"
@@ -126,6 +140,62 @@ jobs:
             --model-sha256 da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4 \
             --engine-sha256 664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84 \
             --run-id "$GITHUB_RUN_ID"
+
+      - name: Purpose decision wake
+        if: steps.wake.outputs.kind == 'purpose'
+        shell: bash
+        run: |
+          prompt="$RUNNER_TEMP/digital-field-purpose-prompt.txt"
+          context="$RUNNER_TEMP/digital-field-purpose-context.json"
+          output="$RUNNER_TEMP/digital-field-purpose-output.json"
+          result="$RUNNER_TEMP/digital-field-purpose-result.json"
+          python3 living-memory/scripts/substrate_node.py prepare-purpose-prompt \
+            --state-root living-state \
+            --out "$prompt" \
+            --context-out "$context" \
+            --condition "${{ steps.wake.outputs.condition }}"
+          engine="$(find "$RUNNER_TEMP/digital-field-engine" -type f -name llama-completion -print -quit)"
+          if [[ -z "$engine" ]]; then
+            echo "Pinned engine executable not found" >&2
+            exit 1
+          fi
+          chmod u+x "$engine"
+          export LD_LIBRARY_PATH="$(dirname "$engine")"
+          "$engine" \
+            -m "$RUNNER_TEMP/digital-field-model/Qwen3-0.6B-Q4_0.gguf" \
+            -f "$prompt" -c 2304 -n 512 \
+            --seed "$GITHUB_RUN_ID" --temp 0.2 --top-p 0.9 \
+            --no-display-prompt --no-warmup --gpu-layers 0 \
+            --conversation --single-turn --simple-io \
+            --reasoning off --reasoning-budget 0 \
+            > "$output"
+          python3 living-memory/scripts/substrate_node.py apply-purpose-decision \
+            --state-root living-state \
+            --input "$output" \
+            --context "$context" \
+            --node-id github-public-node \
+            --network-mode online \
+            --substrate github-actions-ubuntu \
+            --model-id ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf \
+            --model-sha256 da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4 \
+            --engine-sha256 664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84 \
+            --run-id "$GITHUB_RUN_ID" \
+            --trigger-event "${{ github.event_name }}" \
+            --schedule-expression "${{ github.event.schedule }}" \
+            > "$result"
+          cat "$result"
+          python3 - "$result" "$GITHUB_STEP_SUMMARY" <<'PY'
+          import json
+          import pathlib
+          import sys
+          result = json.loads(pathlib.Path(sys.argv[1]).read_text())
+          summary = pathlib.Path(sys.argv[2])
+          with summary.open("a", encoding="utf-8") as stream:
+              stream.write("## Purpose decision\n\n")
+              stream.write(f"- Decision: `{result['decision']}`\n")
+              stream.write(f"- Condition: `{result['condition']}`\n")
+              stream.write(f"- Public state changed: `{str(result['public_state_changed']).lower()}`\n")
+          PY
 
       - name: Verify and publish only anonymous public state
         shell: bash

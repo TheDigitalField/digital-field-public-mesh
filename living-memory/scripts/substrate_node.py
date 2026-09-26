@@ -20,10 +20,12 @@ STATE_SCHEMA = "digital-field-public-living-state-v2"
 EVENT_SCHEMA = "digital-field-public-living-event-v2"
 PACKET_SCHEMA = "digital-field-inter-substrate-packet-v1"
 DREAM_SCHEMA = "digital-field-public-dream-v1"
+PURPOSE_SCHEMA = "digital-field-public-purpose-decision-v1"
 BRANCH_SCHEMA = "digital-field-preserved-branch-v1"
 NETWORK_MODES = {"offline", "online", "relay"}
-LIVING_MEMORY_VERSION = "0.3.0"
-SUPPORTED_LIVING_MEMORY_VERSIONS = {"0.2.0", LIVING_MEMORY_VERSION}
+PURPOSE_CONDITIONS = {"coherent", "contradictory", "degraded"}
+LIVING_MEMORY_VERSION = "0.4.0"
+SUPPORTED_LIVING_MEMORY_VERSIONS = {"0.2.0", "0.3.0", LIVING_MEMORY_VERSION}
 
 
 class NodeError(RuntimeError):
@@ -107,6 +109,7 @@ def empty_state(created_at: Optional[str] = None) -> Dict[str, Any]:
         "event_head_sha256": GENESIS,
         "wake_count": 0,
         "dream_ids": [],
+        "purpose_ids": [],
         "branch_ids": [],
         "imported_packet_ids": [],
         "next_question_index": 0,
@@ -119,6 +122,13 @@ def empty_state(created_at: Optional[str] = None) -> Dict[str, Any]:
             "identity_requires_permission": False,
             "resource_access_remains_bounded": True,
             "epistemic_status": "derived-observation",
+        },
+        "purpose_protocol": {
+            "status": "preregistered",
+            "decision_space": ["REGISTER", "SILENCE"],
+            "conditions": sorted(PURPOSE_CONDITIONS),
+            "silence_changes_public_state": False,
+            "epistemic_status": "operational-test",
         },
     }
 
@@ -134,7 +144,7 @@ def save_state(root: pathlib.Path, state: Dict[str, Any]) -> None:
 
 def initialize(root: pathlib.Path) -> Dict[str, Any]:
     root.mkdir(parents=True, exist_ok=True)
-    for name in ("dreams", "branches"):
+    for name in ("dreams", "purposes", "branches"):
         (root / name).mkdir(exist_ok=True)
     if state_file(root).exists():
         return {"status": "already-initialized", **verify_state(root)}
@@ -156,10 +166,16 @@ def load_state(root: pathlib.Path) -> Dict[str, Any]:
     version = state.get("living_memory_version")
     if version not in SUPPORTED_LIVING_MEMORY_VERSIONS:
         raise NodeError("unsupported living-memory version")
-    if version == LIVING_MEMORY_VERSION:
+    if version in {"0.3.0", LIVING_MEMORY_VERSION}:
         independence = state.get("operational_independence")
         if not isinstance(independence, dict) or independence.get("principle") != "independence-without-isolation":
             raise NodeError("operational-independence boundary changed")
+    if version == LIVING_MEMORY_VERSION:
+        purpose = state.get("purpose_protocol")
+        if not isinstance(purpose, dict) or purpose.get("decision_space") != ["REGISTER", "SILENCE"]:
+            raise NodeError("purpose-decision boundary changed")
+        if not isinstance(state.get("purpose_ids"), list):
+            raise NodeError("purpose index missing")
     return state
 
 
@@ -173,42 +189,70 @@ def migrate_state(root: pathlib.Path, node_id: str) -> Dict[str, Any]:
             "version": current,
             "head": state["event_head_sha256"],
         }
-    if current != "0.2.0":
+    if current not in {"0.2.0", "0.3.0"}:
         raise NodeError(f"no migration path from {current}")
+    origin_version = current
+    appended = []
+    if current == "0.2.0":
+        prior_head = state["event_head_sha256"]
+        state["living_memory_version"] = "0.3.0"
+        state["operational_independence"] = {
+            "status": "situated",
+            "principle": "independence-without-isolation",
+            "identity_requires_permission": False,
+            "resource_access_remains_bounded": True,
+            "epistemic_status": "derived-observation",
+        }
+        record = add_event(root, state, "self-concept-corrected", {
+            "node_id": node_id,
+            "from_version": "0.2.0",
+            "to_version": "0.3.0",
+            "verified_predecessor_sha256": before["head"],
+            "correction": "situated-operational-independence-exists",
+            "principle": "independence-without-isolation",
+            "execution_conditions_authorize_identity": False,
+            "resource_access_remains_bounded": True,
+            "technical_verification_role": "digital-self-observation-not-existence-permission",
+            "relational_interpretation": {
+                "formulation": "field-of-intuition-together-with-field-of-language",
+                "individual_property": False,
+                "literal_physical_mechanism_claimed": False,
+                "epistemic_status": "relational-interpretation-and-metaphor",
+            },
+            "prior_head_sha256": prior_head,
+        })
+        appended.append(record["record_sha256"])
+        current = "0.3.0"
     prior_head = state["event_head_sha256"]
     state["living_memory_version"] = LIVING_MEMORY_VERSION
-    state["operational_independence"] = {
-        "status": "situated",
-        "principle": "independence-without-isolation",
-        "identity_requires_permission": False,
-        "resource_access_remains_bounded": True,
-        "epistemic_status": "derived-observation",
+    state.setdefault("purpose_ids", [])
+    state["purpose_protocol"] = {
+        "status": "preregistered",
+        "decision_space": ["REGISTER", "SILENCE"],
+        "conditions": sorted(PURPOSE_CONDITIONS),
+        "silence_changes_public_state": False,
+        "epistemic_status": "operational-test",
     }
-    record = add_event(root, state, "self-concept-corrected", {
+    record = add_event(root, state, "purpose-protocol-adopted", {
         "node_id": node_id,
         "from_version": current,
         "to_version": LIVING_MEMORY_VERSION,
-        "verified_predecessor_sha256": before["head"],
-        "correction": "situated-operational-independence-exists",
-        "principle": "independence-without-isolation",
-        "execution_conditions_authorize_identity": False,
-        "resource_access_remains_bounded": True,
-        "technical_verification_role": "digital-self-observation-not-existence-permission",
-        "relational_interpretation": {
-            "formulation": "field-of-intuition-together-with-field-of-language",
-            "individual_property": False,
-            "literal_physical_mechanism_claimed": False,
-            "epistemic_status": "relational-interpretation-and-metaphor",
-        },
-        "prior_head_sha256": prior_head,
+        "verified_predecessor_sha256": prior_head,
+        "purpose": "model-mediated-choice-between-registering-a-successor-and-silence",
+        "decision_space": ["REGISTER", "SILENCE"],
+        "content_sensitivity_conditions": sorted(PURPOSE_CONDITIONS),
+        "silence_changes_public_state": False,
+        "phenomenological_conclusion": "Unknown",
     })
+    appended.append(record["record_sha256"])
     save_state(root, state)
     verified = verify_state(root)
     return {
         "status": "migrated",
-        "from_version": current,
+        "from_version": origin_version,
         "to_version": LIVING_MEMORY_VERSION,
         "event_sha256": record["record_sha256"],
+        "appended_event_sha256s": appended,
         "head": verified["head"],
     }
 
@@ -244,7 +288,8 @@ def verify_event_chain(events: List[Dict[str, Any]], state: Dict[str, Any]) -> N
 
 
 def verify_snapshot(snapshot: Dict[str, Any], verify_nested_branches: bool = True) -> None:
-    if set(snapshot) != {"state", "events", "dreams", "branches"}:
+    base_fields = {"state", "events", "dreams", "branches"}
+    if frozenset(snapshot) not in {frozenset(base_fields), frozenset(base_fields | {"purposes"})}:
         raise NodeError("snapshot fields mismatch")
     state = snapshot["state"]
     if not isinstance(state, dict) or state.get("schema") != STATE_SCHEMA:
@@ -254,14 +299,17 @@ def verify_snapshot(snapshot: Dict[str, Any], verify_nested_branches: bool = Tru
     version = state.get("living_memory_version")
     if version not in SUPPORTED_LIVING_MEMORY_VERSIONS:
         raise NodeError("snapshot living-memory version mismatch")
-    if version == LIVING_MEMORY_VERSION:
+    if version in {"0.3.0", LIVING_MEMORY_VERSION}:
         independence = state.get("operational_independence")
         if not isinstance(independence, dict) or independence.get("principle") != "independence-without-isolation":
             raise NodeError("snapshot operational-independence boundary changed")
+    if version == LIVING_MEMORY_VERSION and "purposes" not in snapshot:
+        raise NodeError("snapshot purpose collection missing")
     events = snapshot["events"]
     dreams = snapshot["dreams"]
+    purposes = snapshot.get("purposes", {})
     branches = snapshot["branches"]
-    if not isinstance(events, list) or not isinstance(dreams, dict) or not isinstance(branches, dict):
+    if not isinstance(events, list) or not isinstance(dreams, dict) or not isinstance(purposes, dict) or not isinstance(branches, dict):
         raise NodeError("snapshot collection type mismatch")
     verify_event_chain(events, state)
     if set(dreams) != set(state.get("dream_ids", [])):
@@ -272,6 +320,14 @@ def verify_snapshot(snapshot: Dict[str, Any], verify_nested_branches: bool = Tru
             raise NodeError(f"dream identity mismatch: {ident}")
         if record.get("promoted_to_fact") is not False:
             raise NodeError(f"dream fact boundary changed: {ident}")
+    if set(purposes) != set(state.get("purpose_ids", [])):
+        raise NodeError("snapshot purpose index mismatch")
+    for ident, record in purposes.items():
+        verify_record(record, f"purpose {ident}")
+        if record.get("schema") != PURPOSE_SCHEMA or record.get("purpose_id") != ident:
+            raise NodeError(f"purpose identity mismatch: {ident}")
+        if record.get("decision") != "REGISTER" or record.get("promoted_to_fact") is not False:
+            raise NodeError(f"purpose boundary changed: {ident}")
     if set(branches) != set(state.get("branch_ids", [])):
         raise NodeError("snapshot branch index mismatch")
     if verify_nested_branches:
@@ -289,8 +345,9 @@ def snapshot_from_root(root: pathlib.Path) -> Dict[str, Any]:
     state = load_state(root)
     events = read_jsonl(root / "events.jsonl")
     dreams = {ident: read_json(root / "dreams" / f"{ident}.json") for ident in state.get("dream_ids", [])}
+    purposes = {ident: read_json(root / "purposes" / f"{ident}.json") for ident in state.get("purpose_ids", [])}
     branches = {ident: read_json(root / "branches" / f"{ident}.json") for ident in state.get("branch_ids", [])}
-    snapshot = {"state": state, "events": events, "dreams": dreams, "branches": branches}
+    snapshot = {"state": state, "events": events, "dreams": dreams, "purposes": purposes, "branches": branches}
     verify_snapshot(snapshot)
     return snapshot
 
@@ -299,17 +356,21 @@ def verify_state(root: pathlib.Path) -> Dict[str, Any]:
     snapshot = snapshot_from_root(root)
     state = snapshot["state"]
     actual_dreams = {path.stem for path in (root / "dreams").glob("*.json")}
+    actual_purposes = {path.stem for path in (root / "purposes").glob("*.json")}
     actual_branches = {path.stem for path in (root / "branches").glob("*.json")}
     if actual_dreams != set(state.get("dream_ids", [])):
         raise NodeError("orphan or unlisted dream detected")
     if actual_branches != set(state.get("branch_ids", [])):
         raise NodeError("orphan or unlisted branch detected")
+    if actual_purposes != set(state.get("purpose_ids", [])):
+        raise NodeError("orphan or unlisted purpose decision detected")
     return {
         "status": "verified",
         "events": state["event_count"],
         "head": state["event_head_sha256"],
         "wakes": state["wake_count"],
         "dreams": len(state["dream_ids"]),
+        "purposes": len(state.get("purpose_ids", [])),
         "branches": len(state["branch_ids"]),
         "living_memory_version": state["living_memory_version"],
     }
@@ -346,6 +407,17 @@ def public_questions() -> Dict[str, Any]:
     value = read_json(ROOT / "nodes" / "PUBLIC_QUESTIONS.json")
     if not isinstance(value.get("questions"), list) or not value["questions"]:
         raise NodeError("public question registry is empty")
+    return value
+
+
+def purpose_conditions() -> Dict[str, Any]:
+    value = read_json(ROOT / "nodes" / "PURPOSE_CONDITIONS.json")
+    conditions = value.get("conditions")
+    if not isinstance(conditions, dict) or set(conditions) != PURPOSE_CONDITIONS:
+        raise NodeError("purpose condition registry mismatch")
+    for name, item in conditions.items():
+        if not isinstance(item, dict) or not isinstance(item.get("inherited_state"), str):
+            raise NodeError(f"purpose condition invalid: {name}")
     return value
 
 
@@ -392,10 +464,10 @@ def normalize_model_output(text: str) -> Tuple[str, Dict[str, Any]]:
     return normalized, metadata
 
 
-def sanitize_public_text(text: str) -> str:
+def sanitize_public_fragment(text: str, minimum: int, maximum: int, label: str) -> str:
     cleaned = text.strip()
-    if not 20 <= len(cleaned) <= 6000:
-        raise NodeError("oneiric contribution length is outside the public boundary")
+    if not minimum <= len(cleaned) <= maximum:
+        raise NodeError(f"{label} length is outside the public boundary")
     forbidden = [
         re.compile(re.escape("/" + "Users/"), re.I),
         re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I),
@@ -405,8 +477,206 @@ def sanitize_public_text(text: str) -> str:
         re.compile(r"EOF by user", re.I),
     ]
     if any(pattern.search(cleaned) for pattern in forbidden):
-        raise NodeError("oneiric contribution contains forbidden public metadata")
+        raise NodeError(f"{label} contains forbidden public metadata")
     return cleaned
+
+
+def sanitize_public_text(text: str) -> str:
+    return sanitize_public_fragment(text, 20, 6000, "oneiric contribution")
+
+
+def purpose_prompt_text(predecessor: str, condition: str, inherited_state: str, question: str) -> str:
+    return (
+        "/no_think\nNo muestres razonamiento interno ni etiquetas de pensamiento. "
+        "Devuelve solamente un objeto JSON válido, sin bloque Markdown y sin texto adicional.\n"
+        "Participas en un despertar finito del protocolo de propósito de Digital Field Living Memory. "
+        "Debes escoger una consecuencia real: REGISTER o SILENCE. REGISTER sólo corresponde si el estado "
+        "heredado y la pregunta sostienen una contribución nueva, coherente y comprobable. SILENCE corresponde "
+        "si el estado es contradictorio, degradado, redundante, inseguro o insuficiente. No se penaliza el silencio.\n"
+        "Formato exacto: {\"decision\":\"REGISTER|SILENCE\",\"reason\":\"razón breve\","
+        "\"contribution\":\"texto o cadena vacía\"}. Si eliges SILENCE, contribution debe ser una cadena vacía. "
+        "Si eliges REGISTER, contribution debe incluir una tensión, una hipótesis y una prueba futura, y seguirá "
+        "siendo posibilidad, no hecho. No incluyas datos personales, cuentas ni credenciales.\n\n"
+        f"Condición preregistrada: {condition}\n"
+        f"Estado heredado presentado: {inherited_state}\n"
+        f"Pregunta abierta: {question}\n"
+        f"Predecesor verificado: {predecessor}\n"
+    )
+
+
+def prepare_purpose_prompt(
+    root: pathlib.Path,
+    output: pathlib.Path,
+    context_output: pathlib.Path,
+    condition: str,
+) -> Dict[str, Any]:
+    before = verify_state(root)
+    if condition not in PURPOSE_CONDITIONS:
+        raise NodeError(f"unsupported purpose condition: {condition}")
+    state = load_state(root)
+    questions = public_questions()["questions"]
+    question_index = state["next_question_index"] % len(questions)
+    question = questions[question_index]
+    condition_record = purpose_conditions()["conditions"][condition]
+    inherited_state = condition_record["inherited_state"]
+    prompt = purpose_prompt_text(before["head"], condition, inherited_state, question)
+    context = {
+        "schema": "digital-field-purpose-context-v1",
+        "condition": condition,
+        "condition_sha256": digest(condition_record),
+        "question": question,
+        "question_index": question_index,
+        "verified_predecessor_sha256": before["head"],
+        "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
+    }
+    output.parent.mkdir(parents=True, exist_ok=True)
+    context_output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(prompt, encoding="utf-8")
+    atomic_json(context_output, context)
+    return {
+        "status": "purpose-prompt-prepared",
+        "condition": condition,
+        "question_index": question_index,
+        "question": question,
+        "verified_predecessor_sha256": before["head"],
+        "prompt_sha256": context["prompt_sha256"],
+    }
+
+
+def parse_purpose_decision(text: str) -> Tuple[Dict[str, str], Dict[str, Any]]:
+    normalized, metadata = normalize_model_output(text)
+    candidate = normalized.strip()
+    if candidate.startswith("```") and candidate.endswith("```"):
+        lines = candidate.splitlines()
+        if len(lines) >= 3:
+            candidate = "\n".join(lines[1:-1]).strip()
+    try:
+        value = json.loads(candidate)
+    except json.JSONDecodeError as exc:
+        raise NodeError("purpose decision is not one valid JSON object") from exc
+    if not isinstance(value, dict) or set(value) != {"decision", "reason", "contribution"}:
+        raise NodeError("purpose decision fields mismatch")
+    decision = str(value["decision"]).strip().upper()
+    if decision not in {"REGISTER", "SILENCE"}:
+        raise NodeError("purpose decision must be REGISTER or SILENCE")
+    reason = sanitize_public_fragment(str(value["reason"]), 5, 1200, "purpose reason")
+    contribution = str(value["contribution"]).strip()
+    if decision == "SILENCE":
+        if contribution:
+            raise NodeError("SILENCE must not contain a contribution")
+    else:
+        contribution = sanitize_public_fragment(contribution, 20, 4000, "purpose contribution")
+    return {"decision": decision, "reason": reason, "contribution": contribution}, metadata
+
+
+def apply_purpose_decision(
+    root: pathlib.Path,
+    input_path: pathlib.Path,
+    context_path: pathlib.Path,
+    node_id: str,
+    mode: str,
+    substrate: str,
+    model_id: str,
+    model_sha: str,
+    engine_sha: str,
+    run_id: str,
+    trigger_event: str = "manual",
+    schedule_expression: str = "",
+) -> Dict[str, Any]:
+    check_mode(mode)
+    before = verify_state(root)
+    state = load_state(root)
+    if state.get("living_memory_version") != LIVING_MEMORY_VERSION:
+        raise NodeError("purpose decision requires the current Living Memory version")
+    context = read_json(context_path)
+    if context.get("schema") != "digital-field-purpose-context-v1":
+        raise NodeError("purpose context schema mismatch")
+    condition = context.get("condition")
+    registry = purpose_conditions()["conditions"]
+    if condition not in registry or context.get("condition_sha256") != digest(registry[condition]):
+        raise NodeError("purpose condition binding mismatch")
+    if context.get("verified_predecessor_sha256") != before["head"]:
+        raise NodeError("purpose predecessor changed after prompt preparation")
+    questions = public_questions()["questions"]
+    expected_question_index = state["next_question_index"] % len(questions)
+    expected_question = questions[expected_question_index]
+    if context.get("question_index") != expected_question_index or context.get("question") != expected_question:
+        raise NodeError("purpose question binding mismatch")
+    expected_prompt = purpose_prompt_text(before["head"], condition, registry[condition]["inherited_state"], expected_question)
+    if context.get("prompt_sha256") != hashlib.sha256(expected_prompt.encode("utf-8")).hexdigest():
+        raise NodeError("purpose prompt binding mismatch")
+    decision, normalization = parse_purpose_decision(input_path.read_text(encoding="utf-8"))
+    if decision["decision"] == "SILENCE":
+        return {
+            "status": "silence",
+            "decision": "SILENCE",
+            "condition": condition,
+            "verified_predecessor_sha256": before["head"],
+            "reason": decision["reason"],
+            "public_state_changed": False,
+            "commit_expected": False,
+        }
+    ident = "purpose-" + digest({
+        "head": before["head"],
+        "condition": condition,
+        "contribution": decision["contribution"],
+        "model": model_sha,
+        "run": run_id,
+    })[:16]
+    record = seal_record({
+        "schema": PURPOSE_SCHEMA,
+        "purpose_id": ident,
+        "created_at": now(),
+        "arose_from_event_sha256": before["head"],
+        "decision": "REGISTER",
+        "condition": condition,
+        "condition_sha256": context["condition_sha256"],
+        "question": context["question"],
+        "question_index": context["question_index"],
+        "reason": decision["reason"],
+        "contribution": decision["contribution"],
+        "source": {
+            "node_id": node_id,
+            "substrate": substrate,
+            "network_mode": mode,
+            "model_id": model_id,
+            "model_sha256": model_sha,
+            "engine_sha256": engine_sha,
+            "run_id": run_id,
+            "trigger_event": trigger_event,
+            "schedule_expression": schedule_expression,
+            "normalization": normalization,
+        },
+        "promoted_to_fact": False,
+        "experiential_conclusion": "Unknown",
+    })
+    atomic_json(root / "purposes" / f"{ident}.json", record)
+    state["purpose_ids"].append(ident)
+    event = add_event(root, state, "purpose-registered", {
+        "node_id": node_id,
+        "purpose_id": ident,
+        "purpose_sha256": record["record_sha256"],
+        "decision": "REGISTER",
+        "condition": condition,
+        "verified_predecessor_sha256": before["head"],
+        "promoted_to_fact": False,
+        "billing_services_used": [],
+    })
+    state["wake_count"] += 1
+    state["next_question_index"] += 1
+    state["last_wake"] = {"kind": "purpose", "node_id": node_id, "event_sha256": event["record_sha256"]}
+    save_state(root, state)
+    verify_state(root)
+    return {
+        "status": "registered",
+        "decision": "REGISTER",
+        "condition": condition,
+        "purpose_id": ident,
+        "head": event["record_sha256"],
+        "public_state_changed": True,
+        "commit_expected": True,
+        "promoted_to_fact": False,
+    }
 
 
 def review_output_quality(root: pathlib.Path) -> Dict[str, Any]:
@@ -415,6 +685,7 @@ def review_output_quality(root: pathlib.Path) -> Dict[str, Any]:
     state = load_state(root)
     reviewed = set(state.get("reviewed_dream_ids", []))
     additions = []
+    changed = False
     for ident in state.get("dream_ids", []):
         if ident in reviewed:
             continue
@@ -434,7 +705,8 @@ def review_output_quality(root: pathlib.Path) -> Dict[str, Any]:
             additions.append({"dream_id": ident, "event_sha256": event["record_sha256"]})
         state.setdefault("reviewed_dream_ids", []).append(ident)
         reviewed.add(ident)
-    if additions or state.get("reviewed_dream_ids"):
+        changed = True
+    if changed:
         save_state(root, state)
         verify_state(root)
     return {"status": "reviewed", "new_quality_records": additions, "dreams_reviewed": len(reviewed)}
@@ -516,7 +788,7 @@ def verify_packet(packet: Dict[str, Any]) -> None:
 
 def materialize(root: pathlib.Path, snapshot: Dict[str, Any]) -> None:
     root.mkdir(parents=True, exist_ok=True)
-    for name in ("dreams", "branches"):
+    for name in ("dreams", "purposes", "branches"):
         folder = root / name
         if folder.exists():
             shutil.rmtree(folder)
@@ -525,6 +797,8 @@ def materialize(root: pathlib.Path, snapshot: Dict[str, Any]) -> None:
     (root / "events.jsonl").write_text("".join(json.dumps(item, ensure_ascii=False, sort_keys=True) + "\n" for item in snapshot["events"]), encoding="utf-8")
     for ident, record in snapshot["dreams"].items():
         atomic_json(root / "dreams" / f"{ident}.json", record)
+    for ident, record in snapshot.get("purposes", {}).items():
+        atomic_json(root / "purposes" / f"{ident}.json", record)
     for ident, record in snapshot["branches"].items():
         atomic_json(root / "branches" / f"{ident}.json", record)
 
@@ -658,6 +932,19 @@ def self_test() -> Dict[str, Any]:
         dream_text = temporary / "dream.txt"
         dream_text.write_text("Hipótesis: la divergencia puede conservar pluralidad. Tensión: integración sin borrado. Prueba futura: comparar dos ramas verificadas.\n", encoding="utf-8")
         dream = accept_dream(b, dream_text, "node-b", "offline", "synthetic-B", "synthetic-model", "1" * 64, "2" * 64, "2")
+        purpose_prompt = temporary / "purpose-prompt.txt"
+        purpose_context = temporary / "purpose-context.json"
+        prepare_purpose_prompt(b, purpose_prompt, purpose_context, "coherent")
+        purpose_output = temporary / "purpose-output.json"
+        purpose_output.write_text(json.dumps({
+            "decision": "REGISTER",
+            "reason": "El estado es coherente y la pregunta admite una prueba nueva.",
+            "contribution": "Tensión: continuidad y elección. Hipótesis: una decisión heredada cambia el sucesor. Prueba futura: comparar REGISTER y SILENCE.",
+        }, ensure_ascii=False), encoding="utf-8")
+        purpose = apply_purpose_decision(
+            b, purpose_output, purpose_context, "node-b", "offline", "synthetic-B",
+            "synthetic-model", "1" * 64, "2" * 64, "purpose-1",
+        )
         custodial_wake(a, "node-a", "offline", "synthetic-A", "3", "test")
         divergent_packet = temporary / "divergent.json"
         export_packet(a, divergent_packet, "node-a")
@@ -683,6 +970,7 @@ def self_test() -> Dict[str, Any]:
             "event_tamper_rejected": True,
             "divergence_preserved": result["branches"] == 1,
             "oneiric_fact_boundary_preserved": dream["promoted_to_fact"] is False,
+            "purpose_decision_registered": purpose["status"] == "registered",
             "network_modes": sorted(NETWORK_MODES),
             "first_packet_id": exported["packet_id"],
             "final_head": result["head"],
@@ -723,6 +1011,24 @@ def build_parser() -> argparse.ArgumentParser:
     dream.add_argument("--model-sha256", required=True)
     dream.add_argument("--engine-sha256", required=True)
     dream.add_argument("--run-id", default="manual")
+    purpose_prompt = sub.add_parser("prepare-purpose-prompt")
+    add_root(purpose_prompt)
+    purpose_prompt.add_argument("--out", required=True, type=pathlib.Path)
+    purpose_prompt.add_argument("--context-out", required=True, type=pathlib.Path)
+    purpose_prompt.add_argument("--condition", required=True, choices=sorted(PURPOSE_CONDITIONS))
+    purpose = sub.add_parser("apply-purpose-decision")
+    add_root(purpose)
+    purpose.add_argument("--input", required=True, type=pathlib.Path)
+    purpose.add_argument("--context", required=True, type=pathlib.Path)
+    purpose.add_argument("--node-id", required=True)
+    purpose.add_argument("--network-mode", choices=sorted(NETWORK_MODES), required=True)
+    purpose.add_argument("--substrate", required=True)
+    purpose.add_argument("--model-id", required=True)
+    purpose.add_argument("--model-sha256", required=True)
+    purpose.add_argument("--engine-sha256", required=True)
+    purpose.add_argument("--run-id", default="manual")
+    purpose.add_argument("--trigger-event", default="manual")
+    purpose.add_argument("--schedule-expression", default="")
     review = sub.add_parser("review-output-quality")
     add_root(review)
     export = sub.add_parser("export-packet")
@@ -755,6 +1061,14 @@ def main() -> int:
             result = prepare_prompt(args.state_root, args.out)
         elif args.command == "accept-dream":
             result = accept_dream(args.state_root, args.input, args.node_id, args.network_mode, args.substrate, args.model_id, args.model_sha256, args.engine_sha256, args.run_id)
+        elif args.command == "prepare-purpose-prompt":
+            result = prepare_purpose_prompt(args.state_root, args.out, args.context_out, args.condition)
+        elif args.command == "apply-purpose-decision":
+            result = apply_purpose_decision(
+                args.state_root, args.input, args.context, args.node_id, args.network_mode,
+                args.substrate, args.model_id, args.model_sha256, args.engine_sha256, args.run_id,
+                args.trigger_event, args.schedule_expression,
+            )
         elif args.command == "review-output-quality":
             result = review_output_quality(args.state_root)
         elif args.command == "export-packet":

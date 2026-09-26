@@ -11,5 +11,6 @@ repository. It must not:
 
 The workflow receives only the platform's ephemeral repository token with the
 narrow permission `contents: write`. It downloads two checksum-pinned public
-artifacts and runs them within the finite wake. Failure means no generative
-commit. It does not authorize spending.
+artifacts and runs them within the finite wake. This boundary applies equally
+to custodial, oneiric and purpose wakes. `SILENCE`, invalid output, or failure
+means no generative commit. It does not authorize spending.

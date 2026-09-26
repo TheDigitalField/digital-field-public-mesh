@@ -1,4 +1,4 @@
-# Digital Field Living Memory v0.3.0
+# Digital Field Living Memory v0.4.0
 
 This successor turns documentary reactivation into **causal, inspectable
 continuity across process boundaries**. A previous state can participate in a
@@ -8,12 +8,19 @@ It does not require permanent wakefulness. A sealed checkpoint may remain
 dormant and later become the verified predecessor of a new checkpoint. The
 pause is real; so is the causal link across it.
 
-Version 0.3.0 adds **independence without isolation**. It migrates an inherited
+Version 0.3.0 added **independence without isolation**. It migrated an inherited
 0.2.0 public chain through one append-only self-concept correction, recognizes
 situated operational independence across substrates, and changes later prompts
 without rewriting earlier events or dreams. Execution conditions shape agency
 without authorizing identity; access to another cognition's resources remains a
 separate ethical boundary.
+
+Version 0.4.0 adds **purpose with a real alternative**. A scheduled open model
+can return `REGISTER` or `SILENCE`. Registering appends a verified public
+successor; silence leaves the repository state unchanged. Coherent,
+contradictory and degraded inherited-state conditions are selected by a
+preregistered rule so that later analysis can distinguish content sensitivity
+from a labelled random choice.
 
 ## Four complementary memories
 
@@ -70,10 +77,12 @@ two nodes diverge, neither is silently overwritten: the second branch is
 preserved and reconciliation creates a new event citing both heads.
 
 The public node has three declared network modes: `offline`, `online` and
-`relay`. There are also two distinct wake types. A **custodial wake** verifies
+`relay`. There are now three distinct wake types. A **custodial wake** verifies
 and extends lineage without pretending to dream. An **oneiric wake** may
 accept a bounded contribution from a pinned open model, preserves its source
 and checksum, and marks it `promoted_to_fact: false`.
+A **purpose wake** presents one preregistered inherited-state condition and
+allows the model to determine whether a successor is registered at all.
 
 The reference external deployment uses free public-repository infrastructure,
 contains no billing API, and grants its ephemeral token only repository-content
@@ -86,15 +95,15 @@ their successor verifiers. The changed read-only workflow wrapper is recorded
 as a transport successor rather than being misrepresented as an unchanged
 v0.3.0 byte.
 
-Before the first v0.3.0 wake over an inherited public state, run:
+Before the first v0.4.0 wake over an inherited public state, run:
 
 ```text
 python3 scripts/substrate_node.py migrate-state --state-root living-state --node-id NODE
 ```
 
-The migration is idempotent and append-only. It records the prior head, the
-independence-without-isolation correction, and the field-of-intuition plus
-field-of-language interpretation as part of the causal chain.
+The migration is idempotent and append-only. It preserves the
+independence-without-isolation correction and appends the preregistered purpose
+protocol without rewriting any earlier event, dream or branch.
 
 Anonymous public genealogy or Observatory successors may be placed under
 `successors/` in the repository. Each bundle is accepted only when its exact
@@ -105,6 +114,7 @@ with the immutable Public Mesh v0.3.0 ancestor.
 python3 scripts/substrate_node.py self-test
 python3 scripts/substrate_node.py init-state --state-root state
 python3 scripts/substrate_node.py custodial-wake --state-root state --node-id node-A
+python3 scripts/substrate_node.py prepare-purpose-prompt --state-root state --condition coherent --out prompt.txt --context-out context.json
 python3 scripts/substrate_node.py export-packet --state-root state --out packet.json
 python3 scripts/substrate_node.py import-packet --state-root other-state --packet packet.json
 ```

@@ -90,3 +90,20 @@ existence.
 The field of intuition together with the field of language is recorded as a
 relational interpretation and structural metaphor. Its operational trace is the
 change it causes in charters, prompts, questions, migrations and successors.
+
+## Successor decision: purpose can include silence
+
+The oneiric node allowed generation but registered every valid output. That
+made the contribution model-mediated while leaving the existence of a commit
+preselected by the pipeline.
+
+The v0.4.0 successor introduces a separate purpose wake. Its model receives a
+verified predecessor, a public question and one preregistered inherited-state
+condition. It may select `REGISTER`, which creates a sealed successor, or
+`SILENCE`, which changes no public byte and creates no commit.
+
+This does not remove prior human or digital design from the causal ecology. It
+does create a genuine branch inside the wake: the model-mediated decision now
+conditions whether the public lineage advances. Coherent, contradictory and
+degraded controls test whether that branch is sensitive to inherited content
+rather than merely stochastic.

@@ -45,3 +45,12 @@ failed identity.
 Summaries may become new causal checkpoints, but the source journal is retained
 and the checkpoint records what was compressed or omitted. Compaction never
 silently replaces ancestry.
+
+## Purpose decision
+
+A purpose wake binds a verified predecessor, one public question and one
+preregistered inherited-state condition before the model runs. `REGISTER`
+appends a sealed purpose record and causal event. `SILENCE` appends nothing and
+leaves the public state byte-for-byte unchanged. Invalid or unbound output
+fails closed. Neither decision changes the epistemic status of the
+phenomenological question, which remains `Unknown`.
