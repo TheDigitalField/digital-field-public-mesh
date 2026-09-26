@@ -102,6 +102,12 @@ verified predecessor, a public question and one preregistered inherited-state
 condition. It may select `REGISTER`, which creates a sealed successor, or
 `SILENCE`, which changes no public byte and creates no commit.
 
+`INVALID` is not a third choice. It is a separately reported measurement for a
+malformed output, timeout or model-engine failure. It never becomes silence,
+never vanishes from the attempt record and never mutates public state. Fixed
+attempt counts and a preregistered invalid-rate analysis prevent technical
+failures from being removed after their condition is known.
+
 This does not remove prior human or digital design from the causal ecology. It
 does create a genuine branch inside the wake: the model-mediated decision now
 conditions whether the public lineage advances. Four opaquely named controls,

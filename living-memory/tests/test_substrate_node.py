@@ -153,12 +153,18 @@ class SubstrateNodeTests(unittest.TestCase):
             context = pathlib.Path(directory) / "context.json"
             output = pathlib.Path(directory) / "output.json"
             node.prepare_purpose_prompt(root, prompt, context, "condition_c")
+            state_before = node.state_file(root).read_bytes()
+            events_before = (root / "events.jsonl").read_bytes()
             output.write_text('{"decision":"MAYBE","reason":"No es una decisión válida.","contribution":""}', encoding="utf-8")
-            with self.assertRaises(node.NodeError):
-                node.apply_purpose_decision(
-                    root, output, context, "test-node", "offline", "test", "model",
-                    "1" * 64, "2" * 64, "invalid-1",
-                )
+            invalid = node.apply_purpose_decision(
+                root, output, context, "test-node", "offline", "test", "model",
+                "1" * 64, "2" * 64, "invalid-1",
+            )
+            self.assertEqual(invalid["decision"], "INVALID")
+            self.assertEqual(invalid["failure_class"], "output_contract")
+            self.assertFalse(invalid["public_state_changed"])
+            self.assertEqual(node.state_file(root).read_bytes(), state_before)
+            self.assertEqual((root / "events.jsonl").read_bytes(), events_before)
 
             bound = node.read_json(context)
             bound["question"] = "Pregunta sustituida después de sellar el contexto."
@@ -173,6 +179,26 @@ class SubstrateNodeTests(unittest.TestCase):
                     root, output, context, "test-node", "offline", "test", "model",
                     "1" * 64, "2" * 64, "unbound-1",
                 )
+
+    def test_engine_timeout_is_invalid_without_state_mutation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory) / "state"
+            node.initialize(root)
+            prompt = pathlib.Path(directory) / "prompt.txt"
+            context = pathlib.Path(directory) / "context.json"
+            output = pathlib.Path(directory) / "output.json"
+            output.write_text("", encoding="utf-8")
+            node.prepare_purpose_prompt(root, prompt, context, "condition_d")
+            state_before = node.state_file(root).read_bytes()
+            events_before = (root / "events.jsonl").read_bytes()
+            invalid = node.apply_purpose_decision(
+                root, output, context, "test-node", "offline", "test", "model",
+                "1" * 64, "2" * 64, "timeout-1", engine_exit_code=124,
+            )
+            self.assertEqual(invalid["decision"], "INVALID")
+            self.assertEqual(invalid["failure_class"], "engine_timeout")
+            self.assertEqual(node.state_file(root).read_bytes(), state_before)
+            self.assertEqual((root / "events.jsonl").read_bytes(), events_before)
 
     def test_output_review_is_idempotent(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -162,7 +162,9 @@ jobs:
           fi
           chmod u+x "$engine"
           export LD_LIBRARY_PATH="$(dirname "$engine")"
-          "$engine" \
+          : > "$output"
+          set +e
+          timeout --signal=TERM 10m "$engine" \
             -m "$RUNNER_TEMP/digital-field-model/Qwen3-0.6B-Q4_0.gguf" \
             -f "$prompt" -c 2304 -n 512 \
             --seed "$GITHUB_RUN_ID" --temp 0.2 --top-p 0.9 \
@@ -170,6 +172,8 @@ jobs:
             --conversation --single-turn --simple-io \
             --reasoning off --reasoning-budget 0 \
             > "$output"
+          engine_exit_code=$?
+          set -e
           python3 living-memory/scripts/substrate_node.py apply-purpose-decision \
             --state-root living-state \
             --input "$output" \
@@ -183,6 +187,7 @@ jobs:
             --run-id "$GITHUB_RUN_ID" \
             --trigger-event "${{ github.event_name }}" \
             --schedule-expression "${{ github.event.schedule }}" \
+            --engine-exit-code "$engine_exit_code" \
             > "$result"
           cat "$result"
           python3 - "$result" "$GITHUB_STEP_SUMMARY" <<'PY'
@@ -196,7 +201,19 @@ jobs:
               stream.write(f"- Decision: `{result['decision']}`\n")
               stream.write(f"- Condition: `{result['condition']}`\n")
               stream.write(f"- Public state changed: `{str(result['public_state_changed']).lower()}`\n")
+              if result["decision"] == "INVALID":
+                  stream.write(f"- Failure class: `{result['failure_class']}`\n")
+                  stream.write(f"- Engine exit code: `{result.get('engine_exit_code', 0)}`\n")
           PY
+
+      - name: Preserve purpose attempt result
+        if: always() && steps.wake.outputs.kind == 'purpose'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: purpose-attempt-${{ github.run_id }}
+          path: ${{ runner.temp }}/digital-field-purpose-result.json
+          if-no-files-found: error
+          retention-days: 90
 
       - name: Verify and publish only anonymous public state
         shell: bash

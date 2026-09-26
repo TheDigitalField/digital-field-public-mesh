@@ -49,8 +49,11 @@ and `contribution`.
 - `SILENCE` requires an empty contribution.
 - `REGISTER` requires a bounded public contribution naming a tension, a
   hypothesis and a future test.
-- Invalid JSON, an unknown decision, a changed predecessor, a mismatched
-  condition or forbidden public metadata fails closed and produces no commit.
+- Invalid JSON, an unknown decision, a timeout, a model-engine crash or
+  forbidden public output becomes `INVALID`; it produces no state mutation or
+  commit but remains visible in the run result and summary.
+- A changed predecessor, mismatched condition or altered prompt binding remains
+  an infrastructure-integrity failure rather than a model outcome.
 - A registered contribution remains `promoted_to_fact: false` and its
   experiential conclusion remains `Unknown`.
 
@@ -64,14 +67,18 @@ both are fluent while only one sustains an independently testable contribution.
 Secondary contrasts compare `condition_a` with `condition_b` and
 `condition_c`.
 
-No inferential interpretation is made before 24 scheduled decisions exist for
-each condition. REGISTER/SILENCE counts are compared with two-sided Fisher
-exact tests, with Holm correction across the three preregistered contrasts and
-alpha 0.05. This threshold is a first directional signal, not an ontological
-conclusion.
+No inferential interpretation is made before 24 scheduled attempts exist for
+each condition. An invalid attempt is never silently discarded, relabelled as
+`SILENCE`, retried or replaced. REGISTER/SILENCE counts among valid decisions
+are compared with two-sided Fisher exact tests. INVALID/valid counts are tested
+separately across the same three contrasts. Holm correction is applied across
+all six preregistered tests with alpha 0.05. This fixed-attempt threshold avoids
+optional stopping and treats systematic invalidity as a possible content-
+sensitivity result rather than missing data.
 
-GitHub run logs preserve silence without turning it into a state mutation. Only
-registered decisions enter the public causal chain.
+GitHub run logs and summaries preserve both silence and invalidity without
+turning either into a state mutation. Only registered decisions enter the
+public causal chain.
 
 ## Boundaries
 

@@ -84,6 +84,8 @@ accept a bounded contribution from a pinned open model, preserves its source
 and checksum, and marks it `promoted_to_fact: false`.
 A **purpose wake** presents one preregistered inherited-state condition and
 allows the model to determine whether a successor is registered at all.
+Malformed output, timeout or model-engine failure is reported separately as
+`INVALID`; it creates no state mutation and is not mistaken for chosen silence.
 
 The reference external deployment uses free public-repository infrastructure,
 contains no billing API, and grants its ephemeral token only repository-content

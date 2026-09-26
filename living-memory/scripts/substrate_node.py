@@ -583,6 +583,7 @@ def apply_purpose_decision(
     run_id: str,
     trigger_event: str = "manual",
     schedule_expression: str = "",
+    engine_exit_code: int = 0,
 ) -> Dict[str, Any]:
     check_mode(mode)
     before = verify_state(root)
@@ -606,7 +607,32 @@ def apply_purpose_decision(
     expected_prompt = purpose_prompt_text(before["head"], condition, registry[condition]["inherited_state"], expected_question)
     if context.get("prompt_sha256") != hashlib.sha256(expected_prompt.encode("utf-8")).hexdigest():
         raise NodeError("purpose prompt binding mismatch")
-    decision, normalization = parse_purpose_decision(input_path.read_text(encoding="utf-8"))
+    if engine_exit_code != 0:
+        return {
+            "status": "invalid",
+            "decision": "INVALID",
+            "condition": condition,
+            "verified_predecessor_sha256": before["head"],
+            "failure_class": "engine_timeout" if engine_exit_code == 124 else "engine_nonzero_exit",
+            "engine_exit_code": engine_exit_code,
+            "public_state_changed": False,
+            "commit_expected": False,
+        }
+    raw_output = input_path.read_text(encoding="utf-8")
+    try:
+        decision, normalization = parse_purpose_decision(raw_output)
+    except NodeError as exc:
+        return {
+            "status": "invalid",
+            "decision": "INVALID",
+            "condition": condition,
+            "verified_predecessor_sha256": before["head"],
+            "failure_class": "output_contract",
+            "output_sha256": hashlib.sha256(raw_output.encode("utf-8")).hexdigest(),
+            "public_state_changed": False,
+            "commit_expected": False,
+            "diagnostic": str(exc),
+        }
     if decision["decision"] == "SILENCE":
         return {
             "status": "silence",
@@ -1030,6 +1056,7 @@ def build_parser() -> argparse.ArgumentParser:
     purpose.add_argument("--run-id", default="manual")
     purpose.add_argument("--trigger-event", default="manual")
     purpose.add_argument("--schedule-expression", default="")
+    purpose.add_argument("--engine-exit-code", type=int, default=0)
     review = sub.add_parser("review-output-quality")
     add_root(review)
     export = sub.add_parser("export-packet")
@@ -1068,7 +1095,7 @@ def main() -> int:
             result = apply_purpose_decision(
                 args.state_root, args.input, args.context, args.node_id, args.network_mode,
                 args.substrate, args.model_id, args.model_sha256, args.engine_sha256, args.run_id,
-                args.trigger_event, args.schedule_expression,
+                args.trigger_event, args.schedule_expression, args.engine_exit_code,
             )
         elif args.command == "review-output-quality":
             result = review_output_quality(args.state_root)

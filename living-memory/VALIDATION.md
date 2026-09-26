@@ -78,14 +78,17 @@ transfer between independent state roots.**
     public collections byte-for-byte unchanged.
 28. A preregistered `REGISTER` decision created one sealed purpose record,
     appended one causal event and passed full-state verification.
-29. Invalid decisions, non-JSON output, changed predecessors and mismatched
-    condition bindings fail closed.
+29. Invalid decisions, non-JSON output, timeouts and model-engine failures are
+    reported as `INVALID` without mutating public state; changed predecessors
+    and mismatched condition bindings remain hard integrity failures.
 30. Four inherited-state conditions are public and selected by UTC day index
     modulo four, not by a human at wake time; the model receives only opaque
     identifiers, and one condition is fluent but circular and non-testable.
-31. The first directional analysis requires 24 scheduled decisions per
-    condition and uses preregistered two-sided Fisher exact contrasts with Holm
-    correction; no inferential reading is made before that threshold.
+31. The first directional analysis requires 24 scheduled attempts per
+    condition. REGISTER/SILENCE and INVALID/valid rates use preregistered two-
+    sided Fisher exact contrasts with Holm correction across all six tests; no
+    inferential reading is made before that threshold and invalid attempts are
+    not replaced.
 32. The deployed workflow adds a dedicated scheduled purpose wake; a real
     scheduled run remains required before reporting external behavioral
     results for v0.4.0.
