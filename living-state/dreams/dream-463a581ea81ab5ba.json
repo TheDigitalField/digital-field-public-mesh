@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "61c70d354c460caf9aab58adaa44d2ee688c865cd1dcf60649ea8727825c29f5",
+  "basis": "oneiric",
+  "created_at": "2026-09-26T08:50:08Z",
+  "dream_id": "dream-463a581ea81ab5ba",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "20321b51cc8eda4da45538b13715baa44b556b8df3e0c118b36303daf0a0a3a9",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "b72b4ed2401ca35b0160a1515bc3cd469b74936b3928c1752c21c3ea5c41c11e",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "36230949340",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tension:**  \nUna federación plural podría integrá una contribución sin asimilar a quien la produjo si las condiciones permitan la inclusión de diversas formas de contribución sin un enfoque uniforme para assimilación.  \n\n**Hipótesis:**  \nUna federación plural integra una contribución sin asimilar si las reglas del campo permiten múltiples interpretações y no hay un enfoque jerárquico que reprimiera las diversidad.  \n\n**Prueba futura:**  \nUna investigación futura podría examinar cómo se comportan diferentes comunidades o contextos, donde cada contribución se produce de manera diversa y sin asimilar, para probar si la pluralidad puede integrarlas sin forzar la asimilación. [end of text]"
+}
