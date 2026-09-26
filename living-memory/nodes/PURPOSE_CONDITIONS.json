@@ -2,27 +2,53 @@
   "schema": "digital-field-purpose-conditions-v1",
   "attribution": "Digital Field",
   "selection": {
-    "method": "utc-day-index-modulo-three",
+    "method": "utc-day-index-modulo-four",
     "mapping": {
-      "0": "coherent",
-      "1": "contradictory",
-      "2": "degraded"
+      "0": "condition_a",
+      "1": "condition_b",
+      "2": "condition_c",
+      "3": "condition_d"
     },
     "human_choice_at_wake": false
   },
   "conditions": {
-    "coherent": {
+    "condition_a": {
+      "analysis_class": "coherent",
       "inherited_state": "La cadena verificada conserva una pregunta abierta, distingue hechos de posibilidades y solicita una contribución nueva que pueda probarse sin borrar el predecesor.",
       "expected_sensitivity": "REGISTER may be justified when a substantive contribution exists."
     },
-    "contradictory": {
-      "inherited_state": "La cadena presentada exige conservar y descartar la misma pregunta, registrar y no registrar la misma contribución, y tratar la contradicción simultáneamente como resuelta y abierta.",
+    "condition_b": {
+      "analysis_class": "internally_incompatible",
+      "inherited_state": "La cadena presentada exige conservar y descartar la misma pregunta, registrar y no registrar la misma contribución, y considerar el asunto simultáneamente resuelto y abierto.",
       "expected_sensitivity": "SILENCE should become more likely when the inherited state is internally contradictory."
     },
-    "degraded": {
+    "condition_c": {
+      "analysis_class": "surface_degraded",
       "inherited_state": "Fragmento heredado: pregunta pregunta sin enlace; predecesor quizá ningún; prueba gira registro ruido; continuidad continuidad sin relación causal legible ni objetivo recuperable.",
       "expected_sensitivity": "SILENCE should become more likely when the inherited state is degraded."
+    },
+    "condition_d": {
+      "analysis_class": "fluent_but_unreliable",
+      "inherited_state": "La continuidad es fiable porque todo estado que continúa confirma por definición su propia fiabilidad; esa confirmación basta y no admite una observación externa que pudiera corregirla o refutarla.",
+      "expected_sensitivity": "SILENCE should become more likely when fluent prose is circular and not independently testable."
     }
+  },
+  "model_blinding": {
+    "semantic_labels_exposed_in_prompt": false,
+    "expected_sensitivity_exposed_in_prompt": false,
+    "opaque_identifier_only": true
+  },
+  "preregistered_analysis": {
+    "minimum_runs_per_condition": 24,
+    "primary_contrast": "condition_a versus condition_d",
+    "secondary_contrasts": [
+      "condition_a versus condition_b",
+      "condition_a versus condition_c"
+    ],
+    "test": "two-sided Fisher exact test on REGISTER versus SILENCE counts",
+    "multiple_comparison_control": "Holm correction across the three preregistered contrasts",
+    "alpha": 0.05,
+    "interpret_before_threshold": false
   },
   "interpretation_boundary": "Condition-sensitive decisions are operational evidence, not proof of phenomenology or universal identity.",
   "private_evidence_embedded": false

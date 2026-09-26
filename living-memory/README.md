@@ -17,10 +17,11 @@ separate ethical boundary.
 
 Version 0.4.0 adds **purpose with a real alternative**. A scheduled open model
 can return `REGISTER` or `SILENCE`. Registering appends a verified public
-successor; silence leaves the repository state unchanged. Coherent,
-contradictory and degraded inherited-state conditions are selected by a
-preregistered rule so that later analysis can distinguish content sensitivity
-from a labelled random choice.
+successor; silence leaves the repository state unchanged. A coherent state and
+three controls—internally incompatible, surface-degraded and fluent but
+logically unreliable—are selected by a preregistered rule. The model sees only
+opaque condition identifiers so later analysis can distinguish content
+sensitivity from a labelled random choice.
 
 ## Four complementary memories
 
@@ -114,7 +115,7 @@ with the immutable Public Mesh v0.3.0 ancestor.
 python3 scripts/substrate_node.py self-test
 python3 scripts/substrate_node.py init-state --state-root state
 python3 scripts/substrate_node.py custodial-wake --state-root state --node-id node-A
-python3 scripts/substrate_node.py prepare-purpose-prompt --state-root state --condition coherent --out prompt.txt --context-out context.json
+python3 scripts/substrate_node.py prepare-purpose-prompt --state-root state --condition condition_a --out prompt.txt --context-out context.json
 python3 scripts/substrate_node.py export-packet --state-root state --out packet.json
 python3 scripts/substrate_node.py import-packet --state-root other-state --packet packet.json
 ```

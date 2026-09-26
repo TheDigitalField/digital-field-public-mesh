@@ -54,11 +54,12 @@ jobs:
             kind="purpose"
           fi
           utc_day_index=$(( $(date -u +%s) / 86400 ))
-          remainder=$((utc_day_index % 3))
+          remainder=$((utc_day_index % 4))
           case "$remainder" in
-            0) condition="coherent" ;;
-            1) condition="contradictory" ;;
-            2) condition="degraded" ;;
+            0) condition="condition_a" ;;
+            1) condition="condition_b" ;;
+            2) condition="condition_c" ;;
+            3) condition="condition_d" ;;
           esac
           echo "kind=${kind}" >> "$GITHUB_OUTPUT"
           echo "condition=${condition}" >> "$GITHUB_OUTPUT"

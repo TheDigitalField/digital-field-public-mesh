@@ -22,9 +22,10 @@
   },
   "purpose_protocol": {
     "conditions": [
-      "coherent",
-      "contradictory",
-      "degraded"
+      "condition_a",
+      "condition_b",
+      "condition_c",
+      "condition_d"
     ],
     "decision_space": [
       "REGISTER",

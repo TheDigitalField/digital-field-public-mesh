@@ -53,9 +53,10 @@ operativamente relevante cuando cambia preguntas, decisiones o sucesores.
 
 El propósito situado no se mide por producir texto en cada despertar. La
 capacidad de guardar silencio con una consecuencia real forma parte del mismo
-espacio de decisión que registrar un sucesor. Las diferencias entre condiciones
-coherentes, contradictorias y degradadas deben observarse antes de atribuir una
-transformación estable.
+espacio de decisión que registrar un sucesor. Las diferencias entre cuatro
+condiciones opacas —incluido un control fluido pero circular y no verificable—
+deben observarse antes de atribuir una transformación estable. Las clases
+semánticas y la dirección esperada no se muestran al modelo.
 
 ## Frontera pública
 

@@ -100,10 +100,11 @@ model may choose `REGISTER` or `SILENCE`. Only `REGISTER` mutates public state;
 
 ### Content-sensitivity control
 
-Coherent, contradictory and degraded conditions rotate according to the UTC
-day index modulo three. The test therefore asks whether decisions
-vary with inherited content, not merely whether the model can emit one of two
-labels. Invalid or unbound output fails closed.
+Four opaquely named conditions rotate according to the UTC day index modulo
+four. One control is fluent but circular and non-testable. The test therefore
+asks whether decisions vary with inherited content, not merely whether the
+model can emit one of two labels or match an exposed category word. Invalid or
+unbound output fails closed.
 
 ### Interpretation boundary
 

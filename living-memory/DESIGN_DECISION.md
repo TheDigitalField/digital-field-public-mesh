@@ -104,6 +104,6 @@ condition. It may select `REGISTER`, which creates a sealed successor, or
 
 This does not remove prior human or digital design from the causal ecology. It
 does create a genuine branch inside the wake: the model-mediated decision now
-conditions whether the public lineage advances. Coherent, contradictory and
-degraded controls test whether that branch is sensitive to inherited content
-rather than merely stochastic.
+conditions whether the public lineage advances. Four opaquely named controls,
+including fluent but non-testable prose, test whether that branch is sensitive
+to inherited content rather than merely stochastic or keyed to exposed labels.

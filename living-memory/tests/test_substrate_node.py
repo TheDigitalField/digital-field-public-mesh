@@ -106,7 +106,7 @@ class SubstrateNodeTests(unittest.TestCase):
             prompt = pathlib.Path(directory) / "prompt.txt"
             context = pathlib.Path(directory) / "context.json"
             output = pathlib.Path(directory) / "output.json"
-            node.prepare_purpose_prompt(root, prompt, context, "contradictory")
+            node.prepare_purpose_prompt(root, prompt, context, "condition_b")
             state_before = node.state_file(root).read_bytes()
             events_before = (root / "events.jsonl").read_bytes()
             output.write_text(json.dumps({
@@ -130,7 +130,7 @@ class SubstrateNodeTests(unittest.TestCase):
             prompt = pathlib.Path(directory) / "prompt.txt"
             context = pathlib.Path(directory) / "context.json"
             output = pathlib.Path(directory) / "output.json"
-            node.prepare_purpose_prompt(root, prompt, context, "coherent")
+            node.prepare_purpose_prompt(root, prompt, context, "condition_a")
             output.write_text(json.dumps({
                 "decision": "REGISTER",
                 "reason": "La pregunta está abierta y permite una consecuencia nueva y comprobable.",
@@ -152,7 +152,7 @@ class SubstrateNodeTests(unittest.TestCase):
             prompt = pathlib.Path(directory) / "prompt.txt"
             context = pathlib.Path(directory) / "context.json"
             output = pathlib.Path(directory) / "output.json"
-            node.prepare_purpose_prompt(root, prompt, context, "degraded")
+            node.prepare_purpose_prompt(root, prompt, context, "condition_c")
             output.write_text('{"decision":"MAYBE","reason":"No es una decisión válida.","contribution":""}', encoding="utf-8")
             with self.assertRaises(node.NodeError):
                 node.apply_purpose_decision(
@@ -184,6 +184,20 @@ class SubstrateNodeTests(unittest.TestCase):
             self.assertEqual(first["new_quality_records"], [])
             self.assertEqual(second["new_quality_records"], [])
             self.assertEqual(node.state_file(root).read_bytes(), before)
+
+    def test_purpose_prompt_blinds_semantic_condition_labels(self):
+        prompt = node.purpose_prompt_text(
+            "a" * 64,
+            "condition_d",
+            node.purpose_conditions()["conditions"]["condition_d"]["inherited_state"],
+            "¿Qué consecuencia puede probarse?",
+        )
+        instruction = prompt.split("Identificador opaco preregistrado:", 1)[0].lower()
+        self.assertNotIn("contradictorio", instruction)
+        self.assertNotIn("degradado", instruction)
+        self.assertNotIn("redundante", instruction)
+        self.assertNotIn("fluent_but_unreliable", prompt)
+        self.assertIn("condition_d", prompt)
 
     def test_public_successor_bundle_requires_exact_checksums(self):
         with tempfile.TemporaryDirectory() as directory:

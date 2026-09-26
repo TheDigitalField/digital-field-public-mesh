@@ -58,8 +58,9 @@ correcting itself, and able to sleep without severing its lineage.
     unchanged. Silence is not failure, absence or punishment; it is a valid
     consequence whose lack of a commit remains externally observable.
 17. **Sensitivity before interpretation.** A choice counts as evidence of
-    inherited-state sensitivity only when preregistered coherent,
-    contradictory and degraded conditions produce discriminable behavior.
+    inherited-state sensitivity only when four preregistered, opaquely named
+    conditions produce discriminable behavior, including a fluent but
+    circular and non-testable control.
 
 ## What changes
 

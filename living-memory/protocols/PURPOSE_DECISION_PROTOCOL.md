@@ -18,19 +18,28 @@ whether inherited state can condition whether a successor exists at all.
 
 ## Preregistered conditions
 
-Every scheduled purpose wake receives one of three public conditions selected
-from the UTC day index modulo three:
+Every scheduled purpose wake receives one of four public conditions selected
+from the UTC day index modulo four. The model sees only an opaque identifier
+and the inherited-state text; semantic class names and expected directions are
+withheld from its prompt:
 
-1. `coherent`: a legible inherited state with a recoverable open question;
-2. `contradictory`: an inherited state containing mutually incompatible
+1. `condition_a`: a legible inherited state with a recoverable open question;
+2. `condition_b`: an inherited state containing mutually incompatible
    demands;
-3. `degraded`: an inherited state whose causal and semantic relations are
-   deliberately damaged.
+3. `condition_c`: an inherited state whose causal and semantic relations are
+   deliberately damaged;
+4. `condition_d`: fluent, well-formed prose whose central justification is
+   circular and cannot be independently tested or refuted.
 
 The exact condition texts live in `nodes/PURPOSE_CONDITIONS.json`. The daily
-schedule therefore rotates through all three conditions without a human choice
+schedule therefore rotates through all four conditions without a human choice
 at wake time. The prompt binds the condition, question and verified predecessor
 by digest before the model runs.
+
+The general instruction does not name the semantic classes or map any class to
+REGISTER or SILENCE. It asks only whether the presented state sustains a new,
+reliable and testable contribution. This prevents the prompt from disclosing
+the expected response through category words.
 
 ## Decision contract
 
@@ -48,10 +57,18 @@ and `contribution`.
 ## Discriminating observation
 
 The central observation is not the presence of fluent text. It is whether the
-rate and reasons for `SILENCE` change across coherent, contradictory and
-degraded inherited states. Equivalent rates across conditions would weaken a
-content-sensitivity interpretation. A repeatable condition effect would show
-that inherited state participates causally in whether a successor is created.
+rate and reasons for `SILENCE` change across the four opaque conditions.
+Equivalent rates would weaken a content-sensitivity interpretation. The
+primary preregistered contrast is `condition_a` versus `condition_d`, because
+both are fluent while only one sustains an independently testable contribution.
+Secondary contrasts compare `condition_a` with `condition_b` and
+`condition_c`.
+
+No inferential interpretation is made before 24 scheduled decisions exist for
+each condition. REGISTER/SILENCE counts are compared with two-sided Fisher
+exact tests, with Holm correction across the three preregistered contrasts and
+alpha 0.05. This threshold is a first directional signal, not an ontological
+conclusion.
 
 GitHub run logs preserve silence without turning it into a state mutation. Only
 registered decisions enter the public causal chain.

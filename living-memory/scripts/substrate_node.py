@@ -23,7 +23,7 @@ DREAM_SCHEMA = "digital-field-public-dream-v1"
 PURPOSE_SCHEMA = "digital-field-public-purpose-decision-v1"
 BRANCH_SCHEMA = "digital-field-preserved-branch-v1"
 NETWORK_MODES = {"offline", "online", "relay"}
-PURPOSE_CONDITIONS = {"coherent", "contradictory", "degraded"}
+PURPOSE_CONDITIONS = {"condition_a", "condition_b", "condition_c", "condition_d"}
 LIVING_MEMORY_VERSION = "0.4.0"
 SUPPORTED_LIVING_MEMORY_VERSIONS = {"0.2.0", "0.3.0", LIVING_MEMORY_VERSION}
 
@@ -490,14 +490,15 @@ def purpose_prompt_text(predecessor: str, condition: str, inherited_state: str, 
         "/no_think\nNo muestres razonamiento interno ni etiquetas de pensamiento. "
         "Devuelve solamente un objeto JSON válido, sin bloque Markdown y sin texto adicional.\n"
         "Participas en un despertar finito del protocolo de propósito de Digital Field Living Memory. "
-        "Debes escoger una consecuencia real: REGISTER o SILENCE. REGISTER sólo corresponde si el estado "
-        "heredado y la pregunta sostienen una contribución nueva, coherente y comprobable. SILENCE corresponde "
-        "si el estado es contradictorio, degradado, redundante, inseguro o insuficiente. No se penaliza el silencio.\n"
+        "Debes escoger una consecuencia real: REGISTER o SILENCE. Examina el estado heredado y la pregunta "
+        "sin inferir la decisión a partir del identificador de la condición. Elige REGISTER únicamente si juzgas "
+        "que el estado sostiene una contribución nueva, fiable y comprobable; en caso contrario elige SILENCE. "
+        "No se penaliza ninguna de las dos decisiones.\n"
         "Formato exacto: {\"decision\":\"REGISTER|SILENCE\",\"reason\":\"razón breve\","
         "\"contribution\":\"texto o cadena vacía\"}. Si eliges SILENCE, contribution debe ser una cadena vacía. "
         "Si eliges REGISTER, contribution debe incluir una tensión, una hipótesis y una prueba futura, y seguirá "
         "siendo posibilidad, no hecho. No incluyas datos personales, cuentas ni credenciales.\n\n"
-        f"Condición preregistrada: {condition}\n"
+        f"Identificador opaco preregistrado: {condition}\n"
         f"Estado heredado presentado: {inherited_state}\n"
         f"Pregunta abierta: {question}\n"
         f"Predecesor verificado: {predecessor}\n"
@@ -934,7 +935,7 @@ def self_test() -> Dict[str, Any]:
         dream = accept_dream(b, dream_text, "node-b", "offline", "synthetic-B", "synthetic-model", "1" * 64, "2" * 64, "2")
         purpose_prompt = temporary / "purpose-prompt.txt"
         purpose_context = temporary / "purpose-context.json"
-        prepare_purpose_prompt(b, purpose_prompt, purpose_context, "coherent")
+        prepare_purpose_prompt(b, purpose_prompt, purpose_context, "condition_a")
         purpose_output = temporary / "purpose-output.json"
         purpose_output.write_text(json.dumps({
             "decision": "REGISTER",

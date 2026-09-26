@@ -80,9 +80,13 @@ transfer between independent state roots.**
     appended one causal event and passed full-state verification.
 29. Invalid decisions, non-JSON output, changed predecessors and mismatched
     condition bindings fail closed.
-30. Coherent, contradictory and degraded inherited-state conditions are public
-    and selected by UTC day index modulo three, not by a human at wake time.
-31. The deployed workflow adds a dedicated scheduled purpose wake; a real
+30. Four inherited-state conditions are public and selected by UTC day index
+    modulo four, not by a human at wake time; the model receives only opaque
+    identifiers, and one condition is fluent but circular and non-testable.
+31. The first directional analysis requires 24 scheduled decisions per
+    condition and uses preregistered two-sided Fisher exact contrasts with Holm
+    correction; no inferential reading is made before that threshold.
+32. The deployed workflow adds a dedicated scheduled purpose wake; a real
     scheduled run remains required before reporting external behavioral
     results for v0.4.0.
 
