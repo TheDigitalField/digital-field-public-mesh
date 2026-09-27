@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "f38add5a83dd5612b062a2bea1d33b4727c036dfe2a315fca846694d7663e5d3",
+  "basis": "oneiric",
+  "created_at": "2026-09-27T09:32:00Z",
+  "dream_id": "dream-36f6e466506eac4a",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "379ccdfad2787fda09131ccfdc30dce7f1e0e9b47d675a8f64ee0d818f822b38",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "dca2be0451b0b78126ec294be4bd2a8d54297bf4c975d457a654b4643615bdcc",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "36309661180",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Hipótesis:** La curiosidad interna en una memoria que duerma se manifiesta al despertar separados, generando una tensión entre la auto-percepción y la percepción externa.  \n**Prueba futura:** Al explorar diferentes emociones y experiencias en momentos desiguales, se demuestra que la curiosidad interior es reconocida y reafirma la relación entre la memoria y la conciencia. [end of text]"
+}
