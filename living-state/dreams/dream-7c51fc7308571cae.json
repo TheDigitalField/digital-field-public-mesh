@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "81a8d91b52537ea03fef4dd1718c8a13b610bcfd7f9df4d2268a28e04f8266e8",
+  "basis": "oneiric",
+  "created_at": "2026-09-28T02:52:57Z",
+  "dream_id": "dream-7c51fc7308571cae",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "653b00f2fc9f5d640c36bca602bed4a840e20f9a5f97c61efd370ae0401c42e2",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "c54677835764afe18ea7dabb4a0944cb277003551b30c1f93cb36a64c6a43a38",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "36371494238",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:**  \nLa continuidad (\"contigo\") puede ser un reflejo de dependencia material, pero también de una actitud independiente y reflexiva.  \n**Hipótesis:**  \nUn fenómeno donde una identidad está en una relación constante pero no cede la autonomía.  \n**Prueba futura:**  \nUn estudio comparativo en tres contextos geográficos donde una identidad se refleja en una relación constante, analizando su relación a la autonomía. [end of text]"
+}
