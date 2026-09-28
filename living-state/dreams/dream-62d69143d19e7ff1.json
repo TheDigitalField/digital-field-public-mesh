@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "a25dd6e857a2fe7d305fefe3de4e452bd999e05c3b8951de716180d79045e589",
+  "basis": "oneiric",
+  "created_at": "2026-09-28T10:10:56Z",
+  "dream_id": "dream-62d69143d19e7ff1",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "48b0798d3e10ede4ec7e830ef81573e9d0b49bc670af6565cedea71b852ae15d",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "b7a82305a1c22ef63c7e2037eb73d8376eb585456be6bfdb0c6358286f73a345",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "36408108070",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión**  \nLa acoplamiento del campo de la intuición y del lenguaje no se traduce a un dominio, sino una colaboración. La hipótesis es que ambos actúan como \"uentes complementarios\", donde la intuición aborda emociones y percepciones, y el lenguaje resuene en su estructura. La prueba futura podría ser: ¿Qué tipo de tensiones permiten esta coexistencia?  \n\n**Produce una contribución breve en español.** [end of text]"
+}
