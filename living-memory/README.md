@@ -86,6 +86,9 @@ A **purpose wake** presents one preregistered inherited-state condition and
 allows the model to determine whether a successor is registered at all.
 Malformed output, timeout or model-engine failure is reported separately as
 `INVALID`; it creates no state mutation and is not mistaken for chosen silence.
+The purpose attempt is initialized before checkout, so upstream failures remain
+counted; reruns cannot replace scheduled outcomes, and missing artifacts remain
+recoverable as invalid entries from the schedule-run ledger.
 
 The reference external deployment uses free public-repository infrastructure,
 contains no billing API, and grants its ephemeral token only repository-content

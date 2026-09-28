@@ -89,7 +89,11 @@ transfer between independent state roots.**
     sided Fisher exact contrasts with Holm correction across all six tests; no
     inferential reading is made before that threshold and invalid attempts are
     not replaced.
-32. The deployed workflow adds a dedicated scheduled purpose wake; a real
+32. A provisional purpose-attempt record is created before checkout. Any
+    predecision infrastructure failure remains `INVALID`; first scheduled runs
+    count, reruns are diagnostic, and a missing result artifact is recovered
+    from the GitHub schedule-run ledger as `unrecorded_infrastructure_failure`.
+33. The deployed workflow adds a dedicated scheduled purpose wake; a real
     scheduled run remains required before reporting external behavioral
     results for v0.4.0.
 

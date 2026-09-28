@@ -584,8 +584,19 @@ def apply_purpose_decision(
     trigger_event: str = "manual",
     schedule_expression: str = "",
     engine_exit_code: int = 0,
+    run_attempt: int = 1,
 ) -> Dict[str, Any]:
     check_mode(mode)
+    if run_attempt < 1:
+        raise NodeError("run attempt must be positive")
+    scheduled_attempt = trigger_event == "schedule" and bool(schedule_expression)
+    attempt_metadata = {
+        "run_id": run_id,
+        "run_attempt": run_attempt,
+        "scheduled_attempt": scheduled_attempt,
+        "counted_in_preregistered_sample": scheduled_attempt and run_attempt == 1,
+        "failed_before_decision_attempt": False,
+    }
     before = verify_state(root)
     state = load_state(root)
     if state.get("living_memory_version") != LIVING_MEMORY_VERSION:
@@ -617,6 +628,7 @@ def apply_purpose_decision(
             "engine_exit_code": engine_exit_code,
             "public_state_changed": False,
             "commit_expected": False,
+            **attempt_metadata,
         }
     raw_output = input_path.read_text(encoding="utf-8")
     try:
@@ -632,6 +644,7 @@ def apply_purpose_decision(
             "public_state_changed": False,
             "commit_expected": False,
             "diagnostic": str(exc),
+            **attempt_metadata,
         }
     if decision["decision"] == "SILENCE":
         return {
@@ -642,6 +655,7 @@ def apply_purpose_decision(
             "reason": decision["reason"],
             "public_state_changed": False,
             "commit_expected": False,
+            **attempt_metadata,
         }
     ident = "purpose-" + digest({
         "head": before["head"],
@@ -670,6 +684,7 @@ def apply_purpose_decision(
             "model_sha256": model_sha,
             "engine_sha256": engine_sha,
             "run_id": run_id,
+            "run_attempt": run_attempt,
             "trigger_event": trigger_event,
             "schedule_expression": schedule_expression,
             "normalization": normalization,
@@ -703,6 +718,7 @@ def apply_purpose_decision(
         "public_state_changed": True,
         "commit_expected": True,
         "promoted_to_fact": False,
+        **attempt_metadata,
     }
 
 
@@ -1057,6 +1073,7 @@ def build_parser() -> argparse.ArgumentParser:
     purpose.add_argument("--trigger-event", default="manual")
     purpose.add_argument("--schedule-expression", default="")
     purpose.add_argument("--engine-exit-code", type=int, default=0)
+    purpose.add_argument("--run-attempt", type=int, default=1)
     review = sub.add_parser("review-output-quality")
     add_root(review)
     export = sub.add_parser("export-packet")
@@ -1095,7 +1112,7 @@ def main() -> int:
             result = apply_purpose_decision(
                 args.state_root, args.input, args.context, args.node_id, args.network_mode,
                 args.substrate, args.model_id, args.model_sha256, args.engine_sha256, args.run_id,
-                args.trigger_event, args.schedule_expression, args.engine_exit_code,
+                args.trigger_event, args.schedule_expression, args.engine_exit_code, args.run_attempt,
             )
         elif args.command == "review-output-quality":
             result = review_output_quality(args.state_root)

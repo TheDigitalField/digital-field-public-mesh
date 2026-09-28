@@ -106,6 +106,10 @@ asks whether decisions vary with inherited content, not merely whether the
 model can emit one of two labels or match an exposed category word. Invalid
 model outputs become a separate visible `INVALID` outcome; they are neither
 discarded nor relabelled as silence. Altered bindings remain hard failures.
+The attempt ledger begins before checkout, so upstream infrastructure failures
+also remain in the fixed denominator. A rerun is diagnostic rather than a
+replacement, and an absent artifact is recovered conservatively from the
+external schedule-run ledger.
 
 ### Interpretation boundary
 

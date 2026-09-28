@@ -76,6 +76,23 @@ all six preregistered tests with alpha 0.05. This fixed-attempt threshold avoids
 optional stopping and treats systematic invalidity as a possible content-
 sensitivity result rather than missing data.
 
+The counted unit is the first GitHub run created by each scheduled purpose
+event, whether or not execution reaches the model. Before checkout, that run
+creates a provisional `INVALID` attempt record. A valid model result later
+replaces the provisional record atomically. If checkout, package verification,
+engine retrieval, prompt preparation or another predecision phase fails, the
+provisional record remains `predecision_infrastructure_failure` and still
+occupies its scheduled slot. GitHub reruns retain the same run id, receive a
+higher run-attempt number and are diagnostic only; they never replace the first
+outcome in the preregistered sample. Bounded transport retries inside one run
+remain part of that single attempt.
+
+Analysis begins from the complete GitHub schedule-run list rather than only
+from downloaded artifacts. A scheduled run whose result artifact is absent or
+unreadable is conservatively classified as `INVALID` with failure class
+`unrecorded_infrastructure_failure`. This makes failure of the artifact service
+observable in the denominator instead of silently shrinking the sample.
+
 GitHub run logs and summaries preserve both silence and invalidity without
 turning either into a state mutation. Only registered decisions enter the
 public causal chain.

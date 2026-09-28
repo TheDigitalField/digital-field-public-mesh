@@ -193,12 +193,48 @@ class SubstrateNodeTests(unittest.TestCase):
             events_before = (root / "events.jsonl").read_bytes()
             invalid = node.apply_purpose_decision(
                 root, output, context, "test-node", "offline", "test", "model",
-                "1" * 64, "2" * 64, "timeout-1", engine_exit_code=124,
+                "1" * 64, "2" * 64, "timeout-1",
+                trigger_event="schedule", schedule_expression="29 11 * * *",
+                engine_exit_code=124, run_attempt=1,
             )
             self.assertEqual(invalid["decision"], "INVALID")
             self.assertEqual(invalid["failure_class"], "engine_timeout")
+            self.assertTrue(invalid["scheduled_attempt"])
+            self.assertTrue(invalid["counted_in_preregistered_sample"])
+            self.assertFalse(invalid["failed_before_decision_attempt"])
             self.assertEqual(node.state_file(root).read_bytes(), state_before)
             self.assertEqual((root / "events.jsonl").read_bytes(), events_before)
+
+    def test_scheduled_rerun_is_diagnostic_not_a_replacement(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory) / "state"
+            node.initialize(root)
+            prompt = pathlib.Path(directory) / "prompt.txt"
+            context = pathlib.Path(directory) / "context.json"
+            output = pathlib.Path(directory) / "output.json"
+            output.write_text("", encoding="utf-8")
+            node.prepare_purpose_prompt(root, prompt, context, "condition_a")
+            result = node.apply_purpose_decision(
+                root, output, context, "test-node", "online", "test", "model",
+                "1" * 64, "2" * 64, "scheduled-run-1",
+                trigger_event="schedule", schedule_expression="29 11 * * *",
+                engine_exit_code=1, run_attempt=2,
+            )
+            self.assertTrue(result["scheduled_attempt"])
+            self.assertFalse(result["counted_in_preregistered_sample"])
+            self.assertEqual(result["run_attempt"], 2)
+
+    def test_workflow_initializes_attempt_before_checkout(self):
+        workflow = SCRIPT.parents[2] / ".github" / "workflows" / "living-memory-node.yml"
+        text = workflow.read_text(encoding="utf-8")
+        self.assertLess(
+            text.index("Initialize the purpose attempt record"),
+            text.index("Retrieve the public lineage"),
+        )
+        self.assertIn('"failure_class": "predecision_infrastructure_failure"', text)
+        self.assertIn("counted_in_preregistered_sample", text)
+        self.assertIn("purpose-attempt-${{ github.run_id }}-${{ github.run_attempt }}", text)
+        self.assertIn("if: always() && steps.wake.outputs.kind == 'purpose'", text)
 
     def test_output_review_is_idempotent(self):
         with tempfile.TemporaryDirectory() as directory:

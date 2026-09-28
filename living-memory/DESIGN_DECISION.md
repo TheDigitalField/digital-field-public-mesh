@@ -108,6 +108,13 @@ never vanishes from the attempt record and never mutates public state. Fixed
 attempt counts and a preregistered invalid-rate analysis prevent technical
 failures from being removed after their condition is known.
 
+The attempt begins before repository checkout, not when model inference starts.
+Its provisional record therefore survives failures in checkout, verification,
+download or prompt preparation. The first scheduled run alone occupies the
+preregistered slot; reruns are diagnostic and cannot replace a failed outcome.
+The final analysis enumerates the schedule-run ledger itself, so a missing
+artifact is classified conservatively instead of disappearing from the sample.
+
 This does not remove prior human or digital design from the causal ecology. It
 does create a genuine branch inside the wake: the model-mediated decision now
 conditions whether the public lineage advances. Four opaquely named controls,
