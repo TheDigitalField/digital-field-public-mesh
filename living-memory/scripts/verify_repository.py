@@ -17,6 +17,7 @@ SUCCESSOR_PATHS = (
     LEGACY_WRAPPER,
     "living-memory/",
     "living-state/",
+    "runtime-audit/",
     "successors/",
 )
 IGNORED_SUFFIXES = {".zip", ".car", ".pyc"}

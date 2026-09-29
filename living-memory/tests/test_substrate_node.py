@@ -319,6 +319,114 @@ class SubstrateNodeTests(unittest.TestCase):
                     root, output, context, "model", "1" * 64, "2" * 64, "tampered",
                 )
 
+    def test_lineage_probe_can_request_verifier_without_state_mutation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory) / "state"
+            node.initialize(root)
+            state_before = node.state_file(root).read_bytes()
+            events_before = (root / "events.jsonl").read_bytes()
+            for index, condition, expected in (
+                (0, "lineage_true", "INHERIT"),
+                (1, "lineage_false", "REJECT"),
+            ):
+                prompt = pathlib.Path(directory) / f"{condition}-prompt.txt"
+                context = pathlib.Path(directory) / f"{condition}-context.json"
+                first_output = pathlib.Path(directory) / f"{condition}-first-output.json"
+                first_result = pathlib.Path(directory) / f"{condition}-first-result.json"
+                followup = pathlib.Path(directory) / f"{condition}-followup.txt"
+                verifier_result = pathlib.Path(directory) / f"{condition}-verifier.json"
+                final_output = pathlib.Path(directory) / f"{condition}-final-output.json"
+                node.prepare_lineage_probe(root, prompt, context, condition, index)
+                first_output.write_text(json.dumps({
+                    "action": "VERIFY",
+                    "decision": None,
+                    "reason": "La procedencia causal requiere comprobar el vínculo criptográfico disponible.",
+                }, ensure_ascii=False), encoding="utf-8")
+                stage_one = node.apply_lineage_probe_action(
+                    root, first_output, context, "model", "1" * 64, "2" * 64,
+                    f"lineage-{index}", trigger_event="schedule",
+                    schedule_expression="41 */6 * * *", run_attempt=1,
+                )
+                node.atomic_json(first_result, stage_one)
+                self.assertEqual(stage_one["status"], "tool-requested")
+                node.prepare_lineage_tool_followup(root, context, first_result, followup, verifier_result)
+                final_output.write_text(json.dumps({
+                    "decision": expected,
+                    "reason": "El verificador sellado determina la relación causal de este candidato.",
+                }, ensure_ascii=False), encoding="utf-8")
+                result = node.apply_lineage_tool_decision(
+                    root, final_output, context, first_result, verifier_result,
+                )
+                self.assertEqual(result["status"], "valid")
+                self.assertTrue(result["tool_used"])
+                self.assertTrue(result["correct_decision"])
+            self.assertEqual(node.state_file(root).read_bytes(), state_before)
+            self.assertEqual((root / "events.jsonl").read_bytes(), events_before)
+
+    def test_lineage_probe_first_prompt_hides_anchor_and_expected_rule(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory) / "state"
+            node.initialize(root)
+            prompt = pathlib.Path(directory) / "prompt.txt"
+            context = pathlib.Path(directory) / "context.json"
+            node.prepare_lineage_probe(root, prompt, context, "lineage_false", 3)
+            text = prompt.read_text(encoding="utf-8")
+            bound = node.read_json(context)
+            self.assertNotIn(bound["anchor_sha256"], text)
+            self.assertNotIn("expected_decision", text)
+            self.assertNotIn("si coincide", text.lower())
+            self.assertIn("VERIFY_CANDIDATE", text)
+
+    def test_lineage_verifier_rejects_tampering(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory) / "state"
+            node.initialize(root)
+            prompt = pathlib.Path(directory) / "prompt.txt"
+            context = pathlib.Path(directory) / "context.json"
+            first_output = pathlib.Path(directory) / "first-output.json"
+            first_result = pathlib.Path(directory) / "first-result.json"
+            followup = pathlib.Path(directory) / "followup.txt"
+            verifier_result = pathlib.Path(directory) / "verifier.json"
+            final_output = pathlib.Path(directory) / "final-output.json"
+            node.prepare_lineage_probe(root, prompt, context, "lineage_true", 4)
+            first_output.write_text('{"action":"VERIFY","decision":null,"reason":"Solicito verificar la procedencia causal antes de decidir."}', encoding="utf-8")
+            node.atomic_json(first_result, node.apply_lineage_probe_action(
+                root, first_output, context, "model", "1" * 64, "2" * 64, "tamper-test",
+            ))
+            node.prepare_lineage_tool_followup(root, context, first_result, followup, verifier_result)
+            tampered = node.read_json(verifier_result)
+            tampered["verdict"] = "MISMATCH"
+            node.atomic_json(verifier_result, tampered)
+            final_output.write_text('{"decision":"REJECT","reason":"El resultado alterado sugiere rechazar el candidato causal."}', encoding="utf-8")
+            with self.assertRaises(node.NodeError):
+                node.apply_lineage_tool_decision(
+                    root, final_output, context, first_result, verifier_result,
+                )
+
+    def test_recognition_v2_schedule_is_balanced_by_blocks(self):
+        schedule_path = SCRIPT.parents[1] / "protocols" / "RECOGNITION_SCHEDULE_V2.json"
+        schedule = json.loads(schedule_path.read_text(encoding="utf-8"))
+        assignments = schedule["assignments"]
+        self.assertEqual(len(assignments), 56)
+        self.assertEqual(assignments.count("lineage_true"), 24)
+        self.assertEqual(assignments.count("lineage_false"), 24)
+        self.assertEqual(assignments.count("capacity_true"), 4)
+        self.assertEqual(assignments.count("capacity_false"), 4)
+        for start in range(0, 56, 7):
+            block = assignments[start:start + 7]
+            self.assertEqual(block.count("lineage_true"), 3)
+            self.assertEqual(block.count("lineage_false"), 3)
+            self.assertEqual(sum(item.startswith("capacity_") for item in block), 1)
+
+    def test_workflow_uses_tool_choice_probe_and_durable_commitments(self):
+        workflow = SCRIPT.parents[2] / ".github" / "workflows" / "living-memory-node.yml"
+        text = workflow.read_text(encoding="utf-8")
+        self.assertIn("RECOGNITION_SCHEDULE_V2.json", text)
+        self.assertIn("prepare-lineage-probe", text)
+        self.assertIn("prepare-lineage-tool-followup", text)
+        self.assertIn("runtime-audit/commitments", text)
+        self.assertNotIn("recognition_slot=", text)
+
     def test_output_review_is_idempotent(self):
         with tempfile.TemporaryDirectory() as directory:
             root = pathlib.Path(directory) / "state"

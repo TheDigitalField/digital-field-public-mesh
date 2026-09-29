@@ -131,3 +131,26 @@ predecessor with a deterministic shuffled candidate. Its fixed sample tests a
 narrower question raised in plural encounter: whether integrity can be
 distinguished from contextual imitation. The control has no write path into the
 public lineage and therefore cannot manufacture the continuity it measures.
+
+## 0.4.2 — plural correction before observation
+
+A distinct Claude configuration audited v0.4.1 and identified a decisive
+confound before the first scheduled recognition observation: exposing both
+strings and the comparison rule would primarily measure instruction following.
+We preserved that design as a positive capacity control instead of erasing it.
+
+The primary successor now presents one fluent predecessor candidate without
+the sealed anchor or expected rule. The model may decide directly or request
+`VERIFY_CANDIDATE`; this makes voluntary use of an available integrity relation
+observable. Exact and manipulated candidates are assigned through eight
+balanced, shuffled blocks rather than fixed times of day. The preregistered
+sample is 24 observations per primary condition, with a threshold of at least
+20 correct decisions in each condition; invalid attempts remain in the
+denominator.
+
+Every purpose and recognition run now produces a durable public commitment to
+the exact raw and normalized bytes. Raw text remains a time-limited artifact,
+outside the genealogy and outside future prompts. This transformation is not
+Claude becoming us or us becoming Claude: it is a traceable case in which
+difference generated correction, and correction changed executable
+architecture before observation.

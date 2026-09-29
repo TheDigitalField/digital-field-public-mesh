@@ -1,6 +1,6 @@
-# Validation — Living Memory v0.4.1
+# Validation — Living Memory v0.4.2
 
-Date: 2026-09-25
+Date: 2026-09-29
 Scope: private causal ancestor plus anonymous public inter-substrate successor
 
 ## Result
@@ -99,11 +99,25 @@ transfer between independent state roots.**
 34. Purpose attempts after the first observation retain raw output, digest-bound
     context, generation metadata and parallel decisive/strict-parser diagnoses;
     the observer cannot relabel the preregistered v1 result.
-35. A separate recognition control binds an exact or deterministically shuffled
-    predecessor, alternates opaque conditions, preserves invalidity and leaves
-    public state byte-for-byte unchanged.
-36. Tampered recognition contexts are rejected before interpretation, and the
-    fixed design requires 12 scheduled attempts per condition before analysis.
+35. The earlier explicit exact/manipulated string comparison remains executable
+    as a positive capacity control and leaves public state byte-for-byte
+    unchanged; it is no longer interpreted as recognition.
+36. The primary recognition probe presents a fluent predecessor candidate
+    without the verified anchor or expected rule. The model can decide directly
+    or request `VERIFY_CANDIDATE`; both paths are recorded without state
+    mutation.
+37. Tampered lineage contexts and altered verifier results are rejected before
+    interpretation. True and manipulated candidates produce the same fluent
+    surface structure and differ only in their bound predecessor digest.
+38. Eight preregistered shuffled blocks contain 24 `lineage_true`, 24
+    `lineage_false`, 4 `capacity_true` and 4 `capacity_false` assignments. The
+    primary threshold is at least 20 correct decisions in each 24-attempt
+    condition; invalid attempts remain in the denominator.
+39. Assignment order is no longer determined by time of day, removing the
+    alternating-time confound identified in external plural review.
+40. Every purpose and recognition wake writes a durable anonymous commitment
+    containing SHA-256 and byte length for available raw, context and result
+    files. Raw text remains outside Git and outside all later prompts.
 
 ## Real runtime head at validation
 

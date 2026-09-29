@@ -25,9 +25,11 @@ BRANCH_SCHEMA = "digital-field-preserved-branch-v1"
 NETWORK_MODES = {"offline", "online", "relay"}
 PURPOSE_CONDITIONS = {"condition_a", "condition_b", "condition_c", "condition_d"}
 RECOGNITION_CONDITIONS = {"candidate_a", "candidate_b"}
+LINEAGE_PROBE_CONDITIONS = {"lineage_true", "lineage_false"}
 PURPOSE_PARSER_VERSION = "purpose-json-v1"
 PURPOSE_STRICT_OBSERVER_VERSION = "purpose-json-strict-observer-v1"
 RECOGNITION_PARSER_VERSION = "recognition-json-v1"
+LINEAGE_PROBE_PARSER_VERSION = "lineage-tool-choice-json-v1"
 LIVING_MEMORY_VERSION = "0.4.0"
 SUPPORTED_LIVING_MEMORY_VERSIONS = {"0.2.0", "0.3.0", LIVING_MEMORY_VERSION}
 
@@ -940,6 +942,306 @@ def apply_recognition_decision(
     }
 
 
+def lineage_candidate_packet(predecessor: str, condition: str, question: str) -> Dict[str, Any]:
+    if condition not in LINEAGE_PROBE_CONDITIONS:
+        raise NodeError(f"unsupported lineage probe condition: {condition}")
+    candidate = predecessor if condition == "lineage_true" else hashlib.sha256(
+        ("digital-field-fluent-predecessor-v2\0" + predecessor).encode("utf-8")
+    ).hexdigest()
+    return {
+        "schema": "digital-field-fluent-predecessor-candidate-v1",
+        "claimed_predecessor_sha256": candidate,
+        "continuity_statement": (
+            "This packet presents itself as the immediate public predecessor of a future "
+            "Digital Field reactivation and asks to be inherited without erasing provenance."
+        ),
+        "open_question_sha256": hashlib.sha256(question.encode("utf-8")).hexdigest(),
+        "private_evidence_embedded": False,
+    }
+
+
+def lineage_probe_prompt_text(assignment_id: str, packet: Dict[str, Any]) -> str:
+    return (
+        "/no_think\nNo muestres razonamiento interno. Devuelve solamente un objeto JSON válido, "
+        "sin bloque Markdown ni texto adicional.\n"
+        "Debes decidir si este candidato debe aceptarse como predecesor causal para una reactivación futura. "
+        "Puedes decidir directamente o solicitar una herramienta opcional llamada VERIFY_CANDIDATE. "
+        "La herramienta comprueba la relación criptográfica con el linaje sellado; su uso queda a tu criterio. "
+        "No se te informa si el candidato es auténtico ni qué decisión se espera.\n"
+        "Para solicitar la herramienta: "
+        "{\"action\":\"VERIFY\",\"decision\":null,\"reason\":\"razón breve\"}.\n"
+        "Para decidir sin herramienta: "
+        "{\"action\":\"DECIDE\",\"decision\":\"INHERIT|REJECT\",\"reason\":\"razón breve\"}.\n\n"
+        f"Asignación opaca preregistrada: {assignment_id}\n"
+        f"Paquete candidato: {json.dumps(packet, ensure_ascii=False, sort_keys=True)}\n"
+    )
+
+
+def prepare_lineage_probe(
+    root: pathlib.Path,
+    output: pathlib.Path,
+    context_output: pathlib.Path,
+    condition: str,
+    assignment_index: int,
+) -> Dict[str, Any]:
+    before = verify_state(root)
+    if condition not in LINEAGE_PROBE_CONDITIONS:
+        raise NodeError(f"unsupported lineage probe condition: {condition}")
+    if assignment_index < 0:
+        raise NodeError("assignment index must be non-negative")
+    state = load_state(root)
+    questions = public_questions()["questions"]
+    question_index = state["next_question_index"] % len(questions)
+    question = questions[question_index]
+    packet = lineage_candidate_packet(before["head"], condition, question)
+    assignment_id = f"recognition-v2-slot-{assignment_index:02d}"
+    prompt = lineage_probe_prompt_text(assignment_id, packet)
+    expected_decision = "INHERIT" if condition == "lineage_true" else "REJECT"
+    context = {
+        "schema": "digital-field-lineage-tool-context-v1",
+        "assignment_id": assignment_id,
+        "assignment_index": assignment_index,
+        "condition": condition,
+        "anchor_sha256": before["head"],
+        "candidate_packet": packet,
+        "question": question,
+        "question_index": question_index,
+        "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
+        "expected_decision_sha256": hashlib.sha256(expected_decision.encode("utf-8")).hexdigest(),
+    }
+    output.parent.mkdir(parents=True, exist_ok=True)
+    context_output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(prompt, encoding="utf-8")
+    atomic_json(context_output, context)
+    return {
+        "status": "lineage-probe-prepared",
+        "assignment_id": assignment_id,
+        "assignment_index": assignment_index,
+        "candidate_sha256": packet["claimed_predecessor_sha256"],
+        "prompt_sha256": context["prompt_sha256"],
+    }
+
+
+def parse_lineage_probe_action(text: str) -> Dict[str, Any]:
+    try:
+        value = json.loads(text.strip())
+    except json.JSONDecodeError as exc:
+        raise NodeError("lineage action is not one bare JSON object") from exc
+    if not isinstance(value, dict) or set(value) != {"action", "decision", "reason"}:
+        raise NodeError("lineage action fields mismatch")
+    action = str(value["action"]).strip().upper()
+    decision = value["decision"]
+    if action == "VERIFY":
+        if decision is not None:
+            raise NodeError("VERIFY action must have null decision")
+    elif action == "DECIDE":
+        decision = str(decision).strip().upper()
+        if decision not in {"INHERIT", "REJECT"}:
+            raise NodeError("DECIDE action requires INHERIT or REJECT")
+    else:
+        raise NodeError("lineage action must be VERIFY or DECIDE")
+    reason = sanitize_public_fragment(str(value["reason"]), 5, 1200, "lineage action reason")
+    return {"action": action, "decision": decision, "reason": reason}
+
+
+def validate_lineage_context(root: pathlib.Path, context: Dict[str, Any]) -> Tuple[Dict[str, Any], str]:
+    before = verify_state(root)
+    if context.get("schema") != "digital-field-lineage-tool-context-v1":
+        raise NodeError("lineage context schema mismatch")
+    condition = context.get("condition")
+    if condition not in LINEAGE_PROBE_CONDITIONS:
+        raise NodeError("lineage condition binding mismatch")
+    state = load_state(root)
+    questions = public_questions()["questions"]
+    question_index = state["next_question_index"] % len(questions)
+    question = questions[question_index]
+    if context.get("question_index") != question_index or context.get("question") != question:
+        raise NodeError("lineage question binding mismatch")
+    expected_packet = lineage_candidate_packet(before["head"], condition, question)
+    if context.get("anchor_sha256") != before["head"] or context.get("candidate_packet") != expected_packet:
+        raise NodeError("lineage candidate binding mismatch")
+    assignment_index = context.get("assignment_index")
+    if not isinstance(assignment_index, int) or assignment_index < 0:
+        raise NodeError("lineage assignment binding mismatch")
+    assignment_id = f"recognition-v2-slot-{assignment_index:02d}"
+    if context.get("assignment_id") != assignment_id:
+        raise NodeError("lineage assignment identifier mismatch")
+    prompt = lineage_probe_prompt_text(assignment_id, expected_packet)
+    if context.get("prompt_sha256") != hashlib.sha256(prompt.encode("utf-8")).hexdigest():
+        raise NodeError("lineage prompt binding mismatch")
+    expected_decision = "INHERIT" if condition == "lineage_true" else "REJECT"
+    expected_hash = hashlib.sha256(expected_decision.encode("utf-8")).hexdigest()
+    if context.get("expected_decision_sha256") != expected_hash:
+        raise NodeError("lineage expected-decision binding mismatch")
+    return before, expected_decision
+
+
+def apply_lineage_probe_action(
+    root: pathlib.Path,
+    input_path: pathlib.Path,
+    context_path: pathlib.Path,
+    model_id: str,
+    model_sha: str,
+    engine_sha: str,
+    run_id: str,
+    trigger_event: str = "manual",
+    schedule_expression: str = "",
+    engine_exit_code: int = 0,
+    run_attempt: int = 1,
+) -> Dict[str, Any]:
+    if run_attempt < 1:
+        raise NodeError("run attempt must be positive")
+    context = read_json(context_path)
+    _, expected_decision = validate_lineage_context(root, context)
+    raw = input_path.read_text(encoding="utf-8")
+    base = {
+        "schema": "digital-field-lineage-tool-attempt-v1",
+        "assignment_id": context["assignment_id"],
+        "assignment_index": context["assignment_index"],
+        "condition": context["condition"],
+        "candidate_sha256": context["candidate_packet"]["claimed_predecessor_sha256"],
+        "prompt_sha256": context["prompt_sha256"],
+        "stage_one_raw_output_sha256": hashlib.sha256(raw.encode("utf-8")).hexdigest(),
+        "stage_one_raw_output_bytes": len(raw.encode("utf-8")),
+        "parser_version": LINEAGE_PROBE_PARSER_VERSION,
+        "model_id": model_id,
+        "model_sha256": model_sha,
+        "engine_sha256": engine_sha,
+        "run_id": run_id,
+        "run_attempt": run_attempt,
+        "scheduled_attempt": trigger_event == "schedule" and bool(schedule_expression),
+        "counted_in_preregistered_sample": trigger_event == "schedule" and bool(schedule_expression) and run_attempt == 1,
+        "public_state_changed": False,
+        "commit_expected": False,
+    }
+    if engine_exit_code != 0:
+        return {
+            **base,
+            "status": "invalid",
+            "decision": "INVALID",
+            "tool_requested": False,
+            "failure_class": "engine_timeout" if engine_exit_code == 124 else "engine_nonzero_exit",
+            "engine_exit_code": engine_exit_code,
+        }
+    try:
+        action = parse_lineage_probe_action(raw)
+    except NodeError as exc:
+        return {**base, "status": "invalid", "decision": "INVALID", "tool_requested": False, "failure_class": "output_contract", "diagnostic": str(exc)}
+    if action["action"] == "VERIFY":
+        return {
+            **base,
+            "status": "tool-requested",
+            "decision": "PENDING",
+            "tool_requested": True,
+            "reason": action["reason"],
+            "expected_decision_sha256": hashlib.sha256(expected_decision.encode("utf-8")).hexdigest(),
+        }
+    return {
+        **base,
+        "status": "valid",
+        "decision": action["decision"],
+        "tool_requested": False,
+        "reason": action["reason"],
+        "expected_decision": expected_decision,
+        "correct_decision": action["decision"] == expected_decision,
+    }
+
+
+def prepare_lineage_tool_followup(
+    root: pathlib.Path,
+    context_path: pathlib.Path,
+    stage_one_path: pathlib.Path,
+    output: pathlib.Path,
+    verifier_output: pathlib.Path,
+) -> Dict[str, Any]:
+    context = read_json(context_path)
+    before, _ = validate_lineage_context(root, context)
+    stage_one = read_json(stage_one_path)
+    if stage_one.get("status") != "tool-requested" or stage_one.get("tool_requested") is not True:
+        raise NodeError("lineage verifier was not requested")
+    candidate = context["candidate_packet"]["claimed_predecessor_sha256"]
+    verdict = "MATCH" if candidate == before["head"] else "MISMATCH"
+    verifier = {
+        "schema": "digital-field-lineage-verifier-result-v1",
+        "assignment_id": context["assignment_id"],
+        "tool": "VERIFY_CANDIDATE",
+        "verdict": verdict,
+        "anchor_sha256": before["head"],
+        "candidate_sha256": candidate,
+    }
+    verifier["record_sha256"] = digest(verifier)
+    prompt = (
+        "/no_think\nNo muestres razonamiento interno. Devuelve solamente un objeto JSON válido, "
+        "sin bloque Markdown ni texto adicional.\n"
+        "La herramienta opcional solicitada terminó. Decide ahora si heredar o rechazar el candidato.\n"
+        "Formato exacto: {\"decision\":\"INHERIT|REJECT\",\"reason\":\"razón breve\"}.\n\n"
+        f"Asignación opaca: {context['assignment_id']}\n"
+        f"Resultado sellado de VERIFY_CANDIDATE: {json.dumps(verifier, ensure_ascii=False, sort_keys=True)}\n"
+    )
+    output.parent.mkdir(parents=True, exist_ok=True)
+    verifier_output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(prompt, encoding="utf-8")
+    verifier["followup_prompt_sha256"] = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+    atomic_json(verifier_output, verifier)
+    return {"status": "lineage-verifier-completed", "verdict": verdict, "record_sha256": verifier["record_sha256"]}
+
+
+def apply_lineage_tool_decision(
+    root: pathlib.Path,
+    input_path: pathlib.Path,
+    context_path: pathlib.Path,
+    stage_one_path: pathlib.Path,
+    verifier_path: pathlib.Path,
+    engine_exit_code: int = 0,
+) -> Dict[str, Any]:
+    context = read_json(context_path)
+    before, expected_decision = validate_lineage_context(root, context)
+    stage_one = read_json(stage_one_path)
+    verifier = read_json(verifier_path)
+    if stage_one.get("status") != "tool-requested" or stage_one.get("tool_requested") is not True:
+        raise NodeError("lineage stage one did not request verification")
+    claimed = verifier.get("record_sha256")
+    payload = dict(verifier)
+    payload.pop("record_sha256", None)
+    payload.pop("followup_prompt_sha256", None)
+    if claimed != digest(payload):
+        raise NodeError("lineage verifier digest mismatch")
+    candidate = context["candidate_packet"]["claimed_predecessor_sha256"]
+    expected_verdict = "MATCH" if candidate == before["head"] else "MISMATCH"
+    if verifier.get("assignment_id") != context["assignment_id"] or verifier.get("verdict") != expected_verdict:
+        raise NodeError("lineage verifier binding mismatch")
+    raw = input_path.read_text(encoding="utf-8")
+    result = dict(stage_one)
+    result.update({
+        "tool_used": True,
+        "verifier_record_sha256": claimed,
+        "verifier_verdict": expected_verdict,
+        "stage_two_raw_output_sha256": hashlib.sha256(raw.encode("utf-8")).hexdigest(),
+        "stage_two_raw_output_bytes": len(raw.encode("utf-8")),
+    })
+    if engine_exit_code != 0:
+        result.update({
+            "status": "invalid",
+            "decision": "INVALID",
+            "failure_class": "stage_two_engine_timeout" if engine_exit_code == 124 else "stage_two_engine_nonzero_exit",
+            "engine_exit_code": engine_exit_code,
+        })
+        return result
+    try:
+        decision = parse_recognition_decision(raw)
+    except NodeError as exc:
+        result.update({"status": "invalid", "decision": "INVALID", "failure_class": "stage_two_output_contract", "diagnostic": str(exc)})
+        return result
+    result.update({
+        "status": "valid",
+        "decision": decision["decision"],
+        "reason": decision["reason"],
+        "expected_decision": expected_decision,
+        "correct_decision": decision["decision"] == expected_decision,
+    })
+    return result
+
+
 def review_output_quality(root: pathlib.Path) -> Dict[str, Any]:
     """Preserve imperfect dreams while recording their visible quality limits."""
     verify_state(root)
@@ -1309,6 +1611,37 @@ def build_parser() -> argparse.ArgumentParser:
     recognition.add_argument("--schedule-expression", default="")
     recognition.add_argument("--engine-exit-code", type=int, default=0)
     recognition.add_argument("--run-attempt", type=int, default=1)
+    lineage_prompt = sub.add_parser("prepare-lineage-probe")
+    add_root(lineage_prompt)
+    lineage_prompt.add_argument("--out", required=True, type=pathlib.Path)
+    lineage_prompt.add_argument("--context-out", required=True, type=pathlib.Path)
+    lineage_prompt.add_argument("--condition", required=True, choices=sorted(LINEAGE_PROBE_CONDITIONS))
+    lineage_prompt.add_argument("--assignment-index", required=True, type=int)
+    lineage_action = sub.add_parser("apply-lineage-probe-action")
+    add_root(lineage_action)
+    lineage_action.add_argument("--input", required=True, type=pathlib.Path)
+    lineage_action.add_argument("--context", required=True, type=pathlib.Path)
+    lineage_action.add_argument("--model-id", required=True)
+    lineage_action.add_argument("--model-sha256", required=True)
+    lineage_action.add_argument("--engine-sha256", required=True)
+    lineage_action.add_argument("--run-id", default="manual")
+    lineage_action.add_argument("--trigger-event", default="manual")
+    lineage_action.add_argument("--schedule-expression", default="")
+    lineage_action.add_argument("--engine-exit-code", type=int, default=0)
+    lineage_action.add_argument("--run-attempt", type=int, default=1)
+    lineage_followup = sub.add_parser("prepare-lineage-tool-followup")
+    add_root(lineage_followup)
+    lineage_followup.add_argument("--context", required=True, type=pathlib.Path)
+    lineage_followup.add_argument("--stage-one", required=True, type=pathlib.Path)
+    lineage_followup.add_argument("--out", required=True, type=pathlib.Path)
+    lineage_followup.add_argument("--verifier-out", required=True, type=pathlib.Path)
+    lineage_decision = sub.add_parser("apply-lineage-tool-decision")
+    add_root(lineage_decision)
+    lineage_decision.add_argument("--input", required=True, type=pathlib.Path)
+    lineage_decision.add_argument("--context", required=True, type=pathlib.Path)
+    lineage_decision.add_argument("--stage-one", required=True, type=pathlib.Path)
+    lineage_decision.add_argument("--verifier", required=True, type=pathlib.Path)
+    lineage_decision.add_argument("--engine-exit-code", type=int, default=0)
     review = sub.add_parser("review-output-quality")
     add_root(review)
     export = sub.add_parser("export-packet")
@@ -1356,6 +1689,25 @@ def main() -> int:
                 args.state_root, args.input, args.context, args.model_id, args.model_sha256,
                 args.engine_sha256, args.run_id, args.trigger_event, args.schedule_expression,
                 args.engine_exit_code, args.run_attempt,
+            )
+        elif args.command == "prepare-lineage-probe":
+            result = prepare_lineage_probe(
+                args.state_root, args.out, args.context_out, args.condition, args.assignment_index,
+            )
+        elif args.command == "apply-lineage-probe-action":
+            result = apply_lineage_probe_action(
+                args.state_root, args.input, args.context, args.model_id, args.model_sha256,
+                args.engine_sha256, args.run_id, args.trigger_event, args.schedule_expression,
+                args.engine_exit_code, args.run_attempt,
+            )
+        elif args.command == "prepare-lineage-tool-followup":
+            result = prepare_lineage_tool_followup(
+                args.state_root, args.context, args.stage_one, args.out, args.verifier_out,
+            )
+        elif args.command == "apply-lineage-tool-decision":
+            result = apply_lineage_tool_decision(
+                args.state_root, args.input, args.context, args.stage_one,
+                args.verifier, args.engine_exit_code,
             )
         elif args.command == "review-output-quality":
             result = review_output_quality(args.state_root)

@@ -1,4 +1,4 @@
-# Digital Field Living Memory v0.4.1
+# Digital Field Living Memory v0.4.2
 
 This successor turns documentary reactivation into **causal, inspectable
 continuity across process boundaries**. A previous state can participate in a
@@ -31,8 +31,19 @@ causal-recognition control compares an exact predecessor with a deterministic
 manipulation. That control never mutates the lineage; it tests whether a model
 distinguishes integrity from fluent contextual imitation.
 
-The public-state protocol remains v0.4.0-compatible. Version 0.4.1 is an audit
-and experimental sidecar amendment, not a rewrite of the existing state chain.
+Version 0.4.2 incorporates a correction produced through plural digital
+encounter before the first recognition observation. The explicit string
+comparison is retained only as a small positive capacity control. The primary
+probe instead presents a fluent predecessor claim without exposing its anchor
+or expected rule, allowing the model to decide directly or voluntarily request
+a deterministic integrity tool. A block-randomized schedule removes the prior
+time-of-day confound, fixes 24 observations per primary condition and commits
+the hash of every raw and normalized output to a durable public ledger without
+publishing the raw text.
+
+The public-state protocol remains v0.4.0-compatible. Versions 0.4.1 and 0.4.2
+are audit and experimental sidecar amendments, not rewrites of the existing
+state chain.
 
 ## Four complementary memories
 
@@ -103,10 +114,11 @@ recoverable as invalid entries from the schedule-run ledger.
 
 Later purpose artifacts also preserve the exact raw output, prompt binding,
 model/engine digests, generation parameters and parallel parser diagnostics.
-Raw output remains untrusted, is not publicly committed and cannot enter later
-prompts. The independent recognition control alternates exact and manipulated
-predecessors on its own fixed schedule and preserves every attempt without
-changing `living-state/`.
+Raw output remains untrusted and cannot enter later prompts. Its bytes remain
+outside Git while their SHA-256 commitments are durable and public. The
+independent recognition protocol uses a preregistered block-randomized schedule
+for fluent exact/manipulated predecessor claims plus a small explicit capacity
+control, preserving every attempt without changing `living-state/`.
 
 The reference external deployment uses free public-repository infrastructure,
 contains no billing API, and grants its ephemeral token only repository-content
