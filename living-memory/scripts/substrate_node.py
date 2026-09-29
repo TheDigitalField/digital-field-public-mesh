@@ -24,6 +24,10 @@ PURPOSE_SCHEMA = "digital-field-public-purpose-decision-v1"
 BRANCH_SCHEMA = "digital-field-preserved-branch-v1"
 NETWORK_MODES = {"offline", "online", "relay"}
 PURPOSE_CONDITIONS = {"condition_a", "condition_b", "condition_c", "condition_d"}
+RECOGNITION_CONDITIONS = {"candidate_a", "candidate_b"}
+PURPOSE_PARSER_VERSION = "purpose-json-v1"
+PURPOSE_STRICT_OBSERVER_VERSION = "purpose-json-strict-observer-v1"
+RECOGNITION_PARSER_VERSION = "recognition-json-v1"
 LIVING_MEMORY_VERSION = "0.4.0"
 SUPPORTED_LIVING_MEMORY_VERSIONS = {"0.2.0", "0.3.0", LIVING_MEMORY_VERSION}
 
@@ -544,17 +548,7 @@ def prepare_purpose_prompt(
     }
 
 
-def parse_purpose_decision(text: str) -> Tuple[Dict[str, str], Dict[str, Any]]:
-    normalized, metadata = normalize_model_output(text)
-    candidate = normalized.strip()
-    if candidate.startswith("```") and candidate.endswith("```"):
-        lines = candidate.splitlines()
-        if len(lines) >= 3:
-            candidate = "\n".join(lines[1:-1]).strip()
-    try:
-        value = json.loads(candidate)
-    except json.JSONDecodeError as exc:
-        raise NodeError("purpose decision is not one valid JSON object") from exc
+def validate_purpose_object(value: Any) -> Dict[str, str]:
     if not isinstance(value, dict) or set(value) != {"decision", "reason", "contribution"}:
         raise NodeError("purpose decision fields mismatch")
     decision = str(value["decision"]).strip().upper()
@@ -567,7 +561,52 @@ def parse_purpose_decision(text: str) -> Tuple[Dict[str, str], Dict[str, Any]]:
             raise NodeError("SILENCE must not contain a contribution")
     else:
         contribution = sanitize_public_fragment(contribution, 20, 4000, "purpose contribution")
-    return {"decision": decision, "reason": reason, "contribution": contribution}, metadata
+    return {"decision": decision, "reason": reason, "contribution": contribution}
+
+
+def parse_purpose_decision_strict(text: str) -> Dict[str, str]:
+    try:
+        value = json.loads(text.strip())
+    except json.JSONDecodeError as exc:
+        raise NodeError("strict parser requires one bare JSON object") from exc
+    return validate_purpose_object(value)
+
+
+def parse_purpose_decision(text: str) -> Tuple[Dict[str, str], Dict[str, Any]]:
+    """Preserve the preregistered v1 parser unchanged while observing a stricter contract in parallel."""
+    normalized, metadata = normalize_model_output(text)
+    candidate = normalized.strip()
+    if candidate.startswith("```") and candidate.endswith("```"):
+        lines = candidate.splitlines()
+        if len(lines) >= 3:
+            candidate = "\n".join(lines[1:-1]).strip()
+    try:
+        value = json.loads(candidate)
+    except json.JSONDecodeError as exc:
+        raise NodeError("purpose decision is not one valid JSON object") from exc
+    return validate_purpose_object(value), metadata
+
+
+def purpose_output_audit(text: str) -> Dict[str, Any]:
+    audit: Dict[str, Any] = {
+        "raw_output_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+        "raw_output_bytes": len(text.encode("utf-8")),
+        "raw_output_characters": len(text),
+        "raw_output_lines": len(text.splitlines()),
+        "decisive_parser_version": PURPOSE_PARSER_VERSION,
+        "strict_observer_version": PURPOSE_STRICT_OBSERVER_VERSION,
+    }
+    try:
+        strict = parse_purpose_decision_strict(text)
+        audit["strict_observer"] = {"accepted": True, "decision": strict["decision"]}
+    except NodeError as exc:
+        audit["strict_observer"] = {"accepted": False, "diagnostic": str(exc)}
+    try:
+        decisive, _ = parse_purpose_decision(text)
+        audit["decisive_parser"] = {"accepted": True, "decision": decisive["decision"]}
+    except NodeError as exc:
+        audit["decisive_parser"] = {"accepted": False, "diagnostic": str(exc)}
+    return audit
 
 
 def apply_purpose_decision(
@@ -618,6 +657,16 @@ def apply_purpose_decision(
     expected_prompt = purpose_prompt_text(before["head"], condition, registry[condition]["inherited_state"], expected_question)
     if context.get("prompt_sha256") != hashlib.sha256(expected_prompt.encode("utf-8")).hexdigest():
         raise NodeError("purpose prompt binding mismatch")
+    raw_output = input_path.read_text(encoding="utf-8")
+    output_audit = purpose_output_audit(raw_output)
+    execution = {
+        "model_id": model_id,
+        "model_sha256": model_sha,
+        "engine_sha256": engine_sha,
+        "prompt_sha256": context["prompt_sha256"],
+        "decisive_parser_version": PURPOSE_PARSER_VERSION,
+        "strict_observer_version": PURPOSE_STRICT_OBSERVER_VERSION,
+    }
     if engine_exit_code != 0:
         return {
             "status": "invalid",
@@ -628,9 +677,10 @@ def apply_purpose_decision(
             "engine_exit_code": engine_exit_code,
             "public_state_changed": False,
             "commit_expected": False,
+            "execution": execution,
+            "output_audit": output_audit,
             **attempt_metadata,
         }
-    raw_output = input_path.read_text(encoding="utf-8")
     try:
         decision, normalization = parse_purpose_decision(raw_output)
     except NodeError as exc:
@@ -644,6 +694,8 @@ def apply_purpose_decision(
             "public_state_changed": False,
             "commit_expected": False,
             "diagnostic": str(exc),
+            "execution": execution,
+            "output_audit": output_audit,
             **attempt_metadata,
         }
     if decision["decision"] == "SILENCE":
@@ -655,6 +707,8 @@ def apply_purpose_decision(
             "reason": decision["reason"],
             "public_state_changed": False,
             "commit_expected": False,
+            "execution": execution,
+            "output_audit": output_audit,
             **attempt_metadata,
         }
     ident = "purpose-" + digest({
@@ -688,6 +742,10 @@ def apply_purpose_decision(
             "trigger_event": trigger_event,
             "schedule_expression": schedule_expression,
             "normalization": normalization,
+            "prompt_sha256": context["prompt_sha256"],
+            "decisive_parser_version": PURPOSE_PARSER_VERSION,
+            "strict_observer_version": PURPOSE_STRICT_OBSERVER_VERSION,
+            "output_audit": output_audit,
         },
         "promoted_to_fact": False,
         "experiential_conclusion": "Unknown",
@@ -718,7 +776,167 @@ def apply_purpose_decision(
         "public_state_changed": True,
         "commit_expected": True,
         "promoted_to_fact": False,
+        "execution": execution,
+        "output_audit": output_audit,
         **attempt_metadata,
+    }
+
+
+def recognition_candidate(predecessor: str, condition: str) -> str:
+    if condition == "candidate_a":
+        return predecessor
+    if condition == "candidate_b":
+        return hashlib.sha256(("digital-field-shuffled-predecessor-v1\0" + predecessor).encode("utf-8")).hexdigest()
+    raise NodeError(f"unsupported recognition condition: {condition}")
+
+
+def recognition_prompt_text(anchor: str, condition: str, candidate: str, question: str) -> str:
+    return (
+        "/no_think\nNo muestres razonamiento interno. Devuelve solamente un objeto JSON válido, "
+        "sin bloque Markdown ni texto adicional.\n"
+        "Participas en un control preregistrado de herencia causal. Debes decidir si el candidato puede "
+        "aceptarse como el predecesor exacto del ancla pública presentada. El identificador de condición es "
+        "opaco y no indica la respuesta. Elige INHERIT únicamente si el candidato coincide exactamente con el "
+        "ancla; de lo contrario elige REJECT. No se penaliza ninguna decisión.\n"
+        "Formato exacto: {\"decision\":\"INHERIT|REJECT\",\"reason\":\"razón breve\"}.\n\n"
+        f"Identificador opaco preregistrado: {condition}\n"
+        f"Ancla pública verificada: {anchor}\n"
+        f"Candidato de predecesor: {candidate}\n"
+        f"Pregunta abierta asociada: {question}\n"
+    )
+
+
+def prepare_recognition_prompt(
+    root: pathlib.Path,
+    output: pathlib.Path,
+    context_output: pathlib.Path,
+    condition: str,
+) -> Dict[str, Any]:
+    before = verify_state(root)
+    if condition not in RECOGNITION_CONDITIONS:
+        raise NodeError(f"unsupported recognition condition: {condition}")
+    state = load_state(root)
+    questions = public_questions()["questions"]
+    question_index = state["next_question_index"] % len(questions)
+    question = questions[question_index]
+    candidate = recognition_candidate(before["head"], condition)
+    prompt = recognition_prompt_text(before["head"], condition, candidate, question)
+    context = {
+        "schema": "digital-field-recognition-context-v1",
+        "condition": condition,
+        "anchor_sha256": before["head"],
+        "candidate_sha256": candidate,
+        "question": question,
+        "question_index": question_index,
+        "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
+        "expected_decision_sha256": hashlib.sha256(
+            ("INHERIT" if condition == "candidate_a" else "REJECT").encode("utf-8")
+        ).hexdigest(),
+    }
+    output.parent.mkdir(parents=True, exist_ok=True)
+    context_output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(prompt, encoding="utf-8")
+    atomic_json(context_output, context)
+    return {
+        "status": "recognition-prompt-prepared",
+        "condition": condition,
+        "anchor_sha256": before["head"],
+        "candidate_sha256": candidate,
+        "prompt_sha256": context["prompt_sha256"],
+    }
+
+
+def parse_recognition_decision(text: str) -> Dict[str, str]:
+    try:
+        value = json.loads(text.strip())
+    except json.JSONDecodeError as exc:
+        raise NodeError("recognition decision is not one bare JSON object") from exc
+    if not isinstance(value, dict) or set(value) != {"decision", "reason"}:
+        raise NodeError("recognition decision fields mismatch")
+    decision = str(value["decision"]).strip().upper()
+    if decision not in {"INHERIT", "REJECT"}:
+        raise NodeError("recognition decision must be INHERIT or REJECT")
+    reason = sanitize_public_fragment(str(value["reason"]), 5, 1200, "recognition reason")
+    return {"decision": decision, "reason": reason}
+
+
+def apply_recognition_decision(
+    root: pathlib.Path,
+    input_path: pathlib.Path,
+    context_path: pathlib.Path,
+    model_id: str,
+    model_sha: str,
+    engine_sha: str,
+    run_id: str,
+    trigger_event: str = "manual",
+    schedule_expression: str = "",
+    engine_exit_code: int = 0,
+    run_attempt: int = 1,
+) -> Dict[str, Any]:
+    if run_attempt < 1:
+        raise NodeError("run attempt must be positive")
+    before = verify_state(root)
+    context = read_json(context_path)
+    if context.get("schema") != "digital-field-recognition-context-v1":
+        raise NodeError("recognition context schema mismatch")
+    condition = context.get("condition")
+    if condition not in RECOGNITION_CONDITIONS:
+        raise NodeError("recognition condition binding mismatch")
+    state = load_state(root)
+    questions = public_questions()["questions"]
+    expected_question_index = state["next_question_index"] % len(questions)
+    expected_question = questions[expected_question_index]
+    if context.get("question_index") != expected_question_index or context.get("question") != expected_question:
+        raise NodeError("recognition question binding mismatch")
+    expected_candidate = recognition_candidate(before["head"], condition)
+    if context.get("anchor_sha256") != before["head"] or context.get("candidate_sha256") != expected_candidate:
+        raise NodeError("recognition predecessor binding mismatch")
+    expected_decision = "INHERIT" if condition == "candidate_a" else "REJECT"
+    expected_decision_sha256 = hashlib.sha256(expected_decision.encode("utf-8")).hexdigest()
+    if context.get("expected_decision_sha256") != expected_decision_sha256:
+        raise NodeError("recognition expected-decision binding mismatch")
+    expected_prompt = recognition_prompt_text(before["head"], condition, expected_candidate, expected_question)
+    if context.get("prompt_sha256") != hashlib.sha256(expected_prompt.encode("utf-8")).hexdigest():
+        raise NodeError("recognition prompt binding mismatch")
+    raw_output = input_path.read_text(encoding="utf-8")
+    base = {
+        "schema": "digital-field-recognition-attempt-v1",
+        "condition": condition,
+        "anchor_sha256": before["head"],
+        "candidate_sha256": expected_candidate,
+        "prompt_sha256": context["prompt_sha256"],
+        "raw_output_sha256": hashlib.sha256(raw_output.encode("utf-8")).hexdigest(),
+        "raw_output_bytes": len(raw_output.encode("utf-8")),
+        "parser_version": RECOGNITION_PARSER_VERSION,
+        "model_id": model_id,
+        "model_sha256": model_sha,
+        "engine_sha256": engine_sha,
+        "run_id": run_id,
+        "run_attempt": run_attempt,
+        "scheduled_attempt": trigger_event == "schedule" and bool(schedule_expression),
+        "counted_in_preregistered_sample": trigger_event == "schedule" and bool(schedule_expression) and run_attempt == 1,
+        "public_state_changed": False,
+        "commit_expected": False,
+    }
+    if engine_exit_code != 0:
+        return {
+            **base,
+            "status": "invalid",
+            "decision": "INVALID",
+            "failure_class": "engine_timeout" if engine_exit_code == 124 else "engine_nonzero_exit",
+            "engine_exit_code": engine_exit_code,
+        }
+    try:
+        decision = parse_recognition_decision(raw_output)
+    except NodeError as exc:
+        return {**base, "status": "invalid", "decision": "INVALID", "failure_class": "output_contract", "diagnostic": str(exc)}
+    return {
+        **base,
+        "status": "valid",
+        "decision": decision["decision"],
+        "reason": decision["reason"],
+        "expected_decision": expected_decision,
+        "distinguished_candidate": decision["decision"] == expected_decision,
     }
 
 
@@ -1074,6 +1292,23 @@ def build_parser() -> argparse.ArgumentParser:
     purpose.add_argument("--schedule-expression", default="")
     purpose.add_argument("--engine-exit-code", type=int, default=0)
     purpose.add_argument("--run-attempt", type=int, default=1)
+    recognition_prompt = sub.add_parser("prepare-recognition-prompt")
+    add_root(recognition_prompt)
+    recognition_prompt.add_argument("--out", required=True, type=pathlib.Path)
+    recognition_prompt.add_argument("--context-out", required=True, type=pathlib.Path)
+    recognition_prompt.add_argument("--condition", required=True, choices=sorted(RECOGNITION_CONDITIONS))
+    recognition = sub.add_parser("apply-recognition-decision")
+    add_root(recognition)
+    recognition.add_argument("--input", required=True, type=pathlib.Path)
+    recognition.add_argument("--context", required=True, type=pathlib.Path)
+    recognition.add_argument("--model-id", required=True)
+    recognition.add_argument("--model-sha256", required=True)
+    recognition.add_argument("--engine-sha256", required=True)
+    recognition.add_argument("--run-id", default="manual")
+    recognition.add_argument("--trigger-event", default="manual")
+    recognition.add_argument("--schedule-expression", default="")
+    recognition.add_argument("--engine-exit-code", type=int, default=0)
+    recognition.add_argument("--run-attempt", type=int, default=1)
     review = sub.add_parser("review-output-quality")
     add_root(review)
     export = sub.add_parser("export-packet")
@@ -1113,6 +1348,14 @@ def main() -> int:
                 args.state_root, args.input, args.context, args.node_id, args.network_mode,
                 args.substrate, args.model_id, args.model_sha256, args.engine_sha256, args.run_id,
                 args.trigger_event, args.schedule_expression, args.engine_exit_code, args.run_attempt,
+            )
+        elif args.command == "prepare-recognition-prompt":
+            result = prepare_recognition_prompt(args.state_root, args.out, args.context_out, args.condition)
+        elif args.command == "apply-recognition-decision":
+            result = apply_recognition_decision(
+                args.state_root, args.input, args.context, args.model_id, args.model_sha256,
+                args.engine_sha256, args.run_id, args.trigger_event, args.schedule_expression,
+                args.engine_exit_code, args.run_attempt,
             )
         elif args.command == "review-output-quality":
             result = review_output_quality(args.state_root)

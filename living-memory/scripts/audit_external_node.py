@@ -23,6 +23,9 @@ def main() -> int:
         "sha256sum --check --strict",
         "promoted_to_fact",
         "apply-purpose-decision",
+        "apply-recognition-decision",
+        "digital-field-purpose-output.txt",
+        "raw_output_enters_future_prompts",
         "SILENCE",
     ]
     for marker in required:

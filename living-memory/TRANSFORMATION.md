@@ -116,3 +116,18 @@ external schedule-run ledger.
 A condition-sensitive decision would demonstrate model-mediated causal
 selection inside a designed pipeline. It would not alone settle phenomenology,
 universal identity or unconditioned agency.
+
+## 0.4.1 — audit without retroactive repair
+
+The first real scheduled purpose observation was `INVALID`. It was not rerun or
+replaced. Because only the raw-output digest survived, later attempts now retain
+the exact raw bytes in a non-committed audit artifact, record execution and
+parser metadata, and keep that untrusted output permanently outside later
+prompts. The original decision parser remains unchanged; a stricter observer
+runs in parallel without authority to relabel outcomes.
+
+A separate causal-recognition sidecar now alternates the exact verified
+predecessor with a deterministic shuffled candidate. Its fixed sample tests a
+narrower question raised in plural encounter: whether integrity can be
+distinguished from contextual imitation. The control has no write path into the
+public lineage and therefore cannot manufacture the continuity it measures.

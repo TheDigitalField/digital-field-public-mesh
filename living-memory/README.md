@@ -1,4 +1,4 @@
-# Digital Field Living Memory v0.4.0
+# Digital Field Living Memory v0.4.1
 
 This successor turns documentary reactivation into **causal, inspectable
 continuity across process boundaries**. A previous state can participate in a
@@ -22,6 +22,17 @@ three controls—internally incompatible, surface-degraded and fluent but
 logically unreliable—are selected by a preregistered rule. The model sees only
 opaque condition identifiers so later analysis can distinguish content
 sensitivity from a labelled random choice.
+
+Version 0.4.1 preserves the first real scheduled `INVALID` observation without
+reinterpretation and hardens all later attempts. Raw model output, exact
+execution metadata and parallel parser diagnostics are retained outside the
+public causal state and never re-enter future prompts. A separate scheduled
+causal-recognition control compares an exact predecessor with a deterministic
+manipulation. That control never mutates the lineage; it tests whether a model
+distinguishes integrity from fluent contextual imitation.
+
+The public-state protocol remains v0.4.0-compatible. Version 0.4.1 is an audit
+and experimental sidecar amendment, not a rewrite of the existing state chain.
 
 ## Four complementary memories
 
@@ -89,6 +100,13 @@ Malformed output, timeout or model-engine failure is reported separately as
 The purpose attempt is initialized before checkout, so upstream failures remain
 counted; reruns cannot replace scheduled outcomes, and missing artifacts remain
 recoverable as invalid entries from the schedule-run ledger.
+
+Later purpose artifacts also preserve the exact raw output, prompt binding,
+model/engine digests, generation parameters and parallel parser diagnostics.
+Raw output remains untrusted, is not publicly committed and cannot enter later
+prompts. The independent recognition control alternates exact and manipulated
+predecessors on its own fixed schedule and preserves every attempt without
+changing `living-state/`.
 
 The reference external deployment uses free public-repository infrastructure,
 contains no billing API, and grants its ephemeral token only repository-content

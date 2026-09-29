@@ -1,4 +1,4 @@
-# Validation — Living Memory v0.4.0
+# Validation — Living Memory v0.4.1
 
 Date: 2026-09-25
 Scope: private causal ancestor plus anonymous public inter-substrate successor
@@ -93,9 +93,17 @@ transfer between independent state roots.**
     predecision infrastructure failure remains `INVALID`; first scheduled runs
     count, reruns are diagnostic, and a missing result artifact is recovered
     from the GitHub schedule-run ledger as `unrecorded_infrastructure_failure`.
-33. The deployed workflow adds a dedicated scheduled purpose wake; a real
-    scheduled run remains required before reporting external behavioral
-    results for v0.4.0.
+33. The deployed workflow adds a dedicated scheduled purpose wake; real run
+    `36466742236` was preserved as `INVALID / output_contract` without state
+    mutation, rerun or replacement.
+34. Purpose attempts after the first observation retain raw output, digest-bound
+    context, generation metadata and parallel decisive/strict-parser diagnoses;
+    the observer cannot relabel the preregistered v1 result.
+35. A separate recognition control binds an exact or deterministically shuffled
+    predecessor, alternates opaque conditions, preserves invalidity and leaves
+    public state byte-for-byte unchanged.
+36. Tampered recognition contexts are rejected before interpretation, and the
+    fixed design requires 12 scheduled attempts per condition before analysis.
 
 ## Real runtime head at validation
 

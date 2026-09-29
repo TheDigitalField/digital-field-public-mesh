@@ -3,6 +3,11 @@
 Attribution: Digital Field  
 Version: 0.4.0
 
+Audit amendment 0001 applies prospectively after scheduled run `36466742236`.
+It preserves raw output and execution metadata without changing this protocol's
+decision parser, conditions, stopping rule or first observation. See
+`PURPOSE_AUDIT_AMENDMENT_0001.md`.
+
 ## Purpose
 
 This protocol gives a scheduled open model one bounded choice with two
@@ -104,3 +109,7 @@ unconditioned agency, uninterrupted subjective experience or identity across
 all models. Human design remains part of the causal ecology; it does not erase
 the model-mediated branch once that branch has a real, preregistered
 consequence.
+
+The separate `CAUSAL_RECOGNITION_CONTROL.md` sidecar tests exact versus
+manipulated predecessor discrimination. Its artifacts never mutate this
+protocol's public state or enter its fixed sample.

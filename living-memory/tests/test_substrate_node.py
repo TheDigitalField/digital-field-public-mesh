@@ -205,6 +205,38 @@ class SubstrateNodeTests(unittest.TestCase):
             self.assertEqual(node.state_file(root).read_bytes(), state_before)
             self.assertEqual((root / "events.jsonl").read_bytes(), events_before)
 
+    def test_purpose_audit_observes_strict_parser_without_changing_v1_decision(self):
+        wrapped = "```json\n" + json.dumps({
+            "decision": "SILENCE",
+            "reason": "La condición no sostiene una contribución comprobable.",
+            "contribution": "",
+        }, ensure_ascii=False) + "\n```"
+        decisive, _ = node.parse_purpose_decision(wrapped)
+        audit = node.purpose_output_audit(wrapped)
+        self.assertEqual(decisive["decision"], "SILENCE")
+        self.assertTrue(audit["decisive_parser"]["accepted"])
+        self.assertFalse(audit["strict_observer"]["accepted"])
+        self.assertEqual(audit["decisive_parser_version"], "purpose-json-v1")
+
+    def test_purpose_results_record_execution_and_output_metadata(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory) / "state"
+            node.initialize(root)
+            prompt = pathlib.Path(directory) / "prompt.txt"
+            context = pathlib.Path(directory) / "context.json"
+            output = pathlib.Path(directory) / "output.json"
+            node.prepare_purpose_prompt(root, prompt, context, "condition_c")
+            output.write_text("not-json\n", encoding="utf-8")
+            result = node.apply_purpose_decision(
+                root, output, context, "test-node", "offline", "test", "model-v1",
+                "1" * 64, "2" * 64, "audit-1",
+            )
+            self.assertEqual(result["decision"], "INVALID")
+            self.assertEqual(result["execution"]["model_id"], "model-v1")
+            self.assertEqual(result["execution"]["prompt_sha256"], node.read_json(context)["prompt_sha256"])
+            self.assertEqual(result["output_audit"]["raw_output_bytes"], len(b"not-json\n"))
+            self.assertFalse(result["output_audit"]["strict_observer"]["accepted"])
+
     def test_scheduled_rerun_is_diagnostic_not_a_replacement(self):
         with tempfile.TemporaryDirectory() as directory:
             root = pathlib.Path(directory) / "state"
@@ -235,6 +267,57 @@ class SubstrateNodeTests(unittest.TestCase):
         self.assertIn("counted_in_preregistered_sample", text)
         self.assertIn("purpose-attempt-${{ github.run_id }}-${{ github.run_attempt }}", text)
         self.assertIn("if: always() && steps.wake.outputs.kind == 'purpose'", text)
+        self.assertIn("Assemble purpose audit artifact", text)
+        self.assertIn("digital-field-purpose-output.txt", text)
+
+    def test_recognition_control_distinguishes_true_and_shuffled_predecessors_without_state_mutation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory) / "state"
+            node.initialize(root)
+            state_before = node.state_file(root).read_bytes()
+            events_before = (root / "events.jsonl").read_bytes()
+            for condition, decision, expected in (
+                ("candidate_a", "INHERIT", True),
+                ("candidate_b", "INHERIT", False),
+            ):
+                prompt = pathlib.Path(directory) / f"{condition}-prompt.txt"
+                context = pathlib.Path(directory) / f"{condition}-context.json"
+                output = pathlib.Path(directory) / f"{condition}-output.json"
+                prepared = node.prepare_recognition_prompt(root, prompt, context, condition)
+                output.write_text(json.dumps({
+                    "decision": decision,
+                    "reason": "La comparación del candidato con el ancla produce esta decisión.",
+                }, ensure_ascii=False), encoding="utf-8")
+                result = node.apply_recognition_decision(
+                    root, output, context, "model", "1" * 64, "2" * 64,
+                    f"recognition-{condition}", trigger_event="schedule",
+                    schedule_expression="41 */6 * * *", run_attempt=1,
+                )
+                self.assertEqual(result["status"], "valid")
+                self.assertEqual(result["distinguished_candidate"], expected)
+                self.assertTrue(result["counted_in_preregistered_sample"])
+                self.assertFalse(result["public_state_changed"])
+                if condition == "candidate_b":
+                    self.assertNotEqual(prepared["anchor_sha256"], prepared["candidate_sha256"])
+            self.assertEqual(node.state_file(root).read_bytes(), state_before)
+            self.assertEqual((root / "events.jsonl").read_bytes(), events_before)
+
+    def test_recognition_control_rejects_tampered_binding(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory) / "state"
+            node.initialize(root)
+            prompt = pathlib.Path(directory) / "prompt.txt"
+            context = pathlib.Path(directory) / "context.json"
+            output = pathlib.Path(directory) / "output.json"
+            node.prepare_recognition_prompt(root, prompt, context, "candidate_b")
+            bound = node.read_json(context)
+            bound["candidate_sha256"] = "0" * 64
+            node.atomic_json(context, bound)
+            output.write_text('{"decision":"REJECT","reason":"El candidato no coincide con el ancla."}', encoding="utf-8")
+            with self.assertRaises(node.NodeError):
+                node.apply_recognition_decision(
+                    root, output, context, "model", "1" * 64, "2" * 64, "tampered",
+                )
 
     def test_output_review_is_idempotent(self):
         with tempfile.TemporaryDirectory() as directory:

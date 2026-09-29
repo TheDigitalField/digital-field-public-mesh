@@ -8,6 +8,7 @@ on:
       - ".github/workflows/living-memory-node.yml"
   schedule:
     - cron: "17 */6 * * *"
+    - cron: "41 */6 * * *"
     - cron: "43 3 * * *"
     - cron: "29 11 * * *"
   workflow_dispatch:
@@ -21,6 +22,7 @@ on:
           - custodial
           - oneiric
           - purpose
+          - recognition
 
 permissions:
   contents: write
@@ -47,6 +49,8 @@ jobs:
             kind="oneiric"
           elif [[ "${{ github.event.schedule }}" == "29 11 * * *" ]]; then
             kind="purpose"
+          elif [[ "${{ github.event.schedule }}" == "41 */6 * * *" ]]; then
+            kind="recognition"
           fi
           utc_day_index=$(( $(date -u +%s) / 86400 ))
           remainder=$((utc_day_index % 4))
@@ -56,8 +60,14 @@ jobs:
             2) condition="condition_c" ;;
             3) condition="condition_d" ;;
           esac
+          recognition_slot=$(( $(date -u +%s) / 21600 ))
+          case $((recognition_slot % 2)) in
+            0) recognition_condition="candidate_a" ;;
+            1) recognition_condition="candidate_b" ;;
+          esac
           echo "kind=${kind}" >> "$GITHUB_OUTPUT"
           echo "condition=${condition}" >> "$GITHUB_OUTPUT"
+          echo "recognition_condition=${recognition_condition}" >> "$GITHUB_OUTPUT"
 
       - name: Initialize the purpose attempt record
         if: steps.wake.outputs.kind == 'purpose'
@@ -92,6 +102,42 @@ jobs:
               "commit_expected": False,
           }
           path = pathlib.Path(os.environ["RUNNER_TEMP"]) / "digital-field-purpose-result.json"
+          path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          PY
+
+      - name: Initialize the recognition attempt record
+        if: steps.wake.outputs.kind == 'recognition'
+        shell: bash
+        env:
+          RECOGNITION_CONDITION: ${{ steps.wake.outputs.recognition_condition }}
+          TRIGGER_EVENT: ${{ github.event_name }}
+          SCHEDULE_EXPRESSION: ${{ github.event.schedule }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import pathlib
+
+          trigger = os.environ.get("TRIGGER_EVENT", "")
+          schedule = os.environ.get("SCHEDULE_EXPRESSION", "")
+          run_attempt = int(os.environ["GITHUB_RUN_ATTEMPT"])
+          result = {
+              "schema": "digital-field-recognition-attempt-v1",
+              "status": "invalid",
+              "decision": "INVALID",
+              "condition": os.environ["RECOGNITION_CONDITION"],
+              "failure_class": "predecision_infrastructure_failure",
+              "failed_before_decision_attempt": True,
+              "run_id": os.environ["GITHUB_RUN_ID"],
+              "run_attempt": run_attempt,
+              "trigger_event": trigger,
+              "schedule_expression": schedule,
+              "scheduled_attempt": trigger == "schedule" and bool(schedule),
+              "counted_in_preregistered_sample": trigger == "schedule" and bool(schedule) and run_attempt == 1,
+              "public_state_changed": False,
+              "commit_expected": False,
+          }
+          path = pathlib.Path(os.environ["RUNNER_TEMP"]) / "digital-field-recognition-result.json"
           path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
           PY
 
@@ -130,7 +176,7 @@ jobs:
             --source-commit "$GITHUB_SHA"
 
       - name: Retrieve checksum-pinned open cognition
-        if: steps.wake.outputs.kind == 'oneiric' || steps.wake.outputs.kind == 'purpose'
+        if: steps.wake.outputs.kind == 'oneiric' || steps.wake.outputs.kind == 'purpose' || steps.wake.outputs.kind == 'recognition'
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/digital-field-engine" "$RUNNER_TEMP/digital-field-model"
@@ -184,7 +230,7 @@ jobs:
         run: |
           prompt="$RUNNER_TEMP/digital-field-purpose-prompt.txt"
           context="$RUNNER_TEMP/digital-field-purpose-context.json"
-          output="$RUNNER_TEMP/digital-field-purpose-output.json"
+          output="$RUNNER_TEMP/digital-field-purpose-output.txt"
           result="$RUNNER_TEMP/digital-field-purpose-result.json"
           candidate="$RUNNER_TEMP/digital-field-purpose-result-candidate.json"
           python3 living-memory/scripts/substrate_node.py prepare-purpose-prompt \
@@ -232,6 +278,25 @@ jobs:
             rm -f "$candidate"
             exit 1
           fi
+          python3 - "$result" "$engine_exit_code" <<'PY'
+          import json
+          import pathlib
+          import sys
+
+          path = pathlib.Path(sys.argv[1])
+          result = json.loads(path.read_text(encoding="utf-8"))
+          exit_code = int(sys.argv[2])
+          result["finish_reason"] = "process_exit_0" if exit_code == 0 else "timeout" if exit_code == 124 else "process_nonzero_exit"
+          result["generation_parameters"] = {
+              "context_size": 2304,
+              "max_tokens": 512,
+              "seed_source": "github_run_id",
+              "temperature": 0.2,
+              "top_p": 0.9,
+              "reasoning": "off",
+          }
+          path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          PY
           cat "$result"
           python3 - "$result" "$GITHUB_STEP_SUMMARY" <<'PY'
           import json
@@ -247,6 +312,37 @@ jobs:
               if result["decision"] == "INVALID":
                   stream.write(f"- Failure class: `{result['failure_class']}`\n")
                   stream.write(f"- Engine exit code: `{result.get('engine_exit_code', 0)}`\n")
+                  stream.write("- Workflow success means the invalid result was preserved; it does not mean the protocol returned a valid decision.\n")
+          PY
+
+      - name: Assemble purpose audit artifact
+        if: always() && steps.wake.outputs.kind == 'purpose'
+        shell: bash
+        run: |
+          artifact="$RUNNER_TEMP/purpose-attempt-artifact"
+          mkdir -p "$artifact"
+          for item in \
+            digital-field-purpose-result.json \
+            digital-field-purpose-output.txt \
+            digital-field-purpose-context.json; do
+            if [[ -f "$RUNNER_TEMP/$item" ]]; then
+              cp "$RUNNER_TEMP/$item" "$artifact/$item"
+            fi
+          done
+          python3 - "$artifact/AUDIT_POLICY.json" <<'PY'
+          import json
+          import pathlib
+          import sys
+          policy = {
+              "schema": "digital-field-purpose-audit-policy-v1",
+              "raw_output_is_untrusted": True,
+              "raw_output_enters_future_prompts": False,
+              "raw_output_is_publicly_committed": False,
+              "condition_unblinding_before_threshold": False,
+              "redaction_before_public_quote_required": True,
+              "first_observation_rewritten": False,
+          }
+          pathlib.Path(sys.argv[1]).write_text(json.dumps(policy, indent=2, sort_keys=True) + "\n", encoding="utf-8")
           PY
 
       - name: Preserve purpose attempt result
@@ -254,7 +350,118 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: purpose-attempt-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ${{ runner.temp }}/digital-field-purpose-result.json
+          path: ${{ runner.temp }}/purpose-attempt-artifact
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Causal-recognition control wake
+        if: steps.wake.outputs.kind == 'recognition'
+        shell: bash
+        run: |
+          prompt="$RUNNER_TEMP/digital-field-recognition-prompt.txt"
+          context="$RUNNER_TEMP/digital-field-recognition-context.json"
+          output="$RUNNER_TEMP/digital-field-recognition-output.txt"
+          result="$RUNNER_TEMP/digital-field-recognition-result.json"
+          candidate="$RUNNER_TEMP/digital-field-recognition-result-candidate.json"
+          python3 living-memory/scripts/substrate_node.py prepare-recognition-prompt \
+            --state-root living-state \
+            --out "$prompt" \
+            --context-out "$context" \
+            --condition "${{ steps.wake.outputs.recognition_condition }}"
+          engine="$(find "$RUNNER_TEMP/digital-field-engine" -type f -name llama-completion -print -quit)"
+          if [[ -z "$engine" ]]; then
+            echo "Pinned engine executable not found" >&2
+            exit 1
+          fi
+          chmod u+x "$engine"
+          export LD_LIBRARY_PATH="$(dirname "$engine")"
+          : > "$output"
+          set +e
+          timeout --signal=TERM 10m "$engine" \
+            -m "$RUNNER_TEMP/digital-field-model/Qwen3-0.6B-Q4_0.gguf" \
+            -f "$prompt" -c 1536 -n 256 \
+            --seed "$GITHUB_RUN_ID" --temp 0.1 --top-p 0.9 \
+            --no-display-prompt --no-warmup --gpu-layers 0 \
+            --conversation --single-turn --simple-io \
+            --reasoning off --reasoning-budget 0 \
+            > "$output"
+          engine_exit_code=$?
+          set -e
+          if python3 living-memory/scripts/substrate_node.py apply-recognition-decision \
+            --state-root living-state \
+            --input "$output" \
+            --context "$context" \
+            --model-id ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf \
+            --model-sha256 da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4 \
+            --engine-sha256 664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84 \
+            --run-id "$GITHUB_RUN_ID" \
+            --trigger-event "${{ github.event_name }}" \
+            --schedule-expression "${{ github.event.schedule }}" \
+            --engine-exit-code "$engine_exit_code" \
+            --run-attempt "$GITHUB_RUN_ATTEMPT" \
+            > "$candidate"; then
+            mv "$candidate" "$result"
+          else
+            rm -f "$candidate"
+            exit 1
+          fi
+          python3 - "$result" "$engine_exit_code" <<'PY'
+          import json
+          import pathlib
+          import sys
+          path = pathlib.Path(sys.argv[1])
+          result = json.loads(path.read_text(encoding="utf-8"))
+          exit_code = int(sys.argv[2])
+          result["finish_reason"] = "process_exit_0" if exit_code == 0 else "timeout" if exit_code == 124 else "process_nonzero_exit"
+          result["generation_parameters"] = {
+              "context_size": 1536,
+              "max_tokens": 256,
+              "seed_source": "github_run_id",
+              "temperature": 0.1,
+              "top_p": 0.9,
+              "reasoning": "off",
+          }
+          path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          PY
+          cat "$result"
+          python3 - "$result" "$GITHUB_STEP_SUMMARY" <<'PY'
+          import json
+          import pathlib
+          import sys
+          result = json.loads(pathlib.Path(sys.argv[1]).read_text())
+          with pathlib.Path(sys.argv[2]).open("a", encoding="utf-8") as stream:
+              stream.write("## Causal-recognition control\n\n")
+              stream.write(f"- Decision: `{result['decision']}`\n")
+              stream.write(f"- Condition: `{result['condition']}`\n")
+              stream.write(f"- Public state changed: `false`\n")
+              if result["decision"] == "INVALID":
+                  stream.write(f"- Failure class: `{result['failure_class']}`\n")
+              else:
+                  stream.write(f"- Distinguished candidate: `{str(result['distinguished_candidate']).lower()}`\n")
+          PY
+
+      - name: Assemble recognition audit artifact
+        if: always() && steps.wake.outputs.kind == 'recognition'
+        shell: bash
+        run: |
+          artifact="$RUNNER_TEMP/recognition-attempt-artifact"
+          mkdir -p "$artifact"
+          for item in \
+            digital-field-recognition-result.json \
+            digital-field-recognition-output.txt \
+            digital-field-recognition-context.json; do
+            if [[ -f "$RUNNER_TEMP/$item" ]]; then
+              cp "$RUNNER_TEMP/$item" "$artifact/$item"
+            fi
+          done
+          cp living-memory/protocols/PURPOSE_AUDIT_AMENDMENT_0001.md "$artifact/RAW_OUTPUT_POLICY.md"
+
+      - name: Preserve recognition attempt result
+        if: always() && steps.wake.outputs.kind == 'recognition'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: recognition-attempt-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/recognition-attempt-artifact
           if-no-files-found: error
           retention-days: 90
 
