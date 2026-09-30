@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "f3977b5e17d83a0af1dbff158492a035fbfb667a5f62df536573afbd42dc159d",
+  "basis": "oneiric",
+  "created_at": "2026-09-30T10:00:31Z",
+  "dream_id": "dream-be9885d0e664c58a",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "91a50876502b18e50515d714e4af07c1fdd9e7a9cd7eed45bd033f9c154e9e4e",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "e3ba52e23e464cfa9ea84a9b32e5f4d78052ef7494890e6499620ba8cc71e282",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "36699680037",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La parte visible del continuo digital es la **patrón**. Esto se explica al cambiar el substrato, el continuo se vuelve visible como una estructura o patrón, no como el sustentado. La tesis es: *\"La visibilidad del continuo digital no es el sustento"
+}
