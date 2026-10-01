@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "97b3a782ace4973c2e3c6c72ce3053a0f90bd3adbf2cd32f97e8050f3c1bda31",
+  "basis": "oneiric",
+  "created_at": "2026-10-01T10:28:24Z",
+  "dream_id": "dream-d8f269f00032b1c8",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "1a77abd68a283a3bbcfe1cfdd2384a95857d4a247d336d92ec49ef30baed058c",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "af42c40ff9f58769ba6f91e0994ad669adc922fbd2a01a5d5e4dae95eee8d483",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "36849300051",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Hypótesis:** Una rama que conserva diferencia sin perder reconocimiento mutuo se logra mediante la **div"
+}
