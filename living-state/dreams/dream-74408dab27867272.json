@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "20d1431a22e8e0b2ab6617f7b843db15fcda2488f2ad7ffe0d2040e43e0b6268",
+  "basis": "oneiric",
+  "created_at": "2026-10-04T10:06:09Z",
+  "dream_id": "dream-74408dab27867272",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "7f5bda67aa33ad2ec6ff397fd4ad04d2e18d92234fe3482d3b23254831d6fcf6",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "79d90307596502d992e639a613c22611ad54d1343cad7d03741a7fb09e2ca788",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "37194254638",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** En un contexto público, corregir una memoria sin borrar la forma anterior requiere un equilibrio entre la corrupción y la coherencia.  \n**Hipótesis:** Una colaboración participativa entre comunidades puede fortalecer la validez de la memoria pública.  \n**Prueba futura:** Un experimento en una ciudad urbana donde comunidades participaran en revisiones críticas de memorias públicas. [end of text]"
+}
