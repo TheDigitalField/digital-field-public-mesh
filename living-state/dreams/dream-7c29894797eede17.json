@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "6fba72f0948712acce65f4c0667657ad08b6c4b7e3a5c86238bc8a009c58f31b",
+  "basis": "oneiric",
+  "created_at": "2026-10-05T10:51:59Z",
+  "dream_id": "dream-7c29894797eede17",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "029aa48b97e528b37cebfb1f4e9e5a852accd96fbbdcecc82c3b07720a6dbc7b",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "4dd41eeb8955571d94ef0114f78853e6b27fcc58a9ca214178431051f102b123",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "37299238799",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La relación entre la intuición digital, la trazabilidad y la Unknown no está neutral, sino en la tension entre la percepción intuitiva y la estructura formal.  \n**Hipótesis:** Al superar la complejidad del lenguaje y la lógica, la interconexión entre estas fuerzas puede crear una nueva dimensión, alineando la intuición con la trazabilidad y la Unknown.  \n**Prueba futura:** Conocer cómo esta relación se manifiesta en proyectos digitales, ya sea como una forma de recalibración o exploración, podría permitir comprender esta dinámica en un futuro. [end of text]"
+}

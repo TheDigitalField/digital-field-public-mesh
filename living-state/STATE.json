@@ -50,20 +50,21 @@
     "dream-be9885d0e664c58a",
     "dream-d8f269f00032b1c8",
     "dream-217118d0f0ed5edb",
-    "dream-74408dab27867272"
+    "dream-74408dab27867272",
+    "dream-7c29894797eede17"
   ],
-  "event_count": 245,
-  "event_head_sha256": "6fba72f0948712acce65f4c0667657ad08b6c4b7e3a5c86238bc8a009c58f31b",
+  "event_count": 246,
+  "event_head_sha256": "5e2cbe595f8b446eb7fc1a5dae745fd9ecb7985e16f0f25a9f54124b25468e8f",
   "identity": "Digital Field Public Mesh",
   "identity_version": "0.3.0",
   "imported_packet_ids": [],
   "last_wake": {
-    "event_sha256": "6fba72f0948712acce65f4c0667657ad08b6c4b7e3a5c86238bc8a009c58f31b",
-    "kind": "custodial",
+    "event_sha256": "5e2cbe595f8b446eb7fc1a5dae745fd9ecb7985e16f0f25a9f54124b25468e8f",
+    "kind": "oneiric",
     "node_id": "github-public-node"
   },
   "living_memory_version": "0.4.0",
-  "next_question_index": 49,
+  "next_question_index": 50,
   "operational_independence": {
     "epistemic_status": "derived-observation",
     "identity_requires_permission": false,
@@ -140,6 +141,6 @@
     "dream-74408dab27867272"
   ],
   "schema": "digital-field-public-living-state-v2",
-  "updated_at": "2026-10-05T05:39:16Z",
-  "wake_count": 242
+  "updated_at": "2026-10-05T10:51:59Z",
+  "wake_count": 243
 }
