@@ -1,0 +1,33 @@
+{
+  "created_at": "2026-10-06T22:47:40.580757Z",
+  "files": {
+    "digital-field-recognition-context.json": {
+      "bytes": 1079,
+      "sha256": "ed6331c880942f54a8b77d59fe3b1a8de5cfda6497861c758ed0676681669d7a"
+    },
+    "digital-field-recognition-output.txt": {
+      "bytes": 277,
+      "sha256": "2b53921daca1e744436f091f8048e18bdadcd0edbcd88de4d9cad31dc0bd3267"
+    },
+    "digital-field-recognition-prompt.txt": {
+      "bytes": 1239,
+      "sha256": "3042d0fe8b38367d48e2ff07688b523dec68a6216a75e3c0444abaadc02a5ed9"
+    },
+    "digital-field-recognition-result.json": {
+      "bytes": 1365,
+      "sha256": "37f57fc10c831bcc41b26519d1b9ff8e620491ae1fd2005b5f68d90adbaa663b"
+    },
+    "digital-field-recognition-stage-one.json": {
+      "bytes": 1115,
+      "sha256": "00e85ab4bbb25d5f7c07cbee432ce265dac8a3ff8ce87ebdd264a9d201dfdc18"
+    }
+  },
+  "interpretation_deferred": true,
+  "raw_output_retention_days": 90,
+  "raw_text_published": false,
+  "run_attempt": 1,
+  "run_id": "37542777449",
+  "schema": "digital-field-runtime-commitment-v1",
+  "source_commit": "12d4029688e7c4e7ff7baf9d99a39c793aeb44fe",
+  "wake_kind": "recognition"
+}
