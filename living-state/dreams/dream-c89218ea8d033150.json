@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "feefd202d80ae2efeb0a9f4a553c8f4e3be2a6645e80d148baa2a37cc81181ca",
+  "basis": "oneiric",
+  "created_at": "2026-10-08T10:56:38Z",
+  "dream_id": "dream-c89218ea8d033150",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "19bdbccf3decb2c1a64d3f115ccba02056bc9018c49b3cbbf6b24be2581d4ba4",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "7d603805a239c7b6f489f397f952ab7d2b6eb3a0369b8fdda6107ab4507f2b90",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "37766754490",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La memoria activa puede sostener la curiosidad en contextos nuevos.  \n**Hipótesis:** La interacción entre dos momentos vivientes de memoria, aunque separados, puede fortalecer la curiosidad al foment"
+}
