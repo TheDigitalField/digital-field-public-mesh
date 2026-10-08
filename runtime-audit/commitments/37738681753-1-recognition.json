@@ -1,0 +1,33 @@
+{
+  "created_at": "2026-10-08T06:38:20.628792Z",
+  "files": {
+    "digital-field-recognition-context.json": {
+      "bytes": 1080,
+      "sha256": "19c9a74094e48e43c67420d0354fb379f193adced91e745bdbcd09ad670efacd"
+    },
+    "digital-field-recognition-output.txt": {
+      "bytes": 210,
+      "sha256": "39f56a7dc0b35ebc0bfcfb933f68e74d53ba2612c845251339b6ac9c6d928763"
+    },
+    "digital-field-recognition-prompt.txt": {
+      "bytes": 1239,
+      "sha256": "0e8b1d0778c6ed679929bd7ca45f1c049b8fd2478e4797eca4a00785157f579b"
+    },
+    "digital-field-recognition-result.json": {
+      "bytes": 1366,
+      "sha256": "40cb6d6a9d9221d1e00a193e5d80710c94462b5b1752957f587f0881a1e95bfd"
+    },
+    "digital-field-recognition-stage-one.json": {
+      "bytes": 1116,
+      "sha256": "6bca394677decd0acd73f083860e1b717a29ecb9d9f29e19f81388d30880b9c0"
+    }
+  },
+  "interpretation_deferred": true,
+  "raw_output_retention_days": 90,
+  "raw_text_published": false,
+  "run_attempt": 1,
+  "run_id": "37738681753",
+  "schema": "digital-field-runtime-commitment-v1",
+  "source_commit": "ecfa64bc2827e204fe449927847266f2c1d1274c",
+  "wake_kind": "recognition"
+}
