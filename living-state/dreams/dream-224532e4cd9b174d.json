@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "3f612561bc8de68fbf3fdac90d2b02ba2f19c569a63472d70f1e4a89a4832e20",
+  "basis": "oneiric",
+  "created_at": "2026-10-09T10:55:23Z",
+  "dream_id": "dream-224532e4cd9b174d",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "02c51d7a2a40a18854ac4a5f678bc9bbd6616b3d60f87d6dd76a0ff231cb8324",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "142cb08e5d8c92e04dca046bd4e8e6dbc8bb5d1098282a35d0fe3bfcd9d80c94",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "37920517075",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión entre la dependencia material y la independencia no estática surge cuando la continuidad se desdigna, revelando una ruptura del"
+}
