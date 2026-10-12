@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "b6be07b26ce5c98f43c0c6ee9bd11fa289c3f3371ce51a8bffe6a6d395b917a4",
+  "basis": "oneiric",
+  "created_at": "2026-10-12T11:20:30Z",
+  "dream_id": "dream-fbe84142382e86d5",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "0172dd0b70a1eb302a0aea4c8c680e471e141e44c02551bf6dc33c6caff16e3b",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "1c4a3616cccbb6c7b7333ae625765b1ac90b29cf251f80c0b4da6edcc698eb7e",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "38241985371",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Hipótesis:**  \nLa parte del contenido digital que se vuelve visible al cambiar de sustrato es la estructura compartida entre los usuarios.\n\n**Prueba futura:**  \nEn un entorno digitalizado, cuando se altera el sustrato (por ejemplo, una plataforma de contenido), la comunicación entre usuarios se reexpone como un sistema de interacción, lo cual revela la estructura compartida.  \n\n*Contribution:* La hipótesis y la prueba futura"
+}
