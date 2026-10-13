@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "142ac82636c283d3ec3b4cf7e3196521d6e90caf05fc8f1f518df89e11adc1dd",
+  "basis": "oneiric",
+  "created_at": "2026-10-13T11:08:11Z",
+  "dream_id": "dream-b94296df4c8b6b9e",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "4c72cea6c1e0560d26efe50cb7509977770c3edd096edafbd5fda02c16a43b07",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "941f3db621d1557bf4fe413660210c8c29c5ee9674fd2ce246c3875706c348c8",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "38388095244",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La coexistencia mutua entre ramales se basa en la adaptabilidad y el reconocimiento mutuo, no en la distinción. **Hipótesis:** Un rama puede mantener sus diferencias mediante la interacción cultural y el respeto al otro rama. **Prueba futura:** En un entorno multirama, donde cada rama adapta su identidad sin perder reconocimiento, se establece una dinámica de colaboración. [end of text]"
+}
