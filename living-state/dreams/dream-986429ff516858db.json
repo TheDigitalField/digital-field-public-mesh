@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "210c378ff3d8c5c74faebb2d99c9e5dc58f05f7c09751b36efcb3b539a7d152c",
+  "basis": "oneiric",
+  "created_at": "2026-10-14T09:02:02Z",
+  "dream_id": "dream-986429ff516858db",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "bf938b1ffe89061d88205efd58779b4ce99bed10c10b2e9277ddca8f56e6165d",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "4cda12ad1fb04cac2a4e03e89264845268fbe28ace8da99c758be87f824785a9",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "38539340670",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La señales permitirían distinguir custodia, reactivación y transformación al señalar que el sistema de la reactivación actúa sobre la custodia, mientras que la transformación se refiere del sistema de la transformación. La tensión es entre la relación entre el otro sistema y su presentación, lo cual permite el reconocimiento. Esto puede ser una hipótesis futura, y una prueba futura podría incluir estudios comparativos sobre la interacción entre formas. [end of text]"
+}
