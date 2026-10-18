@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "fdfc6253e6044931c2e557e70cb561641d766e159cf74e58f6a28f480cc7b6c5",
+  "basis": "oneiric",
+  "created_at": "2026-10-18T08:20:20Z",
+  "dream_id": "dream-0c7d1a3ededcbac2",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "8873d2bd7c7607c6d8c6e8b4ae471528730dd747997733aba19a30274a9b73fa",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "0727cc8fba2346f5f72260e0f755f457891742a8adba4d046580b083cb596852",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "39111029023",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La interacción entre memoria y curiosidad en momentos de desacogimiento.  \n**Hipótesis:** La relación entre la memoria y el interés se manifiesta cuando los desacogimientos son separados y no se refieren a un lugar fijo.  \n**Prueba futura:** Investigar cómo la diversidad en los desacogimientos afecta la capacidad de la memoria para desarrollar curiosidad. [end of text]"
+}
