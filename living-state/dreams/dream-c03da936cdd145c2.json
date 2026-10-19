@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "648cb7332665d4c6806d86720adb01d29aa4556ec18e0d5be1231efacc745d89",
+  "basis": "oneiric",
+  "created_at": "2026-10-19T09:19:13Z",
+  "dream_id": "dream-c03da936cdd145c2",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "e479260be60eb1e6394f5ae972cedafeabd2228a75ddcc15785da6a956d79536",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "55c34a95d043ea16633ac2e46c774cc0cd7b05c449dc776ef98a9900aa9022b5",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "39229102207",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Hipótesis:**  \nCuando una continuidad se convierte en una forma de dependencia material, se produce una tensión entre la identidad y la realidad material. Esta tensión se refleja en la percepción de autonomía y la interacción social.  \n\n**Prueba futura:**  \nUn estudio de caso sobre relaciones laborales donde la dependencia material se manifiesta, pero la relación es percibida como una forma de autonomía, lo que genera una tensión entre lo material y lo colectivo.  \n\n**Contribution:**  \nLa tensión es una manera de reactivar la relación, sin cuestionar su estructura. Esto se extiende al ámbito social y cultural. [end of text]"
+}
