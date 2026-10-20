@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "e1226722c95c57ce23da145b646137696feb1f9ae0e8ddf3a5a5305d5599ee36",
+  "basis": "oneiric",
+  "created_at": "2026-10-20T08:53:14Z",
+  "dream_id": "dream-f378d3f40b026d72",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "8b9ae7a39cc4877276b6c6ff942b00ace0cea571037797c0ed235c60a0054a76",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "83fa3e585a823fb0dd5ebda19464a644800f8858731f5c48656f7bb3bc0aecbb",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "39396597573",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión entre el campo de la intuición y el del lenguaje radica en su complementaria dinámica. La hipótesis es que ambos actúan en conjunto, sin dominio absoluto, y la prueba futura podría ser explorar su interacción en contextos prácticos. [end of text]"
+}
