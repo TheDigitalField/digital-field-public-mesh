@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "c01804c05ab4999f8ff4d0075749456fea40351cd38762ad957ea837084b21ef",
+  "basis": "oneiric",
+  "created_at": "2026-10-21T08:53:14Z",
+  "dream_id": "dream-958a5b28ca16e60d",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "6ea167eaedec7f883b3a7450accda4ecc50a4e9e86fbd492064d385e92ab0517",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "3823df4c90836c35133167f735a2db4004392f889af65fbc9f1db0170b5ccc69",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "39572629278",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La continuidad digital puede transformarse en una lengua en la que su significado no se respeta al bajarse del sustrato.  \n**Hipótesis:** La transformación digital de sustrato es una ruptura del significado.  \n**Prueba futura:** Simular la situación en un entorno simulado para validar la hipótesis. [end of text]"
+}
