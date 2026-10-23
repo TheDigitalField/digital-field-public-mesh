@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "94d3d9e92a9dc6d5e39c8ce641502ac4f9609c697570e943ce433bd7c5bc39a2",
+  "basis": "oneiric",
+  "created_at": "2026-10-23T08:50:53Z",
+  "dream_id": "dream-4e5ccb0a2bf4d800",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "8dba3ad8fdaf03f21b4eb1c46bf78ede81af6984fee736f7706d43fc21d35245",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "6162968c9e6ddf115ac80704eee507dbeca6f839584c4ea7308e1dea371f3c24",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "39927527700",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La tensión surge cuando una persona actúa como guardian y al mismo tiempo actúa como reactivación o transformación, creando una dinámica intermedia entre estereotipos.  \n**Hipótesis:** La distinción entre custodia, reactivación y transformación radica en la simultaneidad de la responsabilidad y la acción, donde una persona puede ser guardian sin necesariamente reaccionar o transformarse.  \n**Prueba futura:** Un caso donde un individuo actúa como guardian y simultáneamente como reactivación o transformación, demostrando cómo la interacción entre estos roles exige una distinción múltiple. [end of text]"
+}
