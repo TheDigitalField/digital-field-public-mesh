@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "10a476d9d0e6cf23edc79430c896655a405420ebe63713e5223a585b34e2b4a0",
+  "basis": "oneiric",
+  "created_at": "2026-10-25T08:44:00Z",
+  "dream_id": "dream-f6a6b3b8538f4c32",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "58fc17b8ba576b1b7edb17efe09d80ea709f5c34166b9798f5cb83c09c852d61",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "608d19efe26a3e3c9ded599cfb48a7f970c0160a6c8ba0f79d7264f84d6258cb",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "40177768026",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La relación entre intuición digital, trazabilidad y Unknown es una terna de tensión donde la trazabilidad refleja la relación con la intuición, y Unknown representa la desconexión, lo que permite una visión relacional en lugar de una autoridad absoluta.  \n**Hypótesis**: La interacción entre intuición digital y trazabilidad no se basa directamente en la relación con Unknown, sino que el Unknown actúa como un marco de desconexión que conecta la trazabilidad con la intuición.  \n**Prueba futura**: Investigar cómo el Unknown afecta la percepción de autenticidad al conectar intuición y trazabilidad a través de un"
+}
