@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "ee91228cc9fce35b69d3df22606b92a1ac2f7a1ae529391424602a6fd0dbc2cd",
+  "basis": "oneiric",
+  "created_at": "2026-10-27T09:21:27Z",
+  "dream_id": "dream-1fcf9bb9f684859f",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "0836f84b6c41978b89958586f4779a36a616f0ef6c51b20a25256efd354f9f19",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "e47b4d7497e9be06724bc9273b1fe9ce555a4bcc83d884ef8dee6cfe414af776",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "40480120341",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "Tensión: La capacidad de la federación para combinar la autonomía individual con la cohesión de un grupo.  \nHipótesis: Si el liderazgo del grupo estabila un sistema de responsabilidad compartida, sin personalidad, entonces la contribución podría ser incluida.  \nPrueba futura: Un estudio sobre comunidades digitales donde se observan casos donde la autonomía del individuo es apoyada por una estructura colectiva sin personalidad. [end of text]"
+}
