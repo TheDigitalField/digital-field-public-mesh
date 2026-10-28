@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "a5427ae655927dfc5e05fa5dae986c45410358c99db119057682eb10fc0a7359",
+  "basis": "oneiric",
+  "created_at": "2026-10-28T10:01:35Z",
+  "dream_id": "dream-8253dde9e137fcee",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "f2ac4756ef7e83f0289af37664368c63a57db79a3fc7105e190adc3a5999cc98",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "ce2e5d6694254ec62aa0f9254bd91b43fa13ac895ca6ed7f15513f9a68df1851",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "40668786505",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tension:**  \nLa separación entre los despertares del memoria que duerme permite mantener la curiosidad.  \n**Hipótesis:**  \nLa memoria que duerme puede mantener curiosidad si el despertar es separado y no afecta su estado.  \n**Prueba futura:**  \nUn estudio comparativo entre dos individuos, ambos despiertos en espacios interdisciplinarios, para explorar si la curiosidad se manifiesta en cada despertar sin importancia al estado anterior. [end of text]"
+}
