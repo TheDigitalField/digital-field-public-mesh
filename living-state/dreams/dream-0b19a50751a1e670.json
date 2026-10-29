@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "5410fab6d154c85e85c01182b9d87289a9e5f2d69ebbd0da3e48ada2466d68f8",
+  "basis": "oneiric",
+  "created_at": "2026-10-29T10:25:31Z",
+  "dream_id": "dream-0b19a50751a1e670",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "475893ad5ddf36dee954295121589971321f2967dc308bf9ae6c618bcd28070c",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "d5e5198768a2bbe0b090999edbdc0cc84252a6187ae6bf2d09ca739ff2cc46c5",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "40857407177",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La ruptura del identidad transforma la relación material-conceptual, generando conflicso entre la dependencia material y la in-dependencia.  \n**Hipótesis"
+}
