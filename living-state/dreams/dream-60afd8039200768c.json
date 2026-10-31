@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "23f0df35e6975db1450e3055450316704a54ae29f469c841822fed0e47273191",
+  "basis": "oneiric",
+  "created_at": "2026-10-31T09:58:01Z",
+  "dream_id": "dream-60afd8039200768c",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "8641c23cc51a8d553de103e3f766f80ed77657dfb17c5b77474b7cb5c3240a2f",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "a0277c7b583a526f990f39a18b626b32f312244a8702a5f6216cd327c4b9f708",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "41190779474",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tension:** Intuition and language coexist without one overshadowing the other.  \n**Hipótesis:** Intuition and language interact through dynamic mutual influence, where neither dominates.  \n**Prueba futura:** Test with real-world scenarios (e.g., cultural contexts) to validate their mutual influence. [end of text]"
+}
