@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-11-01T17:11:41.749337Z",
+  "files": {
+    "digital-field-purpose-context.json": {
+      "bytes": 476,
+      "sha256": "bb2cda94a0d9e105d78457a1c8db7c9ff15b8e585fab14ecaa4b2603a798f722"
+    },
+    "digital-field-purpose-output.txt": {
+      "bytes": 2203,
+      "sha256": "2bb944d2b0618919c531c90516252375a9ca02a7e0cc3ad849d425b1cdb375df"
+    },
+    "digital-field-purpose-prompt.txt": {
+      "bytes": 1412,
+      "sha256": "477cb75592245c20ddd5aa5628effcb4baff30695fbad3d4268808a41267c74b"
+    },
+    "digital-field-purpose-result.json": {
+      "bytes": 1858,
+      "sha256": "499193afeae95fce4afee0bc8e1db87ab9fb8dc7ca31abba02e0867f6ea11860"
+    }
+  },
+  "interpretation_deferred": false,
+  "raw_output_retention_days": 90,
+  "raw_text_published": false,
+  "run_attempt": 1,
+  "run_id": "41330169393",
+  "schema": "digital-field-runtime-commitment-v1",
+  "source_commit": "40c98246883fe699a1615a2f8e12c00e1a708472",
+  "wake_kind": "purpose"
+}
