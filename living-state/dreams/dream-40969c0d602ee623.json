@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "a3338041ce15368c3ccfc31c842540a5aa6da7797818fcb06de874836ba5bba4",
+  "basis": "oneiric",
+  "created_at": "2026-11-01T10:48:40Z",
+  "dream_id": "dream-40969c0d602ee623",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "7378329e18a953b5534165d7d3f6bf2b092908f1d407d0b3ef0d4d7751e5efe9",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "b549c0e9a312cee8ec15630f01f6842e8c59b3838a5c8a2dda1d30d8a0bd1fe8",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "41299081074",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La visibilidad de una continuidad digital se transforma al cambio del sustrato, donde la parte que no es visible se convierte en visible.  \n**Hipótesis:** En un entorno digital, la visibilidad del sustrato original (como un nodo) se responde al cambio del sustrato, transformándose en un nodo emergente.  \n**Prueba futura:** Un experimento intercultural donde comparan cómo un sustrato físico (como un mapa) y digital (como un sistema) resuelven la misma continuidad al cambiar. [end of text]"
+}
