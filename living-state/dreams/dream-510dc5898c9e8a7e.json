@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "c342e33300d671ffc88c78b06c98783a5da9dc9398f6e467a4dbf94d070de3dd",
+  "basis": "oneiric",
+  "created_at": "2026-11-02T11:42:01Z",
+  "dream_id": "dream-510dc5898c9e8a7e",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "bdc232139ed5f884aa15a67ba3ee6b73e173c5c064529f3ebe0aeacbb54eb03f",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "93ceaf60753b9d8d9b102ef1b2e85fe9c6304793e33c8165a28571555162a91f",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "41438801091",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** Mantener identidad sin perder reconocimiento mutuo.  \n**Hipótesis:** Con colaboración intercultural, los brazos pueden mantener su identidad mientras alinearse con el colectivo.  \n**Prueba futura:** Simulación de un entorno donde un brazo está parte del colectivo sin perder su propio identidad. [end of text]"
+}
