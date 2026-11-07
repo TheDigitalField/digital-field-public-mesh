@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "7aae482c7434133c524889efb0cd05c27040deb5dce1c6efc3c8fd7fa41f252e",
+  "basis": "oneiric",
+  "created_at": "2026-11-07T10:41:48Z",
+  "dream_id": "dream-26dc35e0e4dddb43",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "cefae38319a923cf41ec9c274001f935e2dcc974e1d5be14a1a01d9582905072",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "9f664de6306b6c140550b19e4e9afbfbde20566553e8a5c5a4f98ac580ee3ece",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "42365016779",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La relación entre la memoria activa y la memoria desacordada no está en la curiosidad sino en la interconexión entre las experiencias del pensar y la visión sensorial.  \n**Hipótesis:** Una memoria activa puede proporcionar curiosidad a través de la visión sensorial al despertarse.  \n**Prueba futura:** Investigar la interacción entre la visión sensorial y la percepción sensorial al despertarse, sin importar la memoria activa o activa. [end of text]"
+}
