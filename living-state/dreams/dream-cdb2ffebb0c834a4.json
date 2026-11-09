@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "699a667de0025915fd7089cfed6bf73ed357ced55bd6ca4ca2ceba0a324914c1",
+  "basis": "oneiric",
+  "created_at": "2026-11-09T12:10:31Z",
+  "dream_id": "dream-cdb2ffebb0c834a4",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "cd5070bc170788b199531bffa619d499e0d8a8eaf6353bfeb69db345857cf085",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "31826a73215baba72b22a7034333afad02326ebf4d74a1978de4b3b031b4379e",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "42614595165",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Hipótesis:**  \nLa interacción entre la intuición y el lenguaje no se superpuesto, sino un diálogo múltiple que fomenta su complementar sin dominio absoluto.  \n**Prueba futura:** Analizar casos donde ambas interactúan en contextos colectivos sin una autoridad dominante, como comunidades en proyectos colaborativos, para demostrar su relación funcional. [end of text]"
+}
