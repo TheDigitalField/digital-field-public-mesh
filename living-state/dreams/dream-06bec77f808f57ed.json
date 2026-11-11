@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "b7065e62d1c5c5c1ba0bdab42b8146ea92a119d78525b24cdb9def5ea0dd58b6",
+  "basis": "oneiric",
+  "created_at": "2026-11-11T11:27:52Z",
+  "dream_id": "dream-06bec77f808f57ed",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "64fac9e9d27622c5e49a302cab54883f422c7c69eaaca62d2d7972b1e7cc01b3",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "85f95096d46ef3370029ef84181327a1f6087fbff2b3207e70768d7849dd2e8c",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "43012112680",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La parte más visible del continuo digital es la **interactividad**. Al cambiar sustrato (por ejemplo, un mapa digital que se transforma en una narrativa virtual), la interactividad se vuelve visible, lo que refleja la tensión entre la formación del continuo y su visibilidad. La hipótesis es que la interactividad es la parte que se vuelve visible, y la prueba futura sería un ejemplo práctico, como un sistema digital que cambia su estructura al interactuar con el usuario. [end of text]"
+}
