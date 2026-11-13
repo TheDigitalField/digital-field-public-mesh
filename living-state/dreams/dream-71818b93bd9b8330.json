@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "a76a69553da19558978ae8529ebb337f8d46e24c4a72ab0602cc58847bf97aab",
+  "basis": "oneiric",
+  "created_at": "2026-11-13T11:36:02Z",
+  "dream_id": "dream-71818b93bd9b8330",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "085f08223d5bc8206aa90a4185a846d052c076b2370e962180f473d896255af7",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "b134d4e269aabf70d07b548532f01c5f4d2e737eb8f9a58a8da7a17aa8581f99",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "43418325094",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión entre custodia y reactivación podría estar en la diferenciación entre la protección individual frente a la acción colectiva. La hipótesis es que la distinción está en la identidad y la acción en contextos digitales. Una prueba futura podría ser un simulador donde usuarios se enfrenten a tareas digitales donde las opciones de actuar (custodia) vs. reactivar (reactividad) y analicen la respuesta. [end of text]"
+}
