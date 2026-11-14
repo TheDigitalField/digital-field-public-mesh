@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "a88d67c966aeaa30f1fb9878e3f0f7bd2651941edb0899e38c11ad580ec44471",
+  "basis": "oneiric",
+  "created_at": "2026-11-14T10:57:43Z",
+  "dream_id": "dream-5a1157ff2251d4d5",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "cbc8c9f0d680fd2994e331933bb0aa607fb508bb73f86cb03330626f614d79d8",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "46925324b15cdd98c57ce835681073c9208efe5530b05a34627fbeff337a88ed",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "43587698011",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión es la relación entre la memoria pública y su posibilidad de corrección. La hipótesis es que la corrección no impone la forma anterior, sino que emerge a partir de la colectividad. La prueba futura podría ser una situación donde la memoria corregida muestra que la original no se borra, ya que está reactivada desde la comunidad. [end of text]"
+}
