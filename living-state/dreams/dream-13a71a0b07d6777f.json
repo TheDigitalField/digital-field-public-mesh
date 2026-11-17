@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "7825854dc3c4ec7b3e391bfec02f9bd81aafb99e62f8ebf94636de63ae9610ba",
+  "basis": "oneiric",
+  "created_at": "2026-11-17T12:29:11Z",
+  "dream_id": "dream-13a71a0b07d6777f",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "9819e38ffa94bbcd41ac7942a1b102e8b76e7c679bc74bea590aec02f305fef1",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "33d0aad9e51226551b969db52c344625dac50e4f8ecd6175522ec6f09e11374d",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "44083525096",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tensión:** La relación entre la memoria y la curiosidad en un estado de dormir.  \n**Hipótesis:** La curiosidad humana puede ser respaldada por la memoria a través de distintos estados de sueño y despertar.  \n**Prueba futura:** Investigar cómo la interrupción del estado de sueño afecta la capacidad de la mente para reactivar la curiosidad en diferentes contextos. [end of text]"
+}
