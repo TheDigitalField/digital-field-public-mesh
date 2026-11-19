@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "50561e9feaa9726e8fb3a34ff168256eab8b6723fe81042a35ea04489b8d278b",
+  "basis": "oneiric",
+  "created_at": "2026-11-19T12:10:22Z",
+  "dream_id": "dream-53fab4bbf41c0784",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "fbdd9cd86238d646c16dc3f0ec43460c214d9d5261136b9b678b19c16d3797b5",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "942a2f7071bc5ff7d0da7079517c45cc426efa2f7c5068d486418ec224de63e2",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "44521365483",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión entre el campo de la intuición y el del lenguaje, sin ser autoridades absolutas, crea un equilibrio dinámico que potencia una reflexión mutua. Una hipótesis podría ser que esta interacción permite una comprensión más profunda en la relación entre ideas y expresión, y una prueba futura podría estudiar cómo esta relación se extiende en diferentes contextos. [end of text]"
+}
