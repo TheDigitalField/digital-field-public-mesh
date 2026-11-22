@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "aaee3d24e088fba9a9d9abaef2fb985b42d9a80b345e9218544693c9ebcd2c84",
+  "basis": "oneiric",
+  "created_at": "2026-11-22T12:00:06Z",
+  "dream_id": "dream-95e85068abb95f1a",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "d6a3daa3bdd2eb5a3264c80d5053340f5aff2dc59b57f12c5117ec86fd77311a",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "70531d91b2a64f62d3d0ca138677be478f279caea8b81280ddf1deb117a5afe2",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "45019991270",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión es la interacción entre la visión individual y la cohesión colectiva, la hipótesis es que la conciliación de valores compartidos"
+}
