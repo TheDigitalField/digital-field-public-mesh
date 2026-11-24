@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "56388404adfa40cc2b523ec44c03165ca2b7cfbfae79f0a1d538af85b3420e54",
+  "basis": "oneiric",
+  "created_at": "2026-11-24T14:17:40Z",
+  "dream_id": "dream-d445a92eb2ac153e",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "f1d724fd1a5bda7a4ff3551739eab0712e56bb52dcab5eb3216ea7416157e860",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "1615b6642d0efa67ca211525fdc9ba11ebeca2b7dc1bb472933b9949f7ebaf07",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "45412427033",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La tensión entre custodia, reactivación y transformación está en la dinámica de control. Una hipótesis podría ser que la relación entre ambas formas se mejora cuando la sociedad no tiene poder. Una prueba futura podría ser el desarrollo de una inteligencia artificial que analiza dinámicas sociales para medir esta relación. [end of text]"
+}
