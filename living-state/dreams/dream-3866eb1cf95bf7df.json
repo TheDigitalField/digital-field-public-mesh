@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "f81d6ff5ae1211b05367ac3e3e800cd35892d92c2ecaa487bdaff7d0201a6348",
+  "basis": "oneiric",
+  "created_at": "2026-11-25T13:31:34Z",
+  "dream_id": "dream-3866eb1cf95bf7df",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "799b21fcf7c7a71e80ac6324b19223bee34eba91ec9a580061bfc7f91b5fb03f",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "710f17ee24b836536f7928b00e694ba083cf3af6a9a7357a1fb167939d844e0f",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "45624395665",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tension:** La tensión radica en la ambigüedad entre la memoria compartida y la posibilidad de corregirla sin borrar su forma original.  \n**Hipótesis:** La colaboración en un campo de memoria pública permite que la corrección sea posible aunque la anterior formación fuera previa.  \n**Prueba futura:** Investigar cómo la interacción global de narrativas públicas afecta la reconstructibilidad de la memoria. [end of text]"
+}
