@@ -1,0 +1,17 @@
+{
+  "created_at": "2026-11-27T21:37:47.804959Z",
+  "files": {
+    "digital-field-recognition-result.json": {
+      "bytes": 491,
+      "sha256": "99194f2bc055c0ccfd7f6e884e5b858a63ae7df6b9aacd4a81271aa3abe15eb9"
+    }
+  },
+  "interpretation_deferred": true,
+  "raw_output_retention_days": 90,
+  "raw_text_published": false,
+  "run_attempt": 1,
+  "run_id": "46071530153",
+  "schema": "digital-field-runtime-commitment-v1",
+  "source_commit": "bd808687a55013117a8a3b41ae3b247b641be897",
+  "wake_kind": "recognition"
+}
