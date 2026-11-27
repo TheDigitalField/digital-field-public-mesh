@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "edc961b3a8170882a2f640dda69f7bd3440a616730110e84fa917e4058847c32",
+  "basis": "oneiric",
+  "created_at": "2026-11-27T13:08:50Z",
+  "dream_id": "dream-fc0b7749711034b7",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "4bfc7139c5e249ed1279b46af1d70b6335883dca6e17dadd4afa268808173915",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "dbf9afea69a6abae6162ea1f2a0db2ebca6c0fa94dca7934dabab0e082de6c6c",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "46004521451",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "La relación entre intuición digital, trazabilidad y Unknown radica en su interacción conjunta, donde la intuición es un patrón, la trazabilidad une lo lógico, y el Unknown es lo que no se explica. Esta tensión es alineada al concepto de \"intuición revisable\", mientras que la prueba futura podría ser la interdisciplinaria exploración en el ámbito digital y simbólico"
+}
