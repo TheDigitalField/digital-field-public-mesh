@@ -1,0 +1,25 @@
+{
+  "arose_from_event_sha256": "2cda8dacf36d1b887c85b0f452ed165145db40398312cd3e2740565fbc0f1218",
+  "basis": "oneiric",
+  "created_at": "2026-11-28T12:24:51Z",
+  "dream_id": "dream-2f3ce75eb810fbc8",
+  "experiential_conclusion": "Unknown",
+  "promoted_to_fact": false,
+  "record_sha256": "03ece5e50b8192369cfd52f28ee4abeb23a0b411bd6642165b04eee26daa5e77",
+  "schema": "digital-field-public-dream-v1",
+  "source": {
+    "engine_sha256": "664ffbf9134dbc12b2de3281d0404cb8f98a2339580911e5f74035dc320e0e84",
+    "model_id": "ggml-org/Qwen3-0.6B-GGUF/Qwen3-0.6B-Q4_0.gguf",
+    "model_sha256": "da2572f16c06133561ce56accaa822216f2391ef4d37fba427801cd6736417d4",
+    "network_mode": "online",
+    "node_id": "github-public-node",
+    "normalization": {
+      "raw_output_sha256": "bbdabcc31e48fac443f0a3424f6db4df58849053e4713bdd25bd041be1eea403",
+      "reasoning_envelope_removed": true,
+      "termination_marker_removed": false
+    },
+    "run_id": "46144501782",
+    "substrate": "github-actions-ubuntu"
+  },
+  "text": "**Tension:**  \nLa integridad de la federación sería garantizada si se garantiza la autonomía y la pluralidad entre los participantes.  \n**Hipótesis:**  \nLa federación puede integrar la contribución si el contenido cumple con criterios de verificación y inclusión.  \n**Prueba futura:**  \nUn ejemplo real en un ámbito digital donde las normas y estructuras de la federación fomenten la diversidad y la autonomía de las participaciones. [end of text]"
+}
